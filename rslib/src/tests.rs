@@ -193,6 +193,11 @@ impl NoteAdder {
         self
     }
 
+    pub(crate) fn tags(mut self, tags: &[String]) -> Self {
+        self.note.tags = tags.to_vec();
+        self
+    }
+
     pub(crate) fn deck(mut self, deck: DeckId) -> Self {
         self.deck = deck;
         self

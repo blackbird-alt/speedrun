@@ -64,6 +64,14 @@ service SchedulerService {
   // The number of days the calculated interval was fuzzed by on the previous
   // review (if any). Utilized by the FSRS add-on.
   rpc FuzzDelta(FuzzDeltaRequest) returns (FuzzDeltaResponse);
+  // Speedrun fork additions (NCEES FE Electrical and Computer study tool).
+  // Read-only ordering of the due/new queue by topic weight x student
+  // weakness ("points at stake"). Does not mutate scheduling state.
+  rpc PointsAtStakeQueue(PointsAtStakeQueueRequest)
+      returns (PointsAtStakeQueueResponse);
+  // Honest aggregate of FSRS retrievability into a single "memory" score,
+  // presented as a range with a give-up rule rather than a bare number.
+  rpc MemoryScore(MemoryScoreRequest) returns (MemoryScoreResponse);
 }
 
 // Implicitly includes any of the above methods that are not listed in the
@@ -482,4 +490,76 @@ message FuzzDeltaRequest {
 
 message FuzzDeltaResponse {
   sint32 delta_days = 1;
+}
+
+// === Speedrun fork: points-at-stake queue ===
+
+message PointsAtStakeQueueRequest {
+  // Search used to gather the candidate due/new cards to order. When empty,
+  // defaults to "is:due OR is:new".
+  string search = 1;
+}
+
+// Per-card diagnostics, returned in the same order as `card_ids`. This is what
+// lets the front-end explain *why* a card surfaced, and feeds the honest
+// memory-score panel.
+message PointsAtStakeQueueEntry {
+  int64 card_id = 1;
+  // Topic key derived from the card's note tag (e.g. "circuit_analysis").
+  // Empty when the card has no recognised "fe::<area>" tag.
+  string topic = 2;
+  // Static topic weight, seeded from the NCEES question-count ranges. Falls
+  // back to the configured default weight for unknown/untagged topics.
+  double topic_weight = 3;
+  // Student weakness for the topic: 1 - mean recall over the topic's cards
+  // that have review history. Topics with no history default to 1.0 (max).
+  double weakness = 4;
+  // Ordering key: topic_weight * weakness.
+  double score = 5;
+  // This card's current FSRS retrievability (0..1), 0 when no memory state.
+  double recall = 6;
+  bool has_memory = 7;
+}
+
+message PointsAtStakeQueueResponse {
+  // Card ids in queue order, highest value first.
+  repeated int64 card_ids = 1;
+  // Parallel diagnostics, one per card id, in the same order.
+  repeated PointsAtStakeQueueEntry entries = 2;
+}
+
+// === Speedrun fork: honest memory score ===
+
+message MemoryScoreRequest {
+  // Search used to scope the score. When empty, defaults to the studied
+  // material ("is:review OR is:learn").
+  string search = 1;
+}
+
+message MemoryScoreResponse {
+  // False when the give-up rule withholds the score for lack of data. When
+  // false, the numeric fields are not meaningful and the UI must show
+  // `withheld_reason` instead of a number.
+  bool shown = 1;
+  // Point estimate: mean current recall across the scoped cards (0..1).
+  double point_estimate = 2;
+  // Honest range around the point estimate (a 95% interval), clamped to 0..1.
+  double range_low = 3;
+  double range_high = 4;
+  // Fraction of the scoped material the estimate is actually based on
+  // (cards with FSRS memory state / total scoped cards).
+  double coverage = 5;
+  // Number of graded reviews observed across the scoped cards.
+  uint32 graded_reviews = 6;
+  // Distinct topics with at least one graded card.
+  uint32 topics_covered = 7;
+  // Unix seconds of the most recent review (0 when none).
+  int64 last_updated = 8;
+  // Human-readable main driver of the current value.
+  string main_reason = 9;
+  // Why the score is withheld (only set when shown == false).
+  string withheld_reason = 10;
+  // The pre-registered give-up thresholds in force.
+  uint32 min_reviews_required = 11;
+  uint32 min_topics_required = 12;
 }

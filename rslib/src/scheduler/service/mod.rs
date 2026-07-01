@@ -382,6 +382,49 @@ impl crate::services::SchedulerService for Collection {
             delta_days: self.get_fuzz_delta(input.card_id.into(), input.interval)?,
         })
     }
+
+    fn points_at_stake_queue(
+        &mut self,
+        input: scheduler::PointsAtStakeQueueRequest,
+    ) -> Result<scheduler::PointsAtStakeQueueResponse> {
+        let queue = self.build_points_at_stake_queue(&input.search)?;
+        let card_ids = queue.entries.iter().map(|e| e.card_id.0).collect();
+        let entries = queue
+            .entries
+            .into_iter()
+            .map(|e| scheduler::PointsAtStakeQueueEntry {
+                card_id: e.card_id.0,
+                topic: e.topic.unwrap_or_default(),
+                topic_weight: e.topic_weight,
+                weakness: e.weakness,
+                score: e.score,
+                recall: e.recall,
+                has_memory: e.has_memory,
+            })
+            .collect();
+        Ok(scheduler::PointsAtStakeQueueResponse { card_ids, entries })
+    }
+
+    fn memory_score(
+        &mut self,
+        input: scheduler::MemoryScoreRequest,
+    ) -> Result<scheduler::MemoryScoreResponse> {
+        let score = self.compute_fe_memory_score(&input.search)?;
+        Ok(scheduler::MemoryScoreResponse {
+            shown: score.shown,
+            point_estimate: score.point_estimate,
+            range_low: score.range_low,
+            range_high: score.range_high,
+            coverage: score.coverage,
+            graded_reviews: score.graded_reviews,
+            topics_covered: score.topics_covered,
+            last_updated: score.last_updated,
+            main_reason: score.main_reason,
+            withheld_reason: score.withheld_reason,
+            min_reviews_required: score.min_reviews_required,
+            min_topics_required: score.min_topics_required,
+        })
+    }
 }
 
 impl crate::services::BackendSchedulerService for Backend {

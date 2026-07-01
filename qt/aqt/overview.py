@@ -194,7 +194,7 @@ class Overview:
             deck=deck["name"],
             shareLink=shareLink,
             desc=self._desc(deck),
-            table=self._table(),
+            table=self._table() + self._fe_memory_score_html(),
         )
         gui_hooks.overview_will_render_content(self, content)
         content.deck = html.escape(content.deck)
@@ -264,6 +264,35 @@ class Overview:
 </table>
 </td><td align=center>
 {but("study", tr.studying_study_now(), id="study", extra=" autofocus")}</td></tr></table>"""
+
+    def _fe_memory_score_html(self) -> str:
+        """Speedrun fork: honest memory score, shown as a range with a give-up
+        rule, never a bare single number."""
+        try:
+            score = self.mw.col._backend.memory_score(search="")
+        except Exception:
+            return ""
+        box = (
+            "max-width:420px;margin:18px auto 0;padding:10px 14px;"
+            "border:1px solid var(--border, #d0d0d0);border-radius:8px;"
+            "text-align:left;font-size:13px;"
+        )
+        if not score.shown:
+            return f"""
+<div class="fe-memory" style="{box}opacity:0.85;">
+<b>Memory score</b>: not enough data yet<br>
+<span style="opacity:0.8;">{html.escape(score.withheld_reason)}</span>
+</div>"""
+        pct = round(score.point_estimate * 100)
+        low = round(score.range_low * 100)
+        high = round(score.range_high * 100)
+        cov = round(score.coverage * 100)
+        return f"""
+<div class="fe-memory" style="{box}">
+<b>Memory score</b>: {pct}%
+<span style="opacity:0.7;">(likely {low}–{high}%)</span><br>
+<span style="opacity:0.8;">Based on {cov}% of studied material · {html.escape(score.main_reason)}</span>
+</div>"""
 
     _body = """
 <center>

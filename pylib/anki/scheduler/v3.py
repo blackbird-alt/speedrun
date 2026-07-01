@@ -35,6 +35,13 @@ SchedulingStatesWithContext = frontend_pb2.SchedulingStatesWithContext
 SetSchedulingStatesRequest = frontend_pb2.SetSchedulingStatesRequest
 CardAnswer = scheduler_pb2.CardAnswer
 
+# Speedrun fork: config key toggling the points-at-stake review ordering, and
+# how many queued cards to pull as a re-ordering window. The re-ordering is a
+# pure presentation change over the cards the engine already selected; it never
+# alters scheduling state.
+POINTS_AT_STAKE_CONFIG_KEY = "feReorderQueue"
+POINTS_AT_STAKE_WINDOW = 200
+
 
 class Scheduler(SchedulerBaseWithLegacy):
     version = 3
@@ -52,9 +59,51 @@ class Scheduler(SchedulerBaseWithLegacy):
         intraday_learning_only: bool = False,
     ) -> QueuedCards:
         "Returns zero or more pending cards, and the remaining counts. Idempotent."
-        return self.col._backend.get_queued_cards(
-            fetch_limit=fetch_limit, intraday_learning_only=intraday_learning_only
+        if intraday_learning_only or not self.col.get_config(
+            POINTS_AT_STAKE_CONFIG_KEY, True
+        ):
+            return self.col._backend.get_queued_cards(
+                fetch_limit=fetch_limit, intraday_learning_only=intraday_learning_only
+            )
+        return self._points_at_stake_queued_cards(fetch_limit)
+
+    def _points_at_stake_queued_cards(self, fetch_limit: int) -> QueuedCards:
+        """Speedrun fork: return the same due/new cards the engine selected, but
+        re-ordered so the highest points-at-stake cards come first. Counts are
+        untouched, and each returned card keeps its own scheduling states, so
+        answering remains correct."""
+        # Pull a wider window than requested so there is something to re-order.
+        window = max(fetch_limit, POINTS_AT_STAKE_WINDOW)
+        output = self.col._backend.get_queued_cards(
+            fetch_limit=window, intraday_learning_only=False
         )
+        if len(output.cards) <= 1:
+            return output
+
+        try:
+            order = self.col._backend.points_at_stake_queue(
+                search="is:due OR is:new"
+            ).card_ids
+        except Exception:
+            # Never let ordering break the review loop; fall back to the
+            # engine's order.
+            return output
+        rank = {cid: i for i, cid in enumerate(order)}
+        fallback = len(rank)
+        # Stable sort: cards outside the points-at-stake order keep their
+        # original relative position at the end (degrades to normal behaviour).
+        cards = sorted(
+            output.cards, key=lambda qc: rank.get(qc.card.id, fallback)
+        )
+
+        reordered = QueuedCards(
+            new_count=output.new_count,
+            learning_count=output.learning_count,
+            review_count=output.review_count,
+        )
+        limit = fetch_limit if fetch_limit else len(cards)
+        reordered.cards.extend(cards[:limit])
+        return reordered
 
     def describe_next_states(self, next_states: SchedulingStates) -> Sequence[str]:
         "Labels for each of the answer buttons."
