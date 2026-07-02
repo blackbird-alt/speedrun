@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+html,body{background:#0b1220;margin:0;padding:0;}
+.fe-dash{--copper:#E0A45C;--bg:#0b1220;--panel:#141f36;--line:#26344f;
+  --text:#eaf1fc;--muted:#93a2bd;
+  font-family:system-ui,"Segoe UI",Roboto,-apple-system,sans-serif;color:var(--text);
+  max-width:1080px;margin:0 auto;padding:24px 26px;text-align:left;
+  -webkit-font-smoothing:antialiased;}
+.fe-sec-label{display:flex;align-items:baseline;justify-content:space-between;margin:6px 4px 14px;}
+.fe-sec-label>span:first-child{font:700 15px/1 system-ui;letter-spacing:.01em;color:var(--text);display:inline-flex;align-items:center;}
+.fe-sec-note{font:600 11px/1 ui-monospace,Consolas,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+.fe-sec-right{display:inline-flex;align-items:center;gap:14px;flex:none;}
+.fe-track-btn{display:inline-flex;align-items:center;gap:6px;cursor:pointer;text-decoration:none;white-space:nowrap;
+  font:600 11px/1 ui-monospace,Consolas,monospace;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--copper);background:transparent;padding:8px 13px;border-radius:999px;
+  border:1px solid color-mix(in srgb,var(--copper) 55%,transparent);
+  transition:background .15s ease,color .15s ease,border-color .15s ease,transform .08s ease;}
+.fe-track-btn::before{content:"";width:6px;height:6px;border-radius:2px;background:currentColor;flex:none;}
+.fe-track-btn:hover{background:var(--copper);border-color:var(--copper);color:#2a1b08;transform:translateY(-1px);}
+.fe-sec-dot{width:9px;height:9px;border-radius:3px;display:inline-block;margin-right:9px;flex:none;}
+.fe-sec-dot--durable{background:#E0A45C;box-shadow:0 0 0 4px rgba(224,164,92,.18);}
+.fe-sec-dot--cram{background:#7FB2F0;box-shadow:0 0 0 4px rgba(127,178,240,.18);}
+</style>
+</head>
+<body>
+<div class="fe-dash">
+  <div class="fe-sec-label"><span><span class="fe-sec-dot fe-sec-dot--durable"></span>Durable &middot; learn for keeps</span><span class="fe-sec-right"><span class="fe-sec-note">points-at-stake order</span><a class="fe-track-btn">Study durable track</a></span></div>
+  <div class="fe-sec-label"><span><span class="fe-sec-dot fe-sec-dot--cram"></span>Cram &middot; peak for test day</span><span class="fe-sec-right"><span class="fe-sec-note">points-at-stake order</span><a class="fe-track-btn">Study cram track</a></span></div>
+</div>
+</body>
+</html>

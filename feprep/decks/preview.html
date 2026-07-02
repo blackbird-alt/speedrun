@@ -1,0 +1,90 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><style>.card{
+  --sans: system-ui,"Segoe UI",Roboto,-apple-system,"Helvetica Neue",sans-serif;
+  --mono: ui-monospace,"JetBrains Mono","Cascadia Code","SF Mono",Consolas,monospace;
+  --bg:#EDF1F8; --panel:#FFFFFF; --line:#DCE4F0; --grid:rgba(40,64,110,.055);
+  --text:#182338; --muted:#5C6A85;
+  --value:#8A4E1C; --value-bg:rgba(224,164,92,.16); --value-line:#D9863E;
+  --chip:#2F6BFF;
+  margin:0; padding:26px 14px; background:var(--bg); color:var(--text);
+  font-family:var(--sans); line-height:1.5; -webkit-font-smoothing:antialiased;
+}
+.card.nightMode, .night_mode .card, .nightMode .card{
+  --bg:#0E1726; --panel:#15213A; --line:#28374F; --grid:rgba(130,160,210,.06);
+  --text:#E7EEFA; --muted:#94A2BD;
+  --value:#E7A867; --value-bg:rgba(224,164,92,.10); --value-line:#E0A45C;
+}
+.fe-card{
+  max-width:640px; margin:0 auto; text-align:left; position:relative;
+  background:var(--panel); border:1px solid var(--line); border-radius:16px;
+  padding:26px 30px 30px;
+  background-image:
+    linear-gradient(var(--grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;
+  box-shadow:0 12px 34px -20px rgba(8,15,30,.55);
+  overflow:hidden;
+}
+.fe-card::before{
+  content:""; position:absolute; top:0; left:0; width:46px; height:3px;
+  background:var(--chip); border-bottom-right-radius:3px;
+}
+.fe-top{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; margin-bottom:22px;
+}
+.fe-chip{
+  font:600 11px/1 var(--sans); letter-spacing:.14em; text-transform:uppercase;
+  color:var(--chip); padding:7px 12px 6px; border-radius:999px;
+  background:color-mix(in srgb, var(--chip) 14%, transparent);
+  border:1px solid color-mix(in srgb, var(--chip) 36%, transparent);
+  display:inline-flex; align-items:center; gap:8px; white-space:nowrap;
+}
+.fe-chip::before{
+  content:""; width:7px; height:7px; border-radius:2px; background:var(--chip);
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--chip) 22%, transparent);
+}
+.fe-brand{
+  font:600 10px/1 var(--mono); letter-spacing:.12em; text-transform:uppercase;
+  color:var(--muted); white-space:nowrap;
+}
+.fe-q{
+  font:600 clamp(1.15rem,1rem+1.4vw,1.5rem)/1.36 var(--sans);
+  letter-spacing:-.01em; color:var(--text); margin:0;
+}
+.fe-hint{
+  margin-top:22px; font:500 12px/1.4 var(--sans); color:var(--muted);
+  display:flex; align-items:center; gap:8px;
+}
+.fe-hint::before{
+  content:""; width:13px; height:13px; border:1.5px solid var(--muted);
+  border-radius:50%; opacity:.65;
+}
+.fe-trace{
+  position:relative; height:2px; margin:24px 0 20px; border-radius:2px;
+  background:linear-gradient(90deg, transparent, var(--value-line), transparent);
+  opacity:.85;
+}
+.fe-trace::after{
+  content:""; position:absolute; top:50%; left:26px; width:8px; height:8px;
+  margin-top:-4px; border-radius:50%; background:var(--value-line);
+  box-shadow:0 0 10px 1px var(--value-line);
+}
+.fe-a{
+  font:600 clamp(1.2rem,1rem+1.6vw,1.65rem)/1.42 var(--mono); color:var(--value);
+  background:var(--value-bg); border:1px solid color-mix(in srgb,var(--value-line) 34%,transparent);
+  border-left:3px solid var(--value-line); border-radius:11px;
+  padding:15px 18px; word-break:break-word;
+}
+.fe-a-label{
+  display:block; font:600 10px/1 var(--sans); letter-spacing:.16em;
+  text-transform:uppercase; color:var(--muted); margin-bottom:9px;
+}
+.fe-card img{ max-width:100%; height:auto; border-radius:10px; margin-top:14px; }
+@media (prefers-reduced-motion: no-preference){
+  .fe-card--answer .fe-trace{ animation:fe-trace .5s ease both; }
+  .fe-card--answer .fe-a{ animation:fe-rise .32s ease both .05s; }
+}
+@keyframes fe-rise{ from{opacity:0; transform:translateY(7px)} to{opacity:1; transform:none} }
+@keyframes fe-trace{ from{opacity:0; transform:scaleX(.4)} to{opacity:.85; transform:none} }
+
+body{margin:0;display:flex;flex-wrap:wrap;align-items:flex-start}.col{flex:1 1 420px;padding:30px 22px 40px}.col-label{font:600 11px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:0 auto 20px;max-width:640px}.stack{display:grid;gap:24px}</style></head><body><div class="card col"><div class="col-label">Light</div><div class="stack"><div class="fe-card" style="--chip: #E7A867;"><div class="fe-top"><span class="fe-chip">Circuit Analysis</span><span class="fe-brand">FE&nbsp;·&nbsp;EE/CE</span></div><div class="fe-q">What is the impedance of a capacitor C at angular frequency ω?</div><div class="fe-hint">Recall it, then flip.</div></div><div class="fe-card fe-card--answer" style="--chip: #5C9BFF;"><div class="fe-top"><span class="fe-chip">Mathematics</span><span class="fe-brand">FE&nbsp;·&nbsp;EE/CE</span></div><div class="fe-q">For z = 3 + 4j, find the magnitude and argument in degrees.</div><div class="fe-trace"></div><div class="fe-a"><span class="fe-a-label">Answer</span>|z| = 5, arg = 53.13°</div></div><div class="fe-card" style="--chip: #6FA8DC;"><div class="fe-top"><span class="fe-chip">Control Systems</span><span class="fe-brand">FE&nbsp;·&nbsp;EE/CE</span></div><div class="fe-q">For BIBO stability, where must all poles of a system lie?</div><div class="fe-hint">Recall it, then flip.</div></div><div class="fe-card fe-card--answer" style="--chip: #F2849E;"><div class="fe-top"><span class="fe-chip">Power Systems</span><span class="fe-brand">FE&nbsp;·&nbsp;EE/CE</span></div><div class="fe-q">A 60 Hz, 4-pole synchronous generator runs at what synchronous speed?</div><div class="fe-trace"></div><div class="fe-a"><span class="fe-a-label">Answer</span>1800 rpm (N = 120·f/P)</div></div></div></div><div class="card nightMode col"><div class="col-label">Dark (night mode)</div><div class="stack"><div class="fe-card" style="--chip: #E7A867;"><div class="fe-top"><span class="fe-chip">Circuit Analysis</span><span class="fe-brand">FE&nbsp;·&nbsp;EE/CE</span></div><div class="fe-q">What is the impedance of a capacitor C at angular frequency ω?</div><div class="fe-hint">Recall it, then flip.</div></div><div class="fe-card fe-card--answer" style="--chip: #5C9BFF;"><div class="fe-top"><span class="fe-chip">Mathematics</span><span class="fe-brand">FE&nbsp;·&nbsp;EE/CE</span></div><div class="fe-q">For z = 3 + 4j, find the magnitude and argument in degrees.</div><div class="fe-trace"></div><div class="fe-a"><span class="fe-a-label">Answer</span>|z| = 5, arg = 53.13°</div></div><div class="fe-card" style="--chip: #6FA8DC;"><div class="fe-top"><span class="fe-chip">Control Systems</span><span class="fe-brand">FE&nbsp;·&nbsp;EE/CE</span></div><div class="fe-q">For BIBO stability, where must all poles of a system lie?</div><div class="fe-hint">Recall it, then flip.</div></div><div class="fe-card fe-card--answer" style="--chip: #F2849E;"><div class="fe-top"><span class="fe-chip">Power Systems</span><span class="fe-brand">FE&nbsp;·&nbsp;EE/CE</span></div><div class="fe-q">A 60 Hz, 4-pole synchronous generator runs at what synchronous speed?</div><div class="fe-trace"></div><div class="fe-a"><span class="fe-a-label">Answer</span>1800 rpm (N = 120·f/P)</div></div></div></div></body></html>

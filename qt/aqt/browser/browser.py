@@ -178,7 +178,82 @@ class Browser(QMainWindow):
         # legacy alias
         self.model = MockModel(self)
         self.setupSearch(card, search)
+        self._fe_apply_dark_accent()
         self.show()
+
+    # Speedrun fork: dark "instrument" theme accent for the Browse window.
+    #
+    # This is a deliberately conservative, additive QSS accent. The stylesheet
+    # is set on the Browser instance itself, so Qt scopes it to this window and
+    # its child widgets only -- it never touches the main window, other dialogs
+    # or the global app style. We append to any existing instance stylesheet
+    # rather than clobber it, and wrap everything in try/except so a failure
+    # here can never stop the Browse window from opening. We apply the accent
+    # regardless of night-mode (matching the fork's web surfaces, which are
+    # dark unconditionally) but keep every color pairing high-contrast.
+    _FE_BROWSER_QSS = """
+/* window + generic panels */
+QMainWindow { background-color: #0b1220; }
+QStatusBar { background-color: #0b1220; color: #93a2bd; }
+QStatusBar QLabel { color: #93a2bd; }
+QMenuBar { background-color: #0b1220; color: #c7d2e6; }
+QMenuBar::item { background: transparent; color: #c7d2e6; padding: 4px 8px; }
+QMenuBar::item:selected { background-color: rgba(224,164,92,0.15); color: #E0A45C; }
+QToolBar { background-color: #0b1220; border: none; }
+QSplitter::handle { background-color: #26344f; }
+QDockWidget { color: #c7d2e6; }
+QDockWidget::title { background-color: #141f36; color: #c7d2e6; padding: 4px; }
+
+/* table + sidebar tree */
+QTreeView, QTableView, QListView {
+    background-color: #141f36;
+    alternate-background-color: #0f1830;
+    color: #eaf1fc;
+    border: 1px solid #26344f;
+    selection-background-color: #E0A45C;
+    selection-color: #0b1220;
+    outline: none;
+}
+QTreeView::item:selected, QTableView::item:selected, QListView::item:selected {
+    background-color: #E0A45C;
+    color: #0b1220;
+}
+QTreeView::item:hover, QTableView::item:hover, QListView::item:hover {
+    background-color: #18243d;
+}
+QHeaderView::section {
+    background-color: #141f36;
+    color: #c7d2e6;
+    border: 1px solid #26344f;
+    padding: 3px 6px;
+}
+
+/* inputs */
+QLineEdit, QComboBox, QSpinBox, QPlainTextEdit, QTextEdit {
+    background-color: #141f36;
+    color: #eaf1fc;
+    border: 1px solid #26344f;
+    border-radius: 6px;
+    selection-background-color: #E0A45C;
+    selection-color: #0b1220;
+}
+QLineEdit:focus, QComboBox:focus, QSpinBox:focus {
+    border-color: #E0A45C;
+}
+
+/* scrollbars kept subtle */
+QScrollBar:vertical, QScrollBar:horizontal { background: #0b1220; }
+QScrollBar::handle { background: #26344f; border-radius: 5px; }
+QScrollBar::handle:hover { background: #E0A45C; }
+"""
+
+    def _fe_apply_dark_accent(self) -> None:
+        try:
+            existing = self.styleSheet() or ""
+            self.setStyleSheet(existing + self._FE_BROWSER_QSS)
+        except Exception:
+            # Never let a theming tweak prevent the Browse window from opening.
+            pass
 
     def on_operation_did_execute(
         self, changes: OpChanges, handler: object | None

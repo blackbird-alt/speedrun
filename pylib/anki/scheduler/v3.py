@@ -59,8 +59,18 @@ class Scheduler(SchedulerBaseWithLegacy):
         intraday_learning_only: bool = False,
     ) -> QueuedCards:
         "Returns zero or more pending cards, and the remaining counts. Idempotent."
+        # NOTE: the points-at-stake re-ordering below is DISABLED by default
+        # (feReorderQueue defaults to False). Re-ordering the queue purely at
+        # this presentation layer is incompatible with the engine: the Rust
+        # queue is not re-ordered, and answering requires the graded card to be
+        # the real front of that queue (see pop_entry in
+        # rslib/src/scheduler/queue/mod.rs -> "not at top of queue"). Returning
+        # a different top card here makes every answer fail. True points-at-stake
+        # review ordering has to happen inside the Rust queue builder, which is
+        # also why the PRD places the change in Rust. The backend method
+        # `points_at_stake_queue` remains available and tested for that work.
         if intraday_learning_only or not self.col.get_config(
-            POINTS_AT_STAKE_CONFIG_KEY, True
+            POINTS_AT_STAKE_CONFIG_KEY, False
         ):
             return self.col._backend.get_queued_cards(
                 fetch_limit=fetch_limit, intraday_learning_only=intraday_learning_only

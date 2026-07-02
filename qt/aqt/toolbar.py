@@ -291,7 +291,7 @@ class Toolbar:
             right_tray_content=self._right_tray_content(),
         )
         self.web.stdHtml(
-            body,
+            self._FE_TOP_STYLE + body,
             css=["css/toolbar.css"],
             js=["js/vendor/jquery.min.js", "js/toolbar.js"],
             context=web_context,
@@ -464,6 +464,40 @@ class Toolbar:
 </div>
 """
 
+    # Speedrun fork: dark instrument theme for the top toolbar.
+    # toolbar.css lays the header out as a 3-col grid (left-tray | toolbar |
+    # right-tray). We flip it to flex with equal-width trays so the nav links
+    # sit dead-center regardless of tray contents or the body.fancy class, and
+    # we strip every stray border/box-shadow (incl. the fancy pill background)
+    # so only a single clean 1px navy line remains under the bar.
+    _FE_TOP_STYLE = """
+<style>
+html,body{background:#0b1220!important;}
+.header{
+  display:flex!important;justify-content:center!important;align-items:center!important;
+  background:linear-gradient(180deg,#101d34,#0b1220)!important;
+  border:none!important;border-bottom:1px solid #26344f!important;box-shadow:none!important;}
+.left-tray,.right-tray{
+  flex:1 1 0!important;display:flex!important;align-items:center!important;
+  background:transparent!important;border:none!important;box-shadow:none!important;}
+.right-tray{justify-content:flex-end!important;}
+.toolbar{
+  flex:0 0 auto!important;margin:0 auto!important;
+  display:flex!important;gap:4px!important;
+  justify-content:center!important;align-items:center!important;white-space:nowrap!important;
+  color:#c7d2e6!important;background:transparent!important;
+  border:none!important;border-radius:0!important;box-shadow:none!important;}
+body .hitem,body.fancy .hitem,body.fancy:not(.flat) .hitem{
+  color:#c7d2e6!important;font-weight:600!important;letter-spacing:.01em;
+  border:1px solid transparent!important;border-radius:8px!important;padding:6px 12px!important;
+  background:transparent!important;box-shadow:none!important;text-decoration:none!important;
+  transition:background .12s ease,color .12s ease!important;}
+body .hitem:hover,body.fancy .hitem:hover{
+  background:rgba(224,164,92,.15)!important;color:#E0A45C!important;
+  border-color:transparent!important;text-decoration:none!important;}
+#sync-icon,.hitem svg,.hitem img{filter:none!important;}
+</style>"""
+
 
 # Bottom bar
 ######################################################################
@@ -474,6 +508,20 @@ class BottomBar(Toolbar):
 <center id=outer><table width=100%% id=header><tr><td align=center>
 %s</td></tr></table></center>
 """
+
+    # Speedrun fork: dark instrument theme for bottom button bars.
+    _FE_BOTTOM_STYLE = """
+<style>
+html,body{background:#0b1220!important;}
+#outer,#header,.footer{background:#0b1220!important;border:none!important;}
+button{background:#141f36!important;color:#d3ddf0!important;
+  border:1px solid #26344f!important;border-radius:9px!important;
+  padding:7px 15px!important;font-weight:600!important;
+  transition:border-color .12s ease,color .12s ease,background .12s ease!important;}
+button:hover:not(:disabled){border-color:#E0A45C!important;color:#E0A45C!important;
+  background:#18243d!important;}
+button:disabled{opacity:.5!important;}
+</style>"""
 
     def draw(
         self,
@@ -486,7 +534,7 @@ class BottomBar(Toolbar):
         link_handler = link_handler or self._linkHandler
         self.web.set_bridge_command(link_handler, web_context)
         self.web.stdHtml(
-            self._centerBody % buf,
+            self._FE_BOTTOM_STYLE + (self._centerBody % buf),
             css=["css/toolbar.css", "css/toolbar-bottom.css"],
             context=web_context,
         )

@@ -326,12 +326,27 @@ class Reviewer:
     # Initializing the webview
     ##########################################################################
 
+    # Speedrun fork: dark instrument theme for the reviewer main page. Only
+    # touches the chrome AROUND the card (page background + the type-in-answer
+    # box). The card content itself is styled by the notetype CSS and is left
+    # untouched. Scoped to the reviewer webview via stdHtml.
+    _FE_REVIEW_STYLE = """
+<style>
+html,body{background:#0b1220!important;}
+#typeans{
+  background:#141f36!important;color:#eaf1fc!important;
+  border:1px solid #26344f!important;border-radius:8px!important;
+  padding:6px 10px!important;outline:none!important;
+  transition:border-color .12s ease!important;}
+#typeans:focus{border-color:#E0A45C!important;}
+</style>"""
+
     def revHtml(self) -> str:
         extra = self.mw.col.conf.get("reviewExtra", "")
         fade = ""
         if self.mw.pm.video_driver() == VideoDriver.Software:
             fade = "<script>qFade=0;</script>"
-        return f"""
+        return self._FE_REVIEW_STYLE + f"""
 <div id="_mark" hidden>&#x2605;</div>
 <div id="_flag" hidden>&#x2691;</div>
 {fade}
@@ -809,8 +824,41 @@ class Reviewer:
     # Bottom bar
     ##########################################################################
 
+    # Speedrun fork: dark instrument theme for the reviewer bottom bar. This
+    # bar hosts the Show Answer button, the Again/Hard/Good/Easy grade buttons,
+    # the edit/more buttons, the timer and the remaining-count text. The style
+    # is prepended once when the bottom bar HTML is built; because the grade /
+    # show-answer buttons are injected into the persistent #middle cell by JS,
+    # this single <style> covers them too.
+    _FE_REVIEW_BOTTOM_STYLE = """
+<style>
+html,body,#outer{background:#0b1220!important;}
+#innertable,#middle,#header,table,td{background:transparent!important;border:none!important;}
+button{
+  background:#141f36!important;color:#d3ddf0!important;
+  border:1px solid #26344f!important;border-radius:9px!important;
+  padding:7px 15px!important;font-weight:600!important;
+  transition:border-color .12s ease,color .12s ease,background .12s ease!important;}
+button:hover:not(:disabled){border-color:#E0A45C!important;color:#E0A45C!important;background:#18243d!important;}
+button:disabled{opacity:.5!important;}
+/* primary Show Answer button: copper-filled */
+#ansbut{background:#E0A45C!important;color:#0b1220!important;border-color:#E0A45C!important;}
+#ansbut:hover:not(:disabled){background:#f0b36a!important;color:#0b1220!important;border-color:#f0b36a!important;}
+/* the remaining counts render inside the copper Show Answer button, so keep
+   them dark for contrast there; the colored classes below are a fallback */
+#ansbut .stattxt,#ansbut .new-count,#ansbut .learn-count,#ansbut .review-count{
+  color:#0b1220!important;opacity:.85!important;font-weight:700!important;}
+/* default grade button gets a copper outline hint */
+button#defease{border-color:#E0A45C!important;}
+.nobold{font-weight:400!important;color:#93a2bd!important;}
+.stattxt,#time{color:#93a2bd!important;}
+.new-count{color:#5ea1ff!important;}
+.learn-count{color:#E0A45C!important;}
+.review-count{color:#4fd08a!important;}
+</style>"""
+
     def _bottomHTML(self) -> str:
-        return """
+        return self._FE_REVIEW_BOTTOM_STYLE + """
 <center id=outer>
 <table id=innertable width=100%% cellspacing=0 cellpadding=0>
 <tr>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+/* --- minimal reproduction of relevant toolbar.css base rules --- */
+html{font-size:15px}
+body{margin:0;padding:0;-webkit-user-select:none;overflow:hidden;font-family:sans-serif}
+.header{display:grid;grid-template-columns:repeat(3, 1fr);align-items:start;align-content:space-between}
+body:not(.fancy) .header{border-bottom:1px solid #e4e4e4}
+.left-tray{justify-self:start}
+.right-tray{justify-self:end}
+.left-tray,.right-tray{align-self:start;display:flex;flex-direction:row;align-items:start}
+.toolbar{justify-self:center;white-space:nowrap}
+.hitem{font-weight:bold;padding:5px 12px;color:#020202;display:inline-block}
+.hitem:hover{text-decoration:underline}
+
+/* --- BEGIN _FE_TOP_STYLE (exact copy of overrides) --- */
+html,body{background:#0b1220!important;}
+.header{
+  display:flex!important;justify-content:center!important;align-items:center!important;
+  background:linear-gradient(180deg,#101d34,#0b1220)!important;
+  border:none!important;border-bottom:1px solid #26344f!important;box-shadow:none!important;}
+.left-tray,.right-tray{
+  flex:1 1 0!important;display:flex!important;align-items:center!important;
+  background:transparent!important;border:none!important;box-shadow:none!important;}
+.right-tray{justify-content:flex-end!important;}
+.toolbar{
+  flex:0 0 auto!important;margin:0 auto!important;
+  display:flex!important;gap:4px!important;
+  justify-content:center!important;align-items:center!important;white-space:nowrap!important;
+  color:#c7d2e6!important;background:transparent!important;
+  border:none!important;border-radius:0!important;box-shadow:none!important;}
+body .hitem,body.fancy .hitem,body.fancy:not(.flat) .hitem{
+  color:#c7d2e6!important;font-weight:600!important;letter-spacing:.01em;
+  border:1px solid transparent!important;border-radius:8px!important;padding:6px 12px!important;
+  background:transparent!important;box-shadow:none!important;text-decoration:none!important;
+  transition:background .12s ease,color .12s ease!important;}
+body .hitem:hover,body.fancy .hitem:hover{
+  background:rgba(224,164,92,.15)!important;color:#E0A45C!important;
+  border-color:transparent!important;text-decoration:none!important;}
+#sync-icon,.hitem svg,.hitem img{filter:none!important;}
+/* --- END _FE_TOP_STYLE --- */
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="left-tray"></div>
+  <div class="toolbar">
+    <a class="hitem">Decks</a>
+    <a class="hitem">Add</a>
+    <a class="hitem">Browse</a>
+    <a class="hitem">Stats</a>
+    <a class="hitem">Sync</a>
+  </div>
+  <div class="right-tray"></div>
+</div>
+</body>
+</html>

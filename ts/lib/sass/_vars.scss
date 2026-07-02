@@ -73,35 +73,35 @@ $vars: (
                 "Default text/icon color",
                 (
                     light: palette(darkgray, 9),
-                    dark: palette(lightgray, 0),
+                    dark: #eaf1fc,
                 ),
             ),
             subtle: (
                 "Placeholder text, icons in idle state",
                 (
                     light: palette(darkgray, 0),
-                    dark: palette(lightgray, 9),
+                    dark: #93a2bd,
                 ),
             ),
             disabled: (
                 "Foreground color of disabled UI elements",
                 (
                     light: palette(lightgray, 9),
-                    dark: palette(darkgray, 0),
+                    dark: #5a6b88,
                 ),
             ),
             faint: (
                 "Foreground color that barely stands out against canvas",
                 (
                     light: palette(lightgray, 7),
-                    dark: palette(darkgray, 2),
+                    dark: #33415e,
                 ),
             ),
             link: (
                 "Hyperlink foreground color",
                 (
                     light: palette(blue, 7),
-                    dark: palette(blue, 2),
+                    dark: #7fb2f0,
                 ),
             ),
         ),
@@ -110,42 +110,42 @@ $vars: (
                 "Window background",
                 (
                     light: palette(lightgray, 2),
-                    dark: palette(darkgray, 5),
+                    dark: #0b1220,
                 ),
             ),
             elevated: (
                 "Background of containers",
                 (
                     light: white,
-                    dark: palette(darkgray, 4),
+                    dark: #141f36,
                 ),
             ),
             inset: (
                 "Background of inputs inside containers",
                 (
                     light: white,
-                    dark: palette(darkgray, 5),
+                    dark: #0e1830,
                 ),
             ),
             overlay: (
                 "Background of floating elements (menus, tooltips)",
                 (
                     light: palette(lightgray, 0),
-                    dark: palette(darkgray, 5),
+                    dark: #141f36,
                 ),
             ),
             code: (
                 "Background of code editors",
                 (
                     light: white,
-                    dark: palette(darkgray, 6),
+                    dark: #0e1830,
                 ),
             ),
             glass: (
                 "Transparent background for surfaces containing text",
                 (
                     light: color.scale(white, $alpha: -60%),
-                    dark: color.scale(palette(darkgray, 4), $alpha: -60%),
+                    dark: color.scale(#141f36, $alpha: -60%),
                 ),
             ),
         ),
@@ -154,28 +154,28 @@ $vars: (
                 "Border color with medium contrast against window background",
                 (
                     light: palette(lightgray, 6),
-                    dark: palette(darkgray, 7),
+                    dark: #26344f,
                 ),
             ),
             subtle: (
                 "Border color with low contrast against window background",
                 (
                     light: palette(lightgray, 4),
-                    dark: palette(darkgray, 6),
+                    dark: #1c2942,
                 ),
             ),
             strong: (
                 "Border color with high contrast against window background",
                 (
                     light: palette(lightgray, 9),
-                    dark: palette(darkgray, 9),
+                    dark: #3a4a68,
                 ),
             ),
             focus: (
                 "Border color of focused input elements",
                 (
                     light: palette(blue, 5),
-                    dark: palette(blue, 5),
+                    dark: #7fb2f0,
                 ),
             ),
         ),
@@ -184,7 +184,7 @@ $vars: (
                 "Background color of buttons",
                 (
                     light: palette(lightgray, 0),
-                    dark: color.scale(palette(darkgray, 4), $lightness: 5%),
+                    dark: #1b2942,
                 ),
             ),
             gradient: (
@@ -192,14 +192,14 @@ $vars: (
                     "Start value of default button gradient",
                     (
                         light: white,
-                        dark: color.scale(palette(darkgray, 4), $lightness: 10%),
+                        dark: #22314f,
                     ),
                 ),
                 end: (
                     "End value of default button gradient",
                     (
                         light: palette(lightgray, 0),
-                        dark: color.scale(palette(darkgray, 4), $lightness: 5%),
+                        dark: #1b2942,
                     ),
                 ),
             ),
@@ -208,7 +208,7 @@ $vars: (
                     "Border color of default button in hover state",
                     (
                         light: palette(lightgray, 8),
-                        dark: palette(darkgray, 8),
+                        dark: #3a4a68,
                     ),
                 ),
             ),
@@ -216,7 +216,7 @@ $vars: (
                 "Background color of disabled button",
                 (
                     light: color.scale(palette(lightgray, 5), $alpha: -50%),
-                    dark: color.scale(palette(darkgray, 3), $alpha: -50%),
+                    dark: color.scale(#1b2942, $alpha: -50%),
                 ),
             ),
             primary: (
@@ -258,21 +258,21 @@ $vars: (
                     "Background of scrollbar in idle state (Win/Lin only)",
                     (
                         light: palette(lightgray, 5),
-                        dark: palette(darkgray, 3),
+                        dark: #26344f,
                     ),
                 ),
                 hover: (
                     "Background of scrollbar in hover state (Win/Lin only)",
                     (
                         light: palette(lightgray, 6),
-                        dark: palette(darkgray, 2),
+                        dark: #33456a,
                     ),
                 ),
                 active: (
                     "Background of scrollbar in pressed state (Win/Lin only)",
                     (
                         light: palette(lightgray, 7),
-                        dark: palette(darkgray, 1),
+                        dark: #3d5178,
                     ),
                 ),
             ),
@@ -282,21 +282,21 @@ $vars: (
                 "Default box-shadow color",
                 (
                     light: palette(lightgray, 6),
-                    dark: palette(darkgray, 8),
+                    dark: #05080f,
                 ),
             ),
             inset: (
                 "Inset box-shadow color",
                 (
                     light: palette(darkgray, 3),
-                    dark: palette(darkgray, 7),
+                    dark: #0a1120,
                 ),
             ),
             subtle: (
                 "Box-shadow color with lower contrast against window background",
                 (
                     light: palette(darkgray, 0),
-                    dark: palette(darkgray, 4),
+                    dark: #141f36,
                 ),
             ),
             focus: (

@@ -265,33 +265,124 @@ class Overview:
 </td><td align=center>
 {but("study", tr.studying_study_now(), id="study", extra=" autofocus")}</td></tr></table>"""
 
+    _FE_MEMORY_STYLE = """
+<style>
+.fe-mem{--fe-copper:#C77B3C;--fe-panel:#ffffff;--fe-line:#dce4f0;--fe-text:#182338;
+  --fe-muted:#5c6a85;--fe-grid:rgba(40,64,110,.05);--fe-band:rgba(199,123,60,.20);
+  max-width:460px;margin:22px auto 0;padding:18px 20px 20px;text-align:left;
+  background:var(--fe-panel);border:1px solid var(--fe-line);border-radius:14px;
+  background-image:linear-gradient(var(--fe-grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--fe-grid) 1px,transparent 1px);background-size:22px 22px;
+  box-shadow:0 12px 30px -22px rgba(8,15,30,.5);position:relative;overflow:hidden;
+  font-family:system-ui,"Segoe UI",Roboto,sans-serif;}
+.night_mode .fe-mem,.nightMode .fe-mem{--fe-copper:#E0A45C;--fe-panel:#15213a;
+  --fe-line:#28374f;--fe-text:#e7eefa;--fe-muted:#94a2bd;
+  --fe-grid:rgba(130,160,210,.06);--fe-band:rgba(224,164,92,.18);}
+.fe-mem::before{content:"";position:absolute;top:0;left:0;width:44px;height:3px;
+  background:var(--fe-copper);border-bottom-right-radius:3px;}
+.fe-mem-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.fe-mem-chip{font:600 10px/1 system-ui;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--fe-copper);padding:6px 11px;border-radius:999px;
+  background:color-mix(in srgb,var(--fe-copper) 15%,transparent);
+  border:1px solid color-mix(in srgb,var(--fe-copper) 34%,transparent);
+  display:inline-flex;align-items:center;gap:7px;}
+.fe-mem-chip::before{content:"";width:6px;height:6px;border-radius:2px;background:var(--fe-copper);}
+.fe-mem-meta{font:600 10px/1 ui-monospace,Consolas,monospace;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--fe-muted);}
+.fe-mem-val{display:flex;align-items:baseline;gap:10px;}
+.fe-mem-pct{font:700 40px/1 ui-monospace,Consolas,monospace;color:var(--fe-copper);}
+.fe-mem-cap{font:600 11px/1 system-ui;letter-spacing:.04em;color:var(--fe-muted);text-transform:uppercase;}
+.fe-mem-range{font:600 13px/1 ui-monospace,Consolas,monospace;color:var(--fe-muted);}
+.fe-mem-bar{position:relative;height:8px;margin:14px 0 10px;border-radius:6px;
+  background:color-mix(in srgb,var(--fe-muted) 22%,transparent);}
+.fe-mem-band{position:absolute;top:0;bottom:0;background:var(--fe-band);border-radius:6px;
+  border:1px solid color-mix(in srgb,var(--fe-copper) 40%,transparent);}
+.fe-mem-mark{position:absolute;top:-3px;width:3px;height:14px;border-radius:2px;
+  background:var(--fe-copper);box-shadow:0 0 8px 1px var(--fe-copper);transform:translateX(-50%);}
+.fe-mem-note{font:400 12px/1.45 system-ui;color:var(--fe-muted);margin-top:6px;}
+.fe-mem-note b{color:var(--fe-text);font-weight:600;}
+/* Speedrun fork: theme the whole overview page to match the dashboard */
+html,body{background:#0b1220!important;color:#eaf1fc!important;
+  font-family:system-ui,"Segoe UI",Roboto,sans-serif!important;}
+h1,h2,h3{color:#eaf1fc!important;letter-spacing:-.01em;}
+h3{font:700 26px/1.2 system-ui!important;margin-top:14px!important;}
+.descfont,.description{color:#93a2bd!important;}
+#outer,#header,center>table{background:transparent!important;}
+center table td{color:#c7d2e6!important;font-size:15px!important;}
+.new-count{color:#5C9BFF!important;}
+.learn-count{color:#E7A867!important;}
+.review-count{color:#5FD0C0!important;}
+button#study,#study{background:linear-gradient(180deg,#ecb877,#E0A45C)!important;
+  color:#2a1b08!important;border:none!important;border-radius:12px!important;
+  padding:13px 30px!important;font-weight:700!important;font-size:16px!important;
+  box-shadow:0 12px 28px -10px rgba(224,164,92,.6)!important;cursor:pointer;}
+.fe-mem{--fe-copper:#E0A45C!important;--fe-panel:#141f36!important;--fe-line:#26344f!important;
+  --fe-text:#eaf1fc!important;--fe-muted:#93a2bd!important;--fe-band:rgba(224,164,92,.18)!important;
+  max-width:560px!important;box-shadow:0 18px 44px -28px rgba(0,0,0,.7)!important;}
+</style>"""
+
     def _fe_memory_score_html(self) -> str:
-        """Speedrun fork: honest memory score, shown as a range with a give-up
-        rule, never a bare single number."""
+        """Speedrun fork: honest memory score, shown as a range with a
+        pre-registered give-up rule, never a bare single number. Styled to match
+        the FE Prep card design (instrument-panel / copper readout)."""
         try:
             score = self.mw.col._backend.memory_score(search="")
         except Exception:
             return ""
-        box = (
-            "max-width:420px;margin:18px auto 0;padding:10px 14px;"
-            "border:1px solid var(--border, #d0d0d0);border-radius:8px;"
-            "text-align:left;font-size:13px;"
-        )
+
+        def updated(ts: int) -> str:
+            if not ts:
+                return "no reviews yet"
+            import time
+
+            days = (time.time() - ts) / 86400
+            if days < 1 / 24:
+                return "updated just now"
+            if days < 1:
+                return f"updated {int(days * 24)}h ago"
+            return f"updated {int(days)}d ago"
+
         if not score.shown:
-            return f"""
-<div class="fe-memory" style="{box}opacity:0.85;">
-<b>Memory score</b>: not enough data yet<br>
-<span style="opacity:0.8;">{html.escape(score.withheld_reason)}</span>
+            return self._FE_MEMORY_STYLE + f"""
+<div class="fe-mem">
+  <div class="fe-mem-top">
+    <span class="fe-mem-chip">Memory · hidden</span>
+    <span class="fe-mem-meta">give-up rule</span>
+  </div>
+  <div class="fe-mem-cap">Not enough data yet</div>
+  <div class="fe-mem-note" style="margin-top:8px;">
+    <b>{score.graded_reviews}</b>/{score.min_reviews_required} graded reviews ·
+    <b>{score.topics_covered}</b>/{score.min_topics_required} topics. The score
+    stays hidden until the pre-registered threshold is met, so it never overstates
+    what it knows.
+  </div>
 </div>"""
+
         pct = round(score.point_estimate * 100)
         low = round(score.range_low * 100)
         high = round(score.range_high * 100)
         cov = round(score.coverage * 100)
-        return f"""
-<div class="fe-memory" style="{box}">
-<b>Memory score</b>: {pct}%
-<span style="opacity:0.7;">(likely {low}–{high}%)</span><br>
-<span style="opacity:0.8;">Based on {cov}% of studied material · {html.escape(score.main_reason)}</span>
+        band_left = max(0, min(100, low))
+        band_right = max(0, min(100, 100 - high))
+        return self._FE_MEMORY_STYLE + f"""
+<div class="fe-mem">
+  <div class="fe-mem-top">
+    <span class="fe-mem-chip">Memory</span>
+    <span class="fe-mem-meta">{updated(score.last_updated)}</span>
+  </div>
+  <div class="fe-mem-val">
+    <span class="fe-mem-pct">{pct}%</span>
+    <span class="fe-mem-cap">recall now</span>
+    <span class="fe-mem-range" style="margin-left:auto;">likely {low}–{high}%</span>
+  </div>
+  <div class="fe-mem-bar">
+    <div class="fe-mem-band" style="left:{band_left}%;right:{band_right}%;"></div>
+    <div class="fe-mem-mark" style="left:{pct}%;"></div>
+  </div>
+  <div class="fe-mem-note">
+    Based on <b>{cov}%</b> of studied material · <b>{score.graded_reviews}</b> reviews ·
+    <b>{score.topics_covered}</b> topics.<br>{html.escape(score.main_reason)}
+  </div>
 </div>"""
 
     _body = """

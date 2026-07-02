@@ -6,10 +6,37 @@ built only on data the engine already owns (tags + FSRS memory state).
 
 ## Contents
 
-- `decks/fe-seed-deck.txt` — the verified-correct seed deck (see below).
-- `build_apkg.py` — packages the seed deck into an `.apkg`.
+- `decks/fe-seed-deck.txt` — the original verified-correct seed deck (40 cards).
+- `decks/fe-bank.txt` — the larger verified bank (522 cards across all 18 NCEES
+  areas), including web-sourced worked problems.
+- `decks/fe-problems.txt` — worked exam-style problems converted from the
+  author's FE practice-problem manuscript, tagged by area **and** by study track
+  (`track::durable` / `track::cram`).
+- `decks/fe-figures.txt` — figure-based problems whose front is a high-res crop
+  of the problem statement + its diagram (the manuscript is a full-page scan).
+  Built by `build_figures.py`; **package with `build_apkg.py`** so the images are
+  bundled. 114 cards covering the figure-dependent problems in Chapters 7-16
+  (Circuit Analysis, Linear Systems, Signal Processing, Electronics, Power,
+  Control Systems, Communications, Digital Systems).
+- `build_figures.py` — crops figure-dependent problems out of the scanned PDF
+  into `decks/media/` and regenerates `decks/fe-figures.txt`. Extend its
+  `CHAPTERS` config to cover more chapters. Requires PyMuPDF.
+- `decks/media/` — drop images referenced by cards here (auto-bundled).
+- `build_apkg.py` — packages one or more source decks into a styled `.apkg`
+  (custom "FE Prep" note type, media-aware).
+- `docs/deploy-and-run.md` — **how to build, open, package, and deploy the app.**
 - `docs/rust-change-note.md` — the one-page note on why the Rust change belongs
   in Rust, the upstream files touched, and the merge-difficulty estimate.
+
+## Quick start
+
+Build, then open the app (see `docs/deploy-and-run.md` for full detail):
+
+```powershell
+.\tools\ninja pylib qt
+$env:ANKIDEV = "1"
+& "out\pyenv\Scripts\pythonw.exe" tools\run.py -b "$env:TEMP\anki_fe_profile"
+```
 
 ## The two features
 
@@ -26,9 +53,11 @@ weakness`. Lives in `rslib/src/scheduler/points_at_stake.rs`, exposed as the
 - **Student weakness** — `1 − mean recall` for the topic, from FSRS
   retrievability over the topic's cards with history. A topic with no history
   defaults to maximum weakness (1.0) so unseen high-weight areas surface early.
-- **Ordering** — `weight × weakness` descending; ties break on FSRS
-  due/overdue ordering, so it degrades to normal Anki behaviour when weights are
-  equal.
+- **Ordering** — topics are *interleaved* with frequency proportional to
+  `weight × weakness` (stride scheduling), so a study session spans many areas
+  instead of front-loading the single heaviest one (which would otherwise serve,
+  say, 20 straight Circuit Analysis cards on a fresh profile). Within a topic,
+  cards fall back to FSRS due/overdue order then card id.
 - It writes no scheduling state → undo and collection integrity are unaffected.
 
 ### 2. Honest memory score
@@ -53,6 +82,38 @@ parameters set in advance — config keys `feMemoryMinReviews` (default 50) and
 
 A single blended readiness number is deliberately **not** built. Only the memory
 score exists, and it follows the honesty rule above.
+
+## Durable vs. Cram tracks
+
+The dashboard splits the deck into two study tracks, reflecting that the FE is a
+one-time, open-reference exam: **Durable** ("learn for keeps") for the skills a
+candidate's career will use, and **Cram** ("peak for test day") for lookup-able
+facts that may decay afterwards.
+
+- **Per-card nature.** Cards are tagged `track::durable` (a worked problem/skill)
+  or `track::cram` (a fact, formula, definition, or rule).
+- **Per-area policy** — resolved in `qt/aqt/deckbrowser.py`, stored under the
+  collection-config key `feTrackPolicy`:
+  - `split` — route each card by its own tag (durable unless tagged
+    `track::cram`; untagged legacy cards default to durable). The day-to-day
+    engineering core (`FE_DURABLE`) defaults here.
+  - `durable` / `cram` — study the whole area on a single track. Everything
+    outside the core (Ethics, Economics, Communications, …) defaults to `cram`.
+- **User override.** Each area tile shows its current track; clicking it cycles
+  `split → durable → cram`, letting the user move an entire section between
+  tracks. Overrides persist in config only — no card or scheduling data is
+  touched, so undo and collection integrity are unaffected.
+- **How each track studies (the behavioural difference).** Both "Study …
+  track" buttons build a native filtered deck from the cards routed to that
+  track, but they differ in one setting — `reschedule` — resolved in
+  `_fe_start_track` (`qt/aqt/deckbrowser.py`):
+  - **Durable** studies with **reschedule on**: answers update FSRS memory
+    state and push intervals out, so the material is learned for keeps.
+  - **Cram** studies with **reschedule off**: the drill lets the candidate peak
+    the cards for test day without writing to the real schedule or memory, so
+    nothing durable is built and the cards decay naturally after the exam.
+  - The routing/policy above only decides *which* cards land in each track; this
+    setting decides *how* each track's session affects long-term memory.
 
 ## The seed deck
 

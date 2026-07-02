@@ -1,0 +1,66 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+html,body{background:#0b1220;margin:0;padding:0;}
+.fe-dash *{box-sizing:border-box;}
+.fe-dash{--copper:#E0A45C;--bg:#0b1220;--panel:#141f36;--panel2:#0f1830;--line:#26344f;--text:#eaf1fc;--muted:#93a2bd;--grid:rgba(130,160,210,.05);
+  font-family:system-ui,"Segoe UI",Roboto,-apple-system,sans-serif;color:var(--text);max-width:1080px;margin:0 auto;padding:34px 26px 60px;text-align:left;-webkit-font-smoothing:antialiased;}
+.fe-hero{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:20px;padding:34px 36px 32px;margin-bottom:22px;
+  background:linear-gradient(180deg,var(--panel),var(--panel2));
+  background-image:radial-gradient(120% 140% at 100% 0%, rgba(224,164,92,.12), transparent 55%),linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:auto,26px 26px,26px 26px;box-shadow:0 24px 60px -30px rgba(0,0,0,.7);}
+.fe-hero::before{content:"";position:absolute;top:0;left:0;width:70px;height:4px;background:var(--copper);border-bottom-right-radius:4px;}
+.fe-eyebrow{font:600 11px/1 ui-monospace,Consolas,monospace;letter-spacing:.22em;text-transform:uppercase;color:var(--copper);}
+.fe-title{font:700 clamp(28px,3vw,44px)/1.08 system-ui;letter-spacing:-.02em;margin:16px 0 0;color:var(--text);}
+.fe-title-num{font-family:ui-monospace,Consolas,monospace;color:var(--copper);}
+.fe-lede{font:400 15px/1.55 system-ui;color:var(--muted);max-width:660px;margin:14px 0 0;}
+.fe-hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;}
+.fe-btn{display:inline-flex;align-items:center;gap:6px;cursor:pointer;text-decoration:none;font:600 15px/1 system-ui;padding:14px 22px;border-radius:12px;}
+.fe-btn-primary{background:linear-gradient(180deg,#ecb877,var(--copper));color:#2a1b08;box-shadow:0 10px 26px -10px rgba(224,164,92,.6);}
+.fe-btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line);}
+.fe-btn-badge{font:600 12px/1 ui-monospace,Consolas,monospace;padding:4px 8px;border-radius:999px;background:rgba(0,0,0,.16);}
+.fe-mem{--fe-band:rgba(224,164,92,.18);max-width:none;margin:0 0 26px;padding:20px 24px;position:relative;overflow:hidden;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 44px -28px rgba(0,0,0,.7);}
+.fe-mem::before{content:"";position:absolute;top:0;left:0;width:52px;height:3px;background:var(--copper);border-bottom-right-radius:3px;}
+.fe-mem-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.fe-mem-chip{font:600 10px/1 system-ui;letter-spacing:.16em;text-transform:uppercase;color:var(--copper);padding:6px 11px;border-radius:999px;background:color-mix(in srgb,var(--copper) 16%,transparent);border:1px solid color-mix(in srgb,var(--copper) 36%,transparent);display:inline-flex;align-items:center;gap:7px;}
+.fe-mem-chip::before{content:"";width:6px;height:6px;border-radius:2px;background:var(--copper);}
+.fe-mem-meta{font:600 10px/1 ui-monospace,Consolas,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+.fe-mem-note{font:400 13px/1.5 system-ui;color:var(--muted);margin-top:6px;}
+.fe-mem-note b{color:var(--text);font-weight:600;}
+.fe-sec-label{display:flex;align-items:baseline;justify-content:space-between;margin:6px 4px 14px;}
+.fe-sec-label>span:first-child{font:700 15px/1 system-ui;color:var(--text);}
+.fe-sec-note{font:600 11px/1 ui-monospace,Consolas,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+.fe-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:14px;}
+.fe-tile{--chip:var(--copper);display:block;cursor:pointer;text-decoration:none;position:relative;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px 15px;}
+.fe-tile::before{content:"";position:absolute;top:0;left:0;width:34px;height:3px;background:var(--chip);border-bottom-right-radius:3px;}
+.fe-tile-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;}
+.fe-tile-dot{width:9px;height:9px;border-radius:3px;background:var(--chip);box-shadow:0 0 0 4px color-mix(in srgb,var(--chip) 20%,transparent);}
+.fe-tile-q{font:600 10px/1 ui-monospace,Consolas,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.fe-tile-name{font:650 16px/1.25 system-ui;font-weight:650;color:var(--text);letter-spacing:-.01em;}
+.fe-tile-meta{display:flex;align-items:center;justify-content:space-between;margin-top:12px;}
+.fe-tile-count{font:600 13px/1 ui-monospace,Consolas,monospace;color:var(--chip);}
+.fe-tile-due{font:500 12px/1 system-ui;color:var(--muted);}
+</style></head><body>
+<div class="fe-dash">
+  <header class="fe-hero">
+    <div class="fe-eyebrow">FE · Electrical &amp; Computer · study fork · AI-free</div>
+    <h1 class="fe-title"><span class="fe-title-num">562</span> verified cards, one exam.</h1>
+    <p class="fe-lede">Every card is a checked FE fact or worked problem, tagged to one of the 18 NCEES knowledge areas. Drill the whole exam at once, or target a single area — laid out in points-at-stake order (exam weight first).</p>
+    <div class="fe-hero-actions">
+      <a class="fe-btn fe-btn-primary">Study all&nbsp;&nbsp;<span class="fe-btn-badge">200 new</span></a>
+      <a class="fe-btn fe-btn-ghost">Deck overview</a>
+    </div>
+  </header>
+  <div class="fe-mem">
+    <div class="fe-mem-top"><span class="fe-mem-chip">Memory · hidden</span><span class="fe-mem-meta">give-up rule</span></div>
+    <div class="fe-mem-note"><b>Not enough data yet.</b> 0/50 graded reviews · 0/3 topics. The score stays hidden until the pre-registered threshold is met, so it never overstates what it knows.</div>
+  </div>
+  <section class="fe-topics">
+    <div class="fe-sec-label"><span>Study by knowledge area</span><span class="fe-sec-note">points-at-stake order</span></div>
+    <div class="fe-grid" id="g"></div>
+  </section>
+</div>
+<script>
+const T=[["Mathematics","#5C9BFF","11-17",56],["Circuit Analysis","#E7A867","10-15",47],["Power Systems","#F2849E","8-12",41],["Electronics","#C58BF2","7-11",37],["Digital Systems","#5FD0C0","7-11",38],["Engineering Sciences","#D9A066","6-9",24],["Control Systems","#6FA8DC","6-9",35],["Signal Processing","#7FB2F0","5-8",28],["Linear Systems","#9AA7F0","5-8",22],["Electromagnetics","#8FD0A0","5-8",32],["Communications","#E0A45C","5-8",27],["Computer Systems","#7FC8D8","4-6",23],["Probability & Statistics","#8FBCE0","4-6",29],["Electrical Materials","#C79AD8","4-6",23],["Computer Networks","#6FB0C8","4-6",23],["Software Development","#B7A6F0","4-6",26],["Engineering Economics","#D8B36A","3-5",28],["Ethics","#8AC0A8","3-5",23]];
+document.getElementById('g').innerHTML=T.map(([n,c,q,k])=>`<a class="fe-tile" style="--chip:${c}"><div class="fe-tile-top"><span class="fe-tile-dot"></span><span class="fe-tile-q">${q} Q</span></div><div class="fe-tile-name">${n}</div><div class="fe-tile-meta"><span class="fe-tile-count">${k} cards</span><span class="fe-tile-due">${k} new</span></div></a>`).join('');
+</script>
+</body></html>

@@ -9,10 +9,14 @@
 //! unaffected.
 //!
 //! 1. **Points-at-stake queue** — a re-ordering of the existing due/new queue
-//!    by `topic weight × student weakness`, so the highest-value cards surface
-//!    first. Topic weights are seeded from the NCEES question-count ranges and
-//!    live in the collection config table, not in this code. Student weakness
-//!    is `1 - mean recall` for a topic, derived from review history.
+//!    by `topic weight × student weakness`. Rather than a hard sort (which would
+//!    front-load one whole topic — e.g. 20 straight Circuit Analysis cards on a
+//!    fresh profile), topics are **interleaved** with frequency proportional to
+//!    their score, so a session spans many areas while the heaviest/weakest
+//!    areas recur most often — matching the fully-interleaved exam. Topic
+//!    weights are seeded from the NCEES question-count ranges and live in the
+//!    collection config table, not in this code. Student weakness is
+//!    `1 - mean recall` for a topic, derived from review history.
 //!
 //! 2. **Honest memory score** — an aggregate of FSRS per-card retrievability
 //!    presented as a range with a pre-registered give-up rule, never a bare
@@ -229,7 +233,7 @@ impl Collection {
         let candidates = self.all_cards_for_search(search)?;
         let candidate_topics = self.topics_for_cards(&candidates)?;
 
-        let mut entries: Vec<PointsAtStakeEntry> = candidates
+        let entries: Vec<PointsAtStakeEntry> = candidates
             .iter()
             .map(|card| {
                 let topic = candidate_topics
@@ -260,15 +264,12 @@ impl Collection {
             })
             .collect();
 
-        // Highest score first; ties fall back to FSRS due/overdue ordering
-        // (most overdue first) then card id, so the queue degrades to normal
-        // Anki behaviour when weights are equal.
-        entries.sort_by(|a, b| {
-            b.score
-                .total_cmp(&a.score)
-                .then(a.due.cmp(&b.due))
-                .then(a.card_id.0.cmp(&b.card_id.0))
-        });
+        // Weighted interleave across topics (not a hard sort): each topic is
+        // emitted with frequency proportional to its score, so a session spans
+        // many areas instead of front-loading the single heaviest one. Within a
+        // topic the most overdue card (smallest due) comes first, then card id,
+        // so behaviour degrades to normal Anki ordering inside one topic.
+        let entries = interleave_by_score(entries);
 
         Ok(PointsAtStakeQueue { entries })
     }
@@ -375,6 +376,81 @@ impl Collection {
 
         Ok(score)
     }
+}
+
+/// Weighted interleave of scored entries. Groups cards by topic, then emits
+/// topics in stride-scheduled order so each topic's frequency is proportional to
+/// its score (`topic weight × weakness`). This spreads a session across many
+/// areas — matching the fully-interleaved exam — while still giving the
+/// heaviest/weakest areas the most cards. Deterministic: within a topic, most
+/// overdue (smallest due) then card id; virtual-time ties break on higher score
+/// then topic key. All cards of one topic share a score, so the per-topic weight
+/// is well defined.
+fn interleave_by_score(entries: Vec<PointsAtStakeEntry>) -> Vec<PointsAtStakeEntry> {
+    use std::collections::VecDeque;
+
+    let mut groups: HashMap<Option<String>, Vec<PointsAtStakeEntry>> = HashMap::new();
+    for entry in entries {
+        groups.entry(entry.topic.clone()).or_default().push(entry);
+    }
+
+    struct Bucket {
+        weight: f64,
+        stride: f64,
+        vtime: f64,
+        key: String,
+        cards: VecDeque<PointsAtStakeEntry>,
+    }
+
+    let mut buckets: Vec<Bucket> = groups
+        .into_iter()
+        .map(|(topic, mut cards)| {
+            cards.sort_by(|a, b| a.due.cmp(&b.due).then(a.card_id.0.cmp(&b.card_id.0)));
+            let weight = cards.first().map(|e| e.score).unwrap_or(0.0);
+            // Zero/negative-score topics (e.g. perfectly recalled) get a huge
+            // stride so they trail the rest instead of dividing by zero.
+            let stride = if weight > 0.0 { 1.0 / weight } else { 1.0e9 };
+            Bucket {
+                weight,
+                stride,
+                vtime: stride,
+                key: topic.unwrap_or_default(),
+                cards: cards.into_iter().collect(),
+            }
+        })
+        .collect();
+
+    // Deterministic order for equal virtual times: heavier first, then key.
+    buckets.sort_by(|a, b| b.weight.total_cmp(&a.weight).then(a.key.cmp(&b.key)));
+
+    let total: usize = buckets.iter().map(|b| b.cards.len()).sum();
+    let mut out = Vec::with_capacity(total);
+    for _ in 0..total {
+        let mut best: Option<usize> = None;
+        for (i, b) in buckets.iter().enumerate() {
+            if b.cards.is_empty() {
+                continue;
+            }
+            best = Some(match best {
+                None => i,
+                Some(j) => {
+                    let c = &buckets[j];
+                    let pick = b.vtime < c.vtime
+                        || (b.vtime == c.vtime
+                            && (b.weight > c.weight || (b.weight == c.weight && b.key < c.key)));
+                    if pick {
+                        i
+                    } else {
+                        j
+                    }
+                }
+            });
+        }
+        let i = best.expect("total > 0 guarantees a non-empty bucket");
+        out.push(buckets[i].cards.pop_front().unwrap());
+        buckets[i].vtime += buckets[i].stride;
+    }
+    out
 }
 
 /// Per-topic weakness = `1 - mean recall` over cards in the topic that have
@@ -532,6 +608,46 @@ mod tests {
             vec![second, first],
             "equal scores must order the more-overdue (smaller due) card first"
         );
+    }
+
+    #[test]
+    fn interleaves_topics_instead_of_blocking() {
+        let mut col = Collection::new();
+        col.set_config(
+            TOPIC_WEIGHTS_CONFIG_KEY,
+            &HashMap::from([
+                ("circuit_analysis".to_string(), 12.0_f64),
+                ("ethics".to_string(), 4.0_f64),
+            ]),
+        )
+        .unwrap();
+        // Five new cards in each topic; all new => weakness 1.0 for both.
+        for i in 0..5 {
+            add_tagged_card(&mut col, &format!("c{i}"), "circuit_analysis");
+            add_tagged_card(&mut col, &format!("e{i}"), "ethics");
+        }
+
+        let queue = col.build_points_at_stake_queue("is:new").unwrap();
+        let topics: Vec<String> = queue
+            .entries
+            .iter()
+            .map(|e| e.topic.clone().unwrap_or_default())
+            .collect();
+
+        // The heaviest topic still leads...
+        assert_eq!(topics.first().map(String::as_str), Some("circuit_analysis"));
+        // ...but the lighter topic must appear early rather than after a solid
+        // block of all circuit_analysis cards -- i.e. topics interleave.
+        assert!(
+            topics[..5].iter().any(|t| t == "ethics"),
+            "topics must interleave within the first few cards, got {topics:?}"
+        );
+        // Every card is still present exactly once.
+        assert_eq!(
+            topics.iter().filter(|t| *t == "circuit_analysis").count(),
+            5
+        );
+        assert_eq!(topics.iter().filter(|t| *t == "ethics").count(), 5);
     }
 
     #[test]
