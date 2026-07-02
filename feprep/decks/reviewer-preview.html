@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+/* --- page (mirrors reviewer.py _FE_REVIEW_STYLE main page) --- */
+html,body{background:#0b1220!important;margin:0;font-family:Segoe UI,Arial,sans-serif;}
+.page{padding:24px;}
+.card-demo{max-width:640px;margin:0 auto 26px;background:#141f36;border:1px solid #26344f;
+  border-radius:12px;color:#eaf1fc;padding:26px;text-align:center;}
+#typeans{
+  background:#141f36!important;color:#eaf1fc!important;
+  border:1px solid #26344f!important;border-radius:8px!important;
+  padding:6px 10px!important;outline:none!important;}
+#typeans:focus{border-color:#E0A45C!important;}
+
+/* --- bottom bar (mirrors reviewer.py _FE_REVIEW_BOTTOM_STYLE) --- */
+.barwrap{background:#0b1220;border-top:1px solid #26344f;padding:10px 0;margin-top:10px;}
+#outer{text-align:center;}
+#innertable,#middle,table,td{background:transparent!important;border:none!important;}
+button{
+  background:#141f36!important;color:#d3ddf0!important;
+  border:1px solid #26344f!important;border-radius:9px!important;
+  padding:7px 15px!important;font-weight:600!important;font-size:14px;cursor:pointer;
+  transition:border-color .12s ease,color .12s ease,background .12s ease!important;margin:0 3px;}
+button:hover:not(:disabled){border-color:#E0A45C!important;color:#E0A45C!important;background:#18243d!important;}
+#ansbut{background:#E0A45C!important;color:#0b1220!important;border-color:#E0A45C!important;}
+#ansbut:hover{background:#f0b36a!important;color:#0b1220!important;border-color:#f0b36a!important;}
+#ansbut .stattxt,#ansbut .new-count,#ansbut .learn-count,#ansbut .review-count{
+  color:#0b1220!important;opacity:.85!important;font-weight:700!important;}
+button#defease{border-color:#E0A45C!important;}
+.nobold{font-weight:400!important;color:#93a2bd!important;display:block;font-size:12px;}
+.stattxt,#time{color:#93a2bd!important;font-size:12px;}
+.new-count{color:#5ea1ff!important;}
+.learn-count{color:#E0A45C!important;}
+.review-count{color:#4fd08a!important;}
+.lbl{color:#93a2bd;font-size:12px;margin:18px 0 6px;text-align:center;}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="card-demo">
+    What is the capital of France?<br><br>
+    <input type="text" id="typeans" placeholder="type the answer">
+  </div>
+
+  <div class="lbl">Question state — Show Answer + remaining counts</div>
+  <div class="barwrap">
+    <center id="outer">
+      <table id="innertable" width="100%" cellspacing="0" cellpadding="0"><tr>
+        <td align="left"><button>Edit</button></td>
+        <td align="center" id="middle">
+          <button id="ansbut">Show Answer
+            <span class="stattxt">
+              <span class="new-count">12</span> +
+              <span class="learn-count">3</span> +
+              <span class="review-count">28</span>
+            </span>
+          </button>
+        </td>
+        <td align="right"><button>More &#9662; <span id="time">00:07</span></button></td>
+      </tr></table>
+    </center>
+  </div>
+
+  <div class="lbl">Answer state — Again / Hard / Good / Easy</div>
+  <div class="barwrap">
+    <center id="outer">
+      <table cellpadding="0" cellspacing="0"><tr>
+        <td align="center"><button>Again<span class="nobold">&lt;1m</span></button></td>
+        <td align="center"><button>Hard<span class="nobold">6m</span></button></td>
+        <td align="center"><button id="defease">Good<span class="nobold">1d</span></button></td>
+        <td align="center"><button>Easy<span class="nobold">4d</span></button></td>
+      </tr></table>
+    </center>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html><html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+body{margin:0;font-family:system-ui,"Segoe UI",Roboto,sans-serif;display:flex;flex-wrap:wrap}
+.pane{flex:1 1 440px;padding:34px 24px}
+.pane.light{background:#EDF1F8}
+.pane.dark{background:#0E1726}
+.lbl{font:600 11px/1 ui-monospace,Consolas,monospace;letter-spacing:.18em;text-transform:uppercase;margin:0 auto 18px;max-width:460px;color:#5c6a85}
+.dark .lbl{color:#94a2bd}
+.fe-mem{--fe-copper:#C77B3C;--fe-panel:#ffffff;--fe-line:#dce4f0;--fe-text:#182338;
+  --fe-muted:#5c6a85;--fe-grid:rgba(40,64,110,.05);--fe-band:rgba(199,123,60,.20);
+  max-width:460px;margin:0 auto 22px;padding:18px 20px 20px;text-align:left;
+  background:var(--fe-panel);border:1px solid var(--fe-line);border-radius:14px;
+  background-image:linear-gradient(var(--fe-grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--fe-grid) 1px,transparent 1px);background-size:22px 22px;
+  box-shadow:0 12px 30px -22px rgba(8,15,30,.5);position:relative;overflow:hidden;}
+.dark .fe-mem{--fe-copper:#E0A45C;--fe-panel:#15213a;--fe-line:#28374f;--fe-text:#e7eefa;
+  --fe-muted:#94a2bd;--fe-grid:rgba(130,160,210,.06);--fe-band:rgba(224,164,92,.18);}
+.fe-mem::before{content:"";position:absolute;top:0;left:0;width:44px;height:3px;background:var(--fe-copper);border-bottom-right-radius:3px;}
+.fe-mem-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.fe-mem-chip{font:600 10px/1 system-ui;letter-spacing:.16em;text-transform:uppercase;color:var(--fe-copper);
+  padding:6px 11px;border-radius:999px;background:color-mix(in srgb,var(--fe-copper) 15%,transparent);
+  border:1px solid color-mix(in srgb,var(--fe-copper) 34%,transparent);display:inline-flex;align-items:center;gap:7px;}
+.fe-mem-chip::before{content:"";width:6px;height:6px;border-radius:2px;background:var(--fe-copper);}
+.fe-mem-meta{font:600 10px/1 ui-monospace,Consolas,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--fe-muted);}
+.fe-mem-val{display:flex;align-items:baseline;gap:10px;}
+.fe-mem-pct{font:700 40px/1 ui-monospace,Consolas,monospace;color:var(--fe-copper);}
+.fe-mem-cap{font:600 11px/1 system-ui;letter-spacing:.04em;color:var(--fe-muted);text-transform:uppercase;}
+.fe-mem-range{font:600 13px/1 ui-monospace,Consolas,monospace;color:var(--fe-muted);}
+.fe-mem-bar{position:relative;height:8px;margin:14px 0 10px;border-radius:6px;background:color-mix(in srgb,var(--fe-muted) 22%,transparent);}
+.fe-mem-band{position:absolute;top:0;bottom:0;background:var(--fe-band);border-radius:6px;border:1px solid color-mix(in srgb,var(--fe-copper) 40%,transparent);}
+.fe-mem-mark{position:absolute;top:-3px;width:3px;height:14px;border-radius:2px;background:var(--fe-copper);box-shadow:0 0 8px 1px var(--fe-copper);transform:translateX(-50%);}
+.fe-mem-note{font:400 12px/1.45 system-ui;color:var(--fe-muted);margin-top:6px;}
+.fe-mem-note b{color:var(--fe-text);font-weight:600;}
+</style></head><body>
+<div class="pane light">
+  <div class="lbl">Light — score shown</div>
+  <div class="fe-mem">
+    <div class="fe-mem-top"><span class="fe-mem-chip">Memory</span><span class="fe-mem-meta">updated 2h ago</span></div>
+    <div class="fe-mem-val"><span class="fe-mem-pct">78%</span><span class="fe-mem-cap">recall now</span><span class="fe-mem-range" style="margin-left:auto;">likely 71&ndash;85%</span></div>
+    <div class="fe-mem-bar"><div class="fe-mem-band" style="left:71%;right:15%;"></div><div class="fe-mem-mark" style="left:78%;"></div></div>
+    <div class="fe-mem-note">Based on <b>64%</b> of studied material · <b>92</b> reviews · <b>6</b> topics.<br>Estimate based on 58 of 90 studied cards across 6 topics; lowest recall is electromagnetics at 61%.</div>
+  </div>
+  <div class="lbl">Light — withheld (give-up rule)</div>
+  <div class="fe-mem">
+    <div class="fe-mem-top"><span class="fe-mem-chip">Memory · hidden</span><span class="fe-mem-meta">give-up rule</span></div>
+    <div class="fe-mem-cap">Not enough data yet</div>
+    <div class="fe-mem-note" style="margin-top:8px;"><b>12</b>/50 graded reviews · <b>2</b>/3 topics. The score stays hidden until the pre-registered threshold is met, so it never overstates what it knows.</div>
+  </div>
+</div>
+<div class="pane dark">
+  <div class="lbl">Dark — score shown</div>
+  <div class="fe-mem">
+    <div class="fe-mem-top"><span class="fe-mem-chip">Memory</span><span class="fe-mem-meta">updated 2h ago</span></div>
+    <div class="fe-mem-val"><span class="fe-mem-pct">78%</span><span class="fe-mem-cap">recall now</span><span class="fe-mem-range" style="margin-left:auto;">likely 71&ndash;85%</span></div>
+    <div class="fe-mem-bar"><div class="fe-mem-band" style="left:71%;right:15%;"></div><div class="fe-mem-mark" style="left:78%;"></div></div>
+    <div class="fe-mem-note">Based on <b>64%</b> of studied material · <b>92</b> reviews · <b>6</b> topics.<br>Estimate based on 58 of 90 studied cards across 6 topics; lowest recall is electromagnetics at 61%.</div>
+  </div>
+  <div class="lbl">Dark — withheld (give-up rule)</div>
+  <div class="fe-mem">
+    <div class="fe-mem-top"><span class="fe-mem-chip">Memory · hidden</span><span class="fe-mem-meta">give-up rule</span></div>
+    <div class="fe-mem-cap">Not enough data yet</div>
+    <div class="fe-mem-note" style="margin-top:8px;"><b>12</b>/50 graded reviews · <b>2</b>/3 topics. The score stays hidden until the pre-registered threshold is met, so it never overstates what it knows.</div>
+  </div>
+</div>
+</body></html>

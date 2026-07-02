@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+html,body{background:#0b1220!important;margin:0!important;padding:0!important;}
+.fe-dash *{box-sizing:border-box;}
+.fe-dash{--copper:#E0A45C;--bg:#0b1220;--panel:#141f36;--panel2:#0f1830;--line:#26344f;
+  --text:#eaf1fc;--muted:#93a2bd;--grid:rgba(130,160,210,.05);
+  font-family:system-ui,"Segoe UI",Roboto,-apple-system,sans-serif;color:var(--text);
+  max-width:1080px;margin:0 auto;padding:34px 26px 60px;text-align:left;
+  -webkit-font-smoothing:antialiased;}
+/* SECTION GROUPS */
+.fe-sec-label{display:flex;align-items:baseline;justify-content:space-between;margin:6px 4px 14px;}
+.fe-sec-label>span:first-child{font:700 15px/1 system-ui;letter-spacing:.01em;color:var(--text);display:inline-flex;align-items:center;}
+.fe-sec-note{font:600 11px/1 ui-monospace,Consolas,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+.fe-sec-dot{width:9px;height:9px;border-radius:3px;display:inline-block;margin-right:9px;flex:none;}
+.fe-sec-dot--durable{background:#E0A45C;box-shadow:0 0 0 4px rgba(224,164,92,.18);}
+.fe-sec-dot--cram{background:#7FB2F0;box-shadow:0 0 0 4px rgba(127,178,240,.18);}
+.fe-sec-desc{font:400 13px/1.5 system-ui;color:var(--muted);margin:-8px 4px 16px;max-width:660px;}
+.fe-sec-group{margin-bottom:30px;}
+.fe-sec-group:last-child{margin-bottom:0;}
+/* TOPIC GRID */
+.fe-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:14px;}
+.fe-tile{--chip:var(--copper);display:block;cursor:pointer;text-decoration:none;position:relative;overflow:hidden;
+  background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px 15px;
+  transition:transform .08s ease,border-color .15s ease,box-shadow .15s ease;}
+.fe-tile:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--chip) 60%,var(--line));
+  box-shadow:0 16px 34px -22px rgba(0,0,0,.8);}
+.fe-tile::before{content:"";position:absolute;top:0;left:0;width:34px;height:3px;background:var(--chip);border-bottom-right-radius:3px;}
+.fe-tile-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;}
+.fe-tile-dot{width:9px;height:9px;border-radius:3px;background:var(--chip);box-shadow:0 0 0 4px color-mix(in srgb,var(--chip) 20%,transparent);}
+.fe-tile-q{font:600 10px/1 ui-monospace,Consolas,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.fe-tile-name{font:650 16px/1.25 system-ui;font-weight:650;color:var(--text);letter-spacing:-.01em;}
+.fe-tile-meta{display:flex;align-items:center;justify-content:space-between;margin-top:12px;}
+.fe-tile-count{font:600 13px/1 ui-monospace,Consolas,monospace;color:var(--chip);}
+.fe-tile-due{font:500 12px/1 system-ui;color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="fe-dash">
+  <section class="fe-topics">
+    <div class="fe-sec-group">
+      <div class="fe-sec-label"><span><span class="fe-sec-dot fe-sec-dot--durable"></span>Durable &middot; learn for keeps</span><span class="fe-sec-note">points-at-stake order</span></div>
+      <div class="fe-sec-desc">Field areas worth deep, lasting practice.</div>
+      <div class="fe-grid">
+        <a class="fe-tile" style="--chip:#5C9BFF;">
+          <div class="fe-tile-top"><span class="fe-tile-dot"></span><span class="fe-tile-q">11-17 Q</span></div>
+          <div class="fe-tile-name">Mathematics</div>
+          <div class="fe-tile-meta"><span class="fe-tile-count">62 cards</span><span class="fe-tile-due">12 new &middot; 4 due</span></div>
+        </a>
+        <a class="fe-tile" style="--chip:#E7A867;">
+          <div class="fe-tile-top"><span class="fe-tile-dot"></span><span class="fe-tile-q">10-15 Q</span></div>
+          <div class="fe-tile-name">Circuit Analysis</div>
+          <div class="fe-tile-meta"><span class="fe-tile-count">48 cards</span><span class="fe-tile-due">8 new</span></div>
+        </a>
+        <a class="fe-tile" style="--chip:#F2849E;">
+          <div class="fe-tile-top"><span class="fe-tile-dot"></span><span class="fe-tile-q">8-12 Q</span></div>
+          <div class="fe-tile-name">Power Systems</div>
+          <div class="fe-tile-meta"><span class="fe-tile-count">40 cards</span><span class="fe-tile-due">10 new &middot; 2 due</span></div>
+        </a>
+        <a class="fe-tile" style="--chip:#C58BF2;">
+          <div class="fe-tile-top"><span class="fe-tile-dot"></span><span class="fe-tile-q">7-11 Q</span></div>
+          <div class="fe-tile-name">Electronics</div>
+          <div class="fe-tile-meta"><span class="fe-tile-count">36 cards</span><span class="fe-tile-due">6 new</span></div>
+        </a>
+        <a class="fe-tile" style="--chip:#8FD0A0;">
+          <div class="fe-tile-top"><span class="fe-tile-dot"></span><span class="fe-tile-q">5-8 Q</span></div>
+          <div class="fe-tile-name">Electromagnetics</div>
+          <div class="fe-tile-meta"><span class="fe-tile-count">28 cards</span><span class="fe-tile-due">5 new</span></div>
+        </a>
+        <a class="fe-tile" style="--chip:#6FA8DC;">
+          <div class="fe-tile-top"><span class="fe-tile-dot"></span><span class="fe-tile-q">6-9 Q</span></div>
+          <div class="fe-tile-name">Control Systems</div>
+          <div class="fe-tile-meta"><span class="fe-tile-count">30 cards</span><span class="fe-tile-due">7 new &middot; 1 due</span></div>
+        </a>
+      </div>
+    </div>
+    <div class="fe-sec-group">
+      <div class="fe-sec-label"><span><span class="fe-sec-dot fe-sec-dot--cram"></span>Cram &middot; peak for test day</span><span class="fe-sec-note">points-at-stake order</span></div>
+      <div class="fe-sec-desc">Outside your field &mdash; drilled to peak on exam day, decay after.</div>
+      <div class="fe-grid">
+        <a class="fe-tile" style="--chip:#5FD0C0;">
+          <div class="fe-tile-top"><span class="fe-tile-dot"></span><span class="fe-tile-q">7-11 Q</span></div>
+          <div class="fe-tile-name">Digital Systems</div>
+          <div class="fe-tile-meta"><span class="fe-tile-count">38 cards</span><span class="fe-tile-due">9 new</span></div>
+        </a>
+        <a class="fe-tile" style="--chip:#7FC8D8;">
+          <div class="fe-tile-top"><span class="fe-tile-dot"></span><span class="fe-tile-q">4-6 Q</span></div>
+          <div class="fe-tile-name">Computer Systems</div>
+          <div class="fe-tile-meta"><span class="fe-tile-count">22 cards</span><span class="fe-tile-due">4 new</span></div>
+        </a>
+        <a class="fe-tile" style="--chip:#6FB0C8;">
+          <div class="fe-tile-top"><span class="fe-tile-dot"></span><span class="fe-tile-q">4-6 Q</span></div>
+          <div class="fe-tile-name">Computer Networks</div>
+          <div class="fe-tile-meta"><span class="fe-tile-count">20 cards</span><span class="fe-tile-due">3 new</span></div>
+        </a>
+        <a class="fe-tile" style="--chip:#B7A6F0;">
+          <div class="fe-tile-top"><span class="fe-tile-dot"></span><span class="fe-tile-q">4-6 Q</span></div>
+          <div class="fe-tile-name">Software Development</div>
+          <div class="fe-tile-meta"><span class="fe-tile-count">21 cards</span><span class="fe-tile-due">5 new &middot; 1 due</span></div>
+        </a>
+        <a class="fe-tile" style="--chip:#8FBCE0;">
+          <div class="fe-tile-top"><span class="fe-tile-dot"></span><span class="fe-tile-q">4-6 Q</span></div>
+          <div class="fe-tile-name">Probability &amp; Statistics</div>
+          <div class="fe-tile-meta"><span class="fe-tile-count">24 cards</span><span class="fe-tile-due">6 new</span></div>
+        </a>
+        <a class="fe-tile" style="--chip:#8AC0A8;">
+          <div class="fe-tile-top"><span class="fe-tile-dot"></span><span class="fe-tile-q">3-5 Q</span></div>
+          <div class="fe-tile-name">Ethics</div>
+          <div class="fe-tile-meta"><span class="fe-tile-count">16 cards</span><span class="fe-tile-due">2 new</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
+</body>
+</html>

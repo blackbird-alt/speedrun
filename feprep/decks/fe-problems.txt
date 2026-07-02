@@ -1,0 +1,393 @@
+#separator:tab
+#html:false
+#notetype:Basic
+#deck:FE Electrical and Computer::Problems
+#tags column:3
+# ---------------------------------------------------------------------------
+# FE Electrical and Computer - verified worked problems.
+# Source: author's FE practice-problem manuscript (2018 ed., under revision).
+# Each card: front <TAB> answer <TAB> tags.
+#   fe::<area>       -> NCEES knowledge area (drives topic + points-at-stake)
+#   track::durable   -> a skill you must be able to PERFORM (calculate/derive/solve)
+#   track::cram      -> a fact/formula/definition/rule you can RECALL or look up
+# Figure-dependent problems (circuits, graphs, K-maps, diagrams) are omitted
+# here because they need images to be answerable correctly.
+# ---------------------------------------------------------------------------
+# === Chapter 1 - Mathematics ===
+Solve for x: log_3(3x - 12) - log_3(x) = 2	x = -2	fe::mathematics track::durable
+Solve for x: ln(x) + ln(x + 8) = ln(x - 12)	x = -3 and x = -4 (roots of x^2 + 7x + 12 = 0)	fe::mathematics track::durable
+Solve for x: log_4(x^2 + 8x + 17) = 0	x = -4 (since x^2 + 8x + 16 = 0)	fe::mathematics track::durable
+Express log_5(7) in terms of base-10 logarithms.	log_10(7) / log_10(5)  (change of base)	fe::mathematics track::durable
+Simplify the trigonometric expression: sin^2(x) * (cot^2(x) + 1).	1  (since cot^2 x + 1 = csc^2 x = 1/sin^2 x)	fe::mathematics track::durable
+Simplify the trigonometric expression: cot^2(x) / (cot^2(x) + 1).	cos^2(x)	fe::mathematics track::durable
+Simplify: (sin x + cos x)^2 - 1.	sin(2x)	fe::mathematics track::durable
+Express (8 + 4j) - (5 + 0j) in polar form.	5 ∠ 53°   (= 3 + 4j)	fe::mathematics track::durable
+Express (4 + 4j) / (2 + 3j) in polar form.	≈ 1.57 ∠ -11°	fe::mathematics track::durable
+Express 2∠30° × 4∠15° in rectangular form.	8∠45° = 5.7 + 5.7j	fe::mathematics track::durable
+Express 4∠30° + 6∠30° in rectangular form.	≈ 8.66 + 5j	fe::mathematics track::durable
+In what three forms can 3 + 4j be written?	Rectangular 5(cos53° + j sin53°), Euler 5e^(j53°), and polar 5∠53°	fe::mathematics track::cram
+Find the complex conjugate of Z = (2 + 6j)(3 + 3j).	-12 - 24j   (since Z = -12 + 24j)	fe::mathematics track::durable
+Which is a proper subset of {2,4,6,8,10,12}: {2,3,4,5}, {2,4,6,8,10,12,14}, or {2,4,6}?	{2, 4, 6}	fe::mathematics track::cram
+Is a set a subset of itself?	Yes - every set is a subset of itself (though not a proper subset)	fe::mathematics track::cram
+{1,2,3,4,5} and {a,b,c,d,e} are an example of what type of sets?	Disjoint sets (no common elements)	fe::mathematics track::cram
+What is the Cartesian product {1,2} × {a,b,c,d}?	{(1,a),(1,b),(1,c),(1,d),(2,a),(2,b),(2,c),(2,d)}	fe::mathematics track::cram
+Why is {(1,b),(1,c),(1,d)} not a function?	Input 1 maps to more than one output	fe::mathematics track::cram
+What kind of function is {(a,1),(b,1),(c,2),(d,2)}?	Surjective (onto) - every output is used	fe::mathematics track::cram
+Find the 35th term of the arithmetic progression 2, 4, 6, 8, ...	70   (a_n = a + (n-1)d = 2 + 34*2)	fe::mathematics track::durable
+Sum of a 120-term arithmetic progression with first term 1 and last term 259.	15,600   (S = n(a + l)/2)	fe::mathematics track::durable
+Find the 12th term of the geometric progression 3, 9, 27, 81, ...	531,441   (a_n = a*r^(n-1) = 3*3^11)	fe::mathematics track::durable
+Sum of a geometric progression with first term 1, last term 19683, ratio 3.	29,524   (S = (a - r*l)/(1 - r))	fe::mathematics track::durable
+Find the angle between the lines y = x + 4 and y = 5x + 6.	≈ 33.7°   (tan^-1 |(m2 - m1)/(1 + m1*m2)| = tan^-1(4/6))	fe::mathematics track::durable
+Find the equation of the line through (2,10) and (3,12).	y = 2x + 6	fe::mathematics track::durable
+Write the equation of a line with slope 2 and y-intercept -5.	y = 2x - 5	fe::mathematics track::durable
+Give a line perpendicular to y = 4x + 4.	Any line of slope -1/4, e.g. y = -x/4  or  y = -x/4 + 4	fe::mathematics track::durable
+A conic-section equation with only an x^2 term (or only a y^2 term) is what conic?	A parabola	fe::mathematics track::cram
+What conic is 2(x - 10)^2 + 8(y - 6)^2 = 200?	An ellipse	fe::mathematics track::cram
+Find the eccentricity of the ellipse 2(x - 10)^2 + 8(y - 6)^2 = 200.	≈ 0.87   (e = √(1 - b^2/a^2), a = 10, b = 5)	fe::mathematics track::durable
+What conic is 2(x - 10)^2 - 8(y - 6)^2 = 200?	A hyperbola	fe::mathematics track::cram
+Find the eccentricity of the hyperbola 2(x - 10)^2 - 8(y - 6)^2 = 200.	≈ 1.1   (e = √(1 + b^2/a^2), a = 10, b = 5)	fe::mathematics track::durable
+What conic is (y - 8)^2 = 4(x - 2)?	A parabola	fe::mathematics track::cram
+Volume of a right circular cylinder with radius 1 m and height 2 m.	≈ 6.28 m^3   (V = π r^2 h)	fe::mathematics track::durable
+Surface area of a right circular cone with radius 2 m and height 4 m.	≈ 40.6 m^2   (A = π r (r + √(r^2 + h^2)))	fe::mathematics track::durable
+For equal radius and height, which holds the most liquid: cone, cylinder, or paraboloid of revolution?	The right circular cylinder	fe::mathematics track::cram
+Differentiate f(x) = 2 tan^2(x) + sin^2(x).	4 tan(x) sec^2(x) + 2 sin(x) cos(x)	fe::mathematics track::durable
+Differentiate f(x) = 4x^2 + 6x + 2y^2 with respect to x.	8x + 6	fe::mathematics track::durable
+Differentiate f(x) = 2 tan(x) sec(x).	2(tan^2(x) sec(x) + sec^3(x))	fe::mathematics track::durable
+Differentiate f(x) = 2 sin^-1(x) + 2 cos^-1(x).	0   (the derivatives cancel)	fe::mathematics track::durable
+Find local min/max of f(x) = 4x^3 + x^2 - 2x + 8 on -1 < x < 1.	Local min at x = 1/3; local max at x = -1/2	fe::mathematics track::durable
+Find local min/max of f(x) = 3x^3 + 3x^2 - 3x + 3 on -2 < x < 1.	Local min at x = 1/3; local max at x = -1	fe::mathematics track::durable
+Find the point of inflection of f(x) = 3x^3 + 3x^2 - 3x + 3.	x = -1/3   (where f'' = 18x + 6 = 0)	fe::mathematics track::durable
+Evaluate lim(x->1) of (3x^2 - 2x - 1)/(4x^2 + 6x - 10).	2/7   (L'Hopital: (6x - 2)/(8x + 6))	fe::mathematics track::durable
+Evaluate lim(x->π/2) of (4 cos x)/(2 - 2 sin x).	∞   (L'Hopital -> 2 tan x)	fe::mathematics track::durable
+Evaluate the integral ∫ 4/(x + 3) dx.	4 ln|x + 3| + C	fe::mathematics track::durable
+Evaluate the integral ∫ (sin^2 x + cos^2 x) dx.	x + C	fe::mathematics track::durable
+Solve 2y' + 4y = 0 with y(0) = 6.	y = 6 e^(-2t)	fe::mathematics track::durable
+Solve the first-order ODE y' + 2x^2 y = x^2.	y = 1/2 + C e^(-2x^3/3)	fe::mathematics track::durable
+Solve y'' + 6y' + 9y = 0.	y = (C1 + C2 x) e^(-3x)   (repeated root r = -3)	fe::mathematics track::durable
+Solve y'' + 2y' - 8y = 0 with y(0) = 6, y'(0) = 0.	y = 4 e^(2t) + 2 e^(-4t)	fe::mathematics track::durable
+Is 2y'' + 4y' + 8y = 0 over-, under-, or critically damped?	Underdamped   (a^2 = 4 < 4b = 16)	fe::mathematics track::durable
+Classify the equation y'' + 8y' + 12y = 0.	2nd-order linear homogeneous differential equation	fe::mathematics track::cram
+Add A = [[1,0,0],[0,1,0],[0,0,1]] and B = [[0,0,2],[0,2,0],[2,0,0]].	[[1,0,2],[0,3,0],[2,0,1]]	fe::mathematics track::durable
+Can a 3×3 matrix be added to a 2×2 matrix?	No - matrix addition requires identical dimensions	fe::mathematics track::cram
+Compute A×B for A = [[2,1],[4,2],[6,3]] and B = [[1,0],[2,1]].	[[4,1],[8,2],[12,3]]	fe::mathematics track::durable
+Find the determinant of [[4,5],[2,6]].	14	fe::mathematics track::durable
+Find the inverse of [[4,5],[2,6]].	(1/14) [[6,-5],[-2,4]]	fe::mathematics track::durable
+Can A (3×2) be multiplied by B (3×2)?	No - columns of A (2) must equal rows of B (3)	fe::mathematics track::cram
+Is A×B = B×A true for all matrices?	No - matrix multiplication is not commutative	fe::mathematics track::cram
+Find the determinant of [[2,4,6],[8,10,12],[1,3,5]].	0	fe::mathematics track::durable
+Find the dot product of A = 2i + j + 3k and B = i + 2j + 4k.	16	fe::mathematics track::durable
+Find the cross product A × B for A = 3i + 2j + k and B = i + 4j + 0k.	-4i + j + 10k	fe::mathematics track::durable
+# === Chapter 2 - Probability and Statistics ===
+Arithmetic mean of 2, 4, 10, 8, 4, 8.	6	fe::probability_statistics track::durable
+Weighted average of 90°F (50%), 84°F (30%), 88°F (10%), 92°F (10%).	88.2°F	fe::probability_statistics track::durable
+Sample standard deviation of 2, 4, 6, 8.	√(20/3) ≈ 2.58	fe::probability_statistics track::durable
+Sample geometric mean of 1, 2, 3, 4.	(24)^(1/4) ≈ 2.21	fe::probability_statistics track::durable
+Root mean square (RMS) of 3, 5, 6, 11.	≈ 6.9   (√(191/4))	fe::probability_statistics track::durable
+Median of 2, 3, 7, 1, 4, 9, 0.	3	fe::probability_statistics track::durable
+Median of 90, 60, 70, 110, 50, 40, 200, 210.	80   (mean of the two middle values)	fe::probability_statistics track::durable
+Mode of 1, 3, 3, 4, 9, 7, 3, 4.	3	fe::probability_statistics track::durable
+Sample range of 50, 20, 10, 50, 70, 80, 100, 120.	110   (120 - 10)	fe::probability_statistics track::durable
+Is the arithmetic mean sensitive to outliers?	Yes - the mean is influenced by outliers (the median is not)	fe::probability_statistics track::cram
+P(sunny) = 0.25, P(cloudy) = 0.35, P(both) = 0.15. Find P(sunny or cloudy).	0.45   (0.25 + 0.35 - 0.15)	fe::probability_statistics track::durable
+20% shop online (50% under 30); 80% in-store (40% under 30). Given a customer is under 30, find P(prefers online).	≈ 0.24   (Bayes: 0.10 / 0.42)	fe::probability_statistics track::durable
+P(hire) = 0.10 per interview. Find P(exactly 2 hires in 30 interviews).	≈ 0.228   (binomial)	fe::probability_statistics track::durable
+P(win each slam) = 0.40 for 4 slams. Find P(winning 2 to 4).	≈ 0.51   (binomial, k = 2,3,4)	fe::probability_statistics track::durable
+GMAT scores are normal with mean 740, sd 20. Find P(score < 700).	≈ 0.0228   (z = -2)	fe::probability_statistics track::durable
+Dishwasher life is normal with mean 10 yr, sd 2 yr. Find P(lasts 12 to 14 yr).	≈ 0.1359   (z from 1 to 2)	fe::probability_statistics track::durable
+Fund gains -5%, 0%, 5%, 10%, 15% with p = 0.10, 0.20, 0.30, 0.30, 0.10. Find the expected performance.	≈ 5.5%	fe::probability_statistics track::durable
+A study-time pdf is f(x) = 4x - 1 for 0 < x < 1 (else 0). Find E[X].	5/6   (∫ from 0 to 1 of x(4x - 1) dx)	fe::probability_statistics track::durable
+A pdf is f(x) = 2x^-3 for x > 1 (else 0). Find E[X].	2   (∫ from 1 to ∞ of x*2x^-3 dx)	fe::probability_statistics track::durable
+What is the total area under any pdf (or total sum under a pmf)?	1	fe::probability_statistics track::cram
+Income mean $55,000, σ = $5,000, n = 60, normal. Find the 99% confidence interval for the mean.	$55,000 ± $1,662	fe::probability_statistics track::durable
+With σ = $5,000 and n = 60, find the standard error of the mean (SEM).	≈ $645   (σ/√n)	fe::probability_statistics track::durable
+n = 10, mean 100 min, s = 20 min, t-distribution. Find the 90% confidence interval for the mean.	100 ± 11.5	fe::probability_statistics track::durable
+For n = 10, mean 100, s = 20 at 90% (t), what is the margin of error?	≈ 11.5	fe::probability_statistics track::durable
+# === Chapter 3 - Ethics and Professional Practice ===
+A junior engineer raised a safety concern; the senior dismissed it as standard practice. Still worried, what should the junior do?	Escalate the concern to a higher level - public safety is paramount	fe::ethics track::cram
+John (power specialist, some controls experience) is offered a controls assignment. What is the ethical action?	Review the assignment requirements and his expertise with his supervisor, then decide	fe::ethics track::cram
+A lead engineer is asked to quickly seal near-complete documents prepared by unlicensed (though competent) engineers. Should she seal them?	No - they were not prepared under her supervision and review time may be insufficient	fe::ethics track::cram
+A vendor offers a technically acceptable, cheaper alternative to a spec requirement. What should the engineer recommend?	Acceptance - it is technically acceptable; negotiate a price credit from the supplier	fe::ethics track::cram
+May an engineer reuse one client's proprietary solution for other clients' similar problems?	No - confidential details cannot be used without the relevant client's consent	fe::ethics track::cram
+Into which three categories do the NCEES Model Rules group a licensee's obligations?	Obligations to the Public, to Employers/Clients, and to Other Licensees	fe::ethics track::cram
+True or false: engineers possess special knowledge not common in the public domain.	True	fe::ethics track::cram
+To protect creative marketing slogans, which IP registration applies?	Trademark	fe::ethics track::cram
+To protect an innovative manufacturing/processing technique, which IP registration applies?	Patent	fe::ethics track::cram
+To protect the content of publications, which IP registration applies?	Copyright	fe::ethics track::cram
+To prevent competitors from copying packaging styles, which IP registration applies?	Industrial design	fe::ethics track::cram
+Which symbol denotes copyright and which denotes a registered trademark?	© = copyright; ® = registered trademark (™ = unregistered trademark)	fe::ethics track::cram
+Which is intellectual property: stocks, bonds, a software program, or real estate?	A software program	fe::ethics track::cram
+# === Chapter 4 - Engineering Economics ===
+Future worth of $25,000 in 20 years at 12% annual interest.	≈ $241,157   (F = P(1 + i)^n)	fe::engineering_economics track::durable
+Present worth of $750,000 received 30 years from now at 4% annual interest.	≈ $231,225   (P = F/(1 + i)^n)	fe::engineering_economics track::durable
+Which factor converts an annuity to a future amount?	Uniform Series Compound Amount (F/A)	fe::engineering_economics track::cram
+Which factor converts a present value to an annuity?	Capital Recovery (A/P)	fe::engineering_economics track::cram
+Yearly amount from a 20-year annuity funded by $200,000 at 6%.	≈ $17,440   (A = P(A/P, 6%, 20))	fe::engineering_economics track::durable
+Amount needed today to fund a 20-year annuity paying $40,000/yr at 8%.	≈ $392,724   (P = A(P/A, 8%, 20))	fe::engineering_economics track::durable
+Future worth of investing $15,000/yr for 30 years at 8%.	≈ $1.69 million   (F = A(F/A, 8%, 30))	fe::engineering_economics track::durable
+Effective annual rate of 10% nominal compounded monthly.	≈ 10.47%   ((1 + 0.10/12)^12 - 1)	fe::engineering_economics track::durable
+Present worth of tuition starting $40,000 and rising $2,000/yr for 6 years at 2% (uniform gradient).	≈ $251,416	fe::engineering_economics track::durable
+Inflation-adjusted (combined) rate for 6% interest and 4% inflation.	≈ 10.2%   ((1.06)(1.04) - 1)	fe::engineering_economics track::durable
+Accumulated straight-line depreciation at year 4: cost $32,000, salvage $2,000, life 30 yr.	$4,000   ($1,000/yr × 4)	fe::engineering_economics track::durable
+Accumulated MACRS depreciation of a printer at year 3 (10-yr life), cost $7,000, salvage $500.	≈ $2,968	fe::engineering_economics track::durable
+Accumulated MACRS depreciation of a truck at year 2 (5-yr class), cost $50,000.	$26,000   (20% + 32% = 52% of cost)	fe::engineering_economics track::durable
+Year-2 book value of the $50,000 truck (5-yr MACRS).	$24,000	fe::engineering_economics track::durable
+Capitalized cost of $20,000/yr operating expenses at 8%.	$250,000   (A/i)	fe::engineering_economics track::durable
+Which depreciation method gives the same value decline each year?	Straight-line depreciation	fe::engineering_economics track::cram
+Break-even quantity: Line A ($100,000 fixed + $5/unit) vs Line B ($10/unit, no fixed cost).	20,000 units	fe::engineering_economics track::durable
+Below the break-even quantity, which line is cheaper: A ($100k fixed, $5/unit) or B (no fixed, $10/unit)?	Line B (cheaper below break-even; the two are equal at the break-even point)	fe::engineering_economics track::cram
+Chairs needed to break even: $50,000 fixed, $2/chair variable, $27 selling price.	2,000 chairs   (50,000/(27 - 2))	fe::engineering_economics track::durable
+Contractor A: $20,000 now + $40,000 in year 6. Contractor B: $10,000/yr for 6 yr, at 8%. Which is the lower-cost (competitive) quote?	Contractor A	fe::engineering_economics track::durable
+At 10%, which is most profitable: (A) stocks $100k→$200k in yr 10, (B) real estate $100k + $5k/yr rent selling $160k, or (C) savings at 10% for 10 yr?	Option C (the 10% savings account)	fe::engineering_economics track::durable
+What risk-analysis technique graphically organizes decisions using probability distributions?	A decision tree	fe::engineering_economics track::cram
+# === Chapter 5 - Properties of Electrical Materials ===
+Which metal acts as a sacrificial anode in contact with iron: Zn, Cu, Ni, or Hg?	Zinc (Zn)	fe::properties_of_electrical_materials track::cram
+Name common techniques used for corrosion prevention.	Galvanization, sacrificial anodes, and plating	fe::properties_of_electrical_materials track::cram
+What three things must be present for corrosion to occur?	An anode, a cathode, and an electrolyte	fe::properties_of_electrical_materials track::cram
+Diffusion coefficient with D0 = 7.8e-5 m^2/s, Qd = 250 J/mol, T = 973 K.	≈ 7.6e-5 m^2/s   (D = D0 exp(-Qd/RT))	fe::properties_of_electrical_materials track::durable
+Activation energy for D = 1.3e-22 m^2/s given D0 = 2.7e-5 m^2/s at T = 773 K.	≈ 256 kJ/mol   (Qd = -R T ln(D/D0))	fe::properties_of_electrical_materials track::durable
+In a zinc-nickel corrosion cell, which metal is the anode?	Zinc (the more active metal) is the anode	fe::properties_of_electrical_materials track::cram
+Resistivity of a 100 m wire, 2 mm diameter, with 5 Ω resistance.	≈ 1.57e-7 Ω·m   (ρ = R A / L)	fe::properties_of_electrical_materials track::durable
+Cable A's resistivity is 4× cable B's. For equal resistance and length, how must their areas compare?	Area of A must be 4× the area of B	fe::properties_of_electrical_materials track::durable
+How can the capacitance of a parallel-plate capacitor be increased?	Decrease plate spacing and/or insert a higher-dielectric-constant material	fe::properties_of_electrical_materials track::cram
+Materials with high electrical conductivity typically also have what?	High thermal (heat) conductivity	fe::properties_of_electrical_materials track::cram
+Magnetic permeability of a medium where a 100 A infinite wire gives 0.5 T at 0.5 m.	≈ 0.015 H/m   (μ = B·2πr / I)	fe::properties_of_electrical_materials track::durable
+In which materials can the photoelectric effect occur?	Metals, non-metals, and liquids/gases - all, under suitable conditions	fe::properties_of_electrical_materials track::cram
+Maximum weight a 2 mm-diameter rod supports if ultimate tensile strength is 2000e8 Pa.	≈ 628 kN   (F = UTS × area)	fe::properties_of_electrical_materials track::durable
+Young's modulus: a 100 N load stretches a 10 m, 1 mm-diameter wire by 2 mm.	≈ 6.36e11 N/m^2   (E = (F/A)/(ΔL/L))	fe::properties_of_electrical_materials track::durable
+True strain of a material that stretches 20 mm from an original length of 200 mm.	≈ 0.095   (ln(220/200))	fe::properties_of_electrical_materials track::durable
+What property lets a material return to its original shape once the force is removed?	Elasticity	fe::properties_of_electrical_materials track::cram
+The piezoelectric effect is associated with what?	Electric charge concentration produced by mechanical stress	fe::properties_of_electrical_materials track::cram
+A tensile-test curve gives all of these EXCEPT which: tensile strength, Young's modulus, ductility, or hardness?	Hardness	fe::properties_of_electrical_materials track::cram
+A bimetallic thermostat strip must use two materials that differ in what?	Their coefficients of thermal expansion	fe::properties_of_electrical_materials track::cram
+A 7 K rise gives strain 3e-3 at 296 K. What temperature gives strain 6e-3?	≈ 310 K	fe::properties_of_electrical_materials track::durable
+Thermal strain of steel (α = 1.2e-5 /°C) heated from 20 °C to 45 °C.	3e-4 (30e-5)   (ε = α ΔT)	fe::properties_of_electrical_materials track::durable
+Temperature coefficient if a specimen's resistance doubles over a 25 K rise.	0.04 /K   ((R2/R1 - 1)/ΔT)	fe::properties_of_electrical_materials track::durable
+Three samples of the same liquid weigh 1, 2, and 3 kg. How do their heat capacities compare?	Sample 1 < Sample 2 < Sample 3 (heat capacity scales with mass)	fe::properties_of_electrical_materials track::cram
+# === Chapter 6 - Engineering Sciences ===
+Work to bring Q1 = 1e-6 C from infinity to the origin, with Q2 = 2e-6 C fixed at (2,0,0).	≈ 9e-3 J   (W = k Q1 Q2 / r)	fe::engineering_sciences track::durable
+Potential energy of Q1 = 5e-6 C at (1,0,0) and Q2 = 1e-6 C at (0,1,0).	≈ 31.9 mJ   (W = k Q1 Q2 / r, r = √2)	fe::engineering_sciences track::durable
+How many electrons pass a point carrying 1 mA for 5 s?	≈ 3.12e16   (n = I t / e)	fe::engineering_sciences track::durable
+Work to move Q1 = 9e-9 C and Q2 = 15e-9 C from 1 m apart to 1 cm apart.	≈ 1.20e-4 J   (W = k Q1 Q2 (1/r2 - 1/r1))	fe::engineering_sciences track::durable
+Energy in the field of a parallel-plate capacitor: 200 V, d = 0.1 m, A = 1 m^2.	≈ 1.77e-6 J	fe::engineering_sciences track::durable
+Work to move a charge 2 cm along y in a field pointing along x (200 V/m)?	0 J - the motion is perpendicular to the field	fe::engineering_sciences track::durable
+Real power in a 2 Ω resistor if 2 C of charge passes through it in 1 s.	8 W   (I = 2 A, P = I^2 R)	fe::engineering_sciences track::durable
+Force between Q1 = 10e-6 C and Q2 = 100e-6 C separated by 1 cm.	≈ 90 kN   (F = k Q1 Q2 / r^2)	fe::engineering_sciences track::durable
+Potential difference between plates 1 m apart with field strength 2000 V/m.	2000 V   (V = E d)	fe::engineering_sciences track::durable
+Potential difference for a charge accelerated 200 m in a 1 kV/m field.	200 kV   (V = E d)	fe::engineering_sciences track::durable
+Charge on a 0.01 kg particle suspended between plates 0.1 m apart at 100 V.	≈ 9.81e-5 C   (Q = m g d / V)	fe::engineering_sciences track::durable
+Angle between a 0.1 m, 5 A conductor and a 10 μT field if the force is 1 μN.	≈ 11.5°   (F = B I L sinθ)	fe::engineering_sciences track::durable
+Voltage across a parallel-plate capacitor: 400 μC, A = 0.02 m^2, d = 0.01 m.	≈ 22.6e6 V   (C = εA/d, V = Q/C)	fe::engineering_sciences track::durable
+Constant charging current: a 100 μF capacitor rises from 5 V to 10 V over 3 minutes.	≈ 2.7 μA   (I = C ΔV/Δt)	fe::engineering_sciences track::durable
+Energy stored in a 200 μF capacitor with v(t) = 240 sin(377t) V.	5.76 sin^2(377t) J   (E = ½ C v^2)	fe::engineering_sciences track::durable
+Charging current if a 100 μF capacitor's voltage rises 10 V in 5 s.	0.2 mA   (I = C dV/dt)	fe::engineering_sciences track::durable
+Inductance of a 1 m coil with 100 turns and cross-section 0.1 m^2.	≈ 1.25 mH   (L = μ N^2 A / l)	fe::engineering_sciences track::durable
+Voltage induced in a 5 mH inductor as current rises 0 to 100 mA in 2 ms.	0.25 V   (V = L di/dt)	fe::engineering_sciences track::durable
+Energy stored in a 100 mH inductor carrying i(t) = t^2 at t = 10 s.	500 J   (i = 100 A, E = ½ L i^2)	fe::engineering_sciences track::durable
+How is an inductor's energy-storage capacity increased?	By increasing its number of turns	fe::engineering_sciences track::cram
+# === Chapter 7 - Circuit Analysis (text-only; figure-based circuits skipped) ===
+Maximum voltage of a full-wave rectified sinusoid whose effective (rms) value is 10.	≈ 14.1 V   (Vmax = Vrms √2)	fe::circuit_analysis track::durable
+Can V1 = 10cos(500t) and V2 = 15cos(100t + 45°) be combined into one sinusoid?	No - they have different frequencies, so they cannot form a single sinusoid	fe::circuit_analysis track::durable
+Frequency of the signal 100 cos(500t + 50°).	≈ 79.5 Hz   (f = ω/2π = 500/2π)	fe::circuit_analysis track::durable
+Average value of a half-wave rectified 15 cos(100t + 50°).	≈ 4.77   (Vmax/π)	fe::circuit_analysis track::durable
+Express v(t) = 212 sin(ωt + 50°) V as an rms phasor (cosine reference).	150 ∠ -40° V   (212/√2; sin→cos shifts -90°)	fe::circuit_analysis track::durable
+# === Chapter 8 - Linear Systems (text-only; transient/2-port figures skipped) ===
+Laplace transform of f(t) = e^(-bt), for b > 0.	1/(s + b)	fe::linear_systems track::durable
+Poles, zeros, and magnitude gain of H(s) = 20 / (s(10s + 1)).	Poles at s = 0 and s = -0.1; no zeros; gain ≈ 26 dB (20 log 20)	fe::linear_systems track::durable
+Poles, zeros, and magnitude gain of H(s) = 10 / (s^2 (5s + 1)).	Double pole at s = 0, pole at s = -0.2; no zeros; gain = 20 dB (20 log 10)	fe::linear_systems track::durable
+# === Chapter 9 - Signal Processing (text-only; convolution graphs skipped) ===
+What transform solves difference equations for discrete-time systems?	The Z transform	fe::signal_processing track::cram
+Z-transform of x[n] = u[n] - u[n-5].	1 + z^-1 + z^-2 + z^-3 + z^-4	fe::signal_processing track::durable
+Z-transform of x[n] = 0.2^n u[n].	1/(1 - 0.2 z^-1)	fe::signal_processing track::durable
+Z-transform of the sequence x[n] = [2, 3, 1, 0, 5].	2 + 3 z^-1 + z^-2 + 5 z^-4	fe::signal_processing track::durable
+Z-transform of x[n] = 5 (0.75^n) u[n].	5/(1 - 0.75 z^-1)	fe::signal_processing track::durable
+Inverse Z-transform of X(z) = z/(z - 0.5).	0.5^n u[n]	fe::signal_processing track::durable
+Minimum sampling frequency for sinc(1000πt) + sinc(2000πt).	2000 Hz   (highest component 1000 Hz; Nyquist = 2×)	fe::signal_processing track::durable
+Sampling cos(3000πt + θ) at 2000 Hz produces what?	Aliasing (fs = 2000 < 2 × 1500 Hz)	fe::signal_processing track::durable
+Aliased frequency of cos(500πt) sampled at 500 Hz.	None - the 250 Hz component sits exactly at the Nyquist limit (fs = 2f)	fe::signal_processing track::durable
+Aliased frequency of cos(400πt + θ) sampled at 300 Hz.	100 Hz   (|200 - 300|)	fe::signal_processing track::durable
+What is required for complete reconstruction of a band-limited signal?	Sampling at or above the Nyquist rate AND an ideal low-pass filter	fe::signal_processing track::cram
+Which type of digital filter is non-recursive?	Finite Impulse Response (FIR)	fe::signal_processing track::cram
+Which type of digital filter is recursive?	Infinite Impulse Response (IIR)	fe::signal_processing track::cram
+Digital filtering does NOT involve which: sampling, A/D, D/A, or phase modulation?	Phase modulation	fe::signal_processing track::cram
+# === Chapter 10 - Electronics (text-only; diode/BJT/MOSFET/op-amp circuits skipped) ===
+Which element is typically used as an n-type dopant: antimony, silicon, germanium, or boron?	Antimony	fe::electronics track::cram
+Which element is typically used as a p-type dopant: antimony, silicon, germanium, or boron?	Boron	fe::electronics track::cram
+Conductivity of a semiconductor with ni = 2e10 /m^3, μn = 0.20, μp = 0.1 m^2/V·s.	≈ 9.6e-10 S/m   (σ = q ni (μn + μp))	fe::electronics track::durable
+Contact potential of a p-n junction: Na = Nd = 2e15 /m^3, ni = 1e10 /m^3, T = 300 K.	≈ 0.634 V   (V0 = (kT/q) ln(Na Nd / ni^2))	fe::electronics track::durable
+Which material class has the largest energy gap between valence and conduction bands?	Insulators	fe::electronics track::cram
+How can the drift velocity of carriers (at constant temperature) be increased?	By increasing the applied potential	fe::electronics track::cram
+Which periodic-table group is used for n-type doping?	Group V	fe::electronics track::cram
+Which periodic-table group is used for p-type doping?	Group III	fe::electronics track::cram
+Which periodic-table group provides typical semiconductor materials?	Group IV	fe::electronics track::cram
+Which is NOT a transducer: microphone, thermocouple, vernier caliper, or photodiode?	Vernier caliper	fe::electronics track::cram
+New resistance of a 200 Ω RTD (α = 0.0039 /°C at 20 °C) placed at 35 °C.	≈ 211 Ω   (R = R0(1 + α ΔT))	fe::electronics track::durable
+Balanced Wheatstone bridge with R1 = 100 Ω, R2 = 1000 Ω, R3 = 500 Ω. Find Rx.	5000 Ω   (Rx = R2 R3 / R1)	fe::electronics track::durable
+Which can be used for resistance measurement: Wheatstone bridge, strain gage, RTD?	All of them	fe::electronics track::cram
+A power-electronics converter that changes DC to DC is called a?	Chopper	fe::electronics track::cram
+A power-electronics converter that changes DC to AC is called a(n)?	Inverter	fe::electronics track::cram
+A power-electronics converter that changes AC to DC is called a?	Rectifier	fe::electronics track::cram
+A power-electronics converter that changes AC to AC is called a?	Cycloconverter	fe::electronics track::cram
+# === Chapter 11 - Power ===
+Real power a generator supplies to a single-phase load 20 + 5j Ω at 120 V through a line 2 + 2j Ω.	≈ 592 W   (I^2 × R_total)	fe::power_systems track::durable
+Line voltages of a balanced 3φ Y system with Van = 120∠30° V.	208∠60° V, 208∠-60° V, 208∠180° V   (VL = √3 Vphase, +30°)	fe::power_systems track::durable
+Phase current Ian for a balanced Y load Zφ = 20 + 5j Ω with Van = 120∠30° V.	≈ 5.8∠16° A	fe::power_systems track::durable
+Line current with Van = 277∠0° V, load Zφ = 5 + 5j Ω, line Z = 1 + 1j Ω (Y-Y).	≈ 33∠-45° A	fe::power_systems track::durable
+Load voltage: Van = 120∠60° V, Zline = 2 + 1j Ω, Zload = 10 + 10j Ω (Y-Y).	≈ 104∠63° V	fe::power_systems track::durable
+Load impedance: Van = 120∠0° V, Ian = 5∠-5° A, Zline = 0.5 + 0.25j Ω (Y-Y).	≈ 23.4∠4.2° Ω	fe::power_systems track::durable
+Line current Ia: Δ source Vab = 208∠30° V feeding a Y load Zphase = 10 + 5j Ω (lossless line).	≈ 10.7∠-26.5° A	fe::power_systems track::durable
+Line current Ia: Y source Van = 120∠0° V feeding a Δ load, per-phase Z = 10 + 2j Ω.	≈ 35.3∠-11.3° A	fe::power_systems track::durable
+Equivalent wye per-phase impedance of Y (10 + 5j Ω) in parallel with Δ (6 + 9j Ω).	≈ 2.8 Ω	fe::power_systems track::durable
+Equivalent delta per-phase impedance for the parallel load above.	≈ 8.4 Ω   (Z_Δ = 3 Z_Y)	fe::power_systems track::durable
+Power generated by source: Van = 120∠0° V, load 20∠0° Ω, Zline = 0 (3φ Y-Y).	≈ 2160 W (3φ total)	fe::power_systems track::durable
+Load voltage: 200 kW at 0.83 pf lagging on a 1φ line carrying 400 A.	≈ 600 V   (V = P/(I·pf))	fe::power_systems track::durable
+Losses of a 1φ line delivering 200 A to a 100 kW, 600 V, 0.85 pf load.	≈ 2 kW	fe::power_systems track::durable
+Phase voltage at a hospital: 125 kW via a lossless 3φ Y line at 300 A, 0.694 pf.	≈ 200 V   (Vphase = P/(3·IL·pf))	fe::power_systems track::durable
+Voltage regulation of a 2.5 MVA 13.8 kV/600 V transformer with no-load secondary 650 V.	≈ 8.3%   ((650 - 600)/600)	fe::power_systems track::durable
+Voltage regulation of an ideal transformer.	0	fe::power_systems track::cram
+Voltage regulation at 0.85 lagging: 10 kVA 4000/400 V transformer, Zeq = 1 + 0.5j Ω.	≈ 7%	fe::power_systems track::durable
+No-load voltage of a 5 MVA 12000/240 V transformer with 5% regulation.	≈ 252 V   (240 × 1.05)	fe::power_systems track::durable
+A leading power factor produces what kind of voltage regulation?	Negative (< 0)	fe::power_systems track::cram
+Primary voltage of a 50:1 transformer with 1 A through a 12 Ω secondary load.	600 V   (Vsec = 12 V, ×50)	fe::power_systems track::durable
+Rated secondary current of a 15 kVA 600 V/120 V single-phase transformer.	125 A   (15000/120)	fe::power_systems track::durable
+Primary current of a 5 kVA 10:1 transformer with 120 V rated secondary.	≈ 4.16 A   (Vprim = 1200 V, 5000/1200)	fe::power_systems track::durable
+Number of poles in a 3φ motor with 1800 rpm synchronous speed at 60 Hz.	4   (Ns = 120 f / P)	fe::power_systems track::durable
+Synchronous speed of a 2-pole 3φ motor at 60 Hz.	3600 rpm	fe::power_systems track::durable
+Change in synchronous speed retrofitting 50 Hz 4-pole to 60 Hz 2-pole.	2100 rpm   (1500 → 3600)	fe::power_systems track::durable
+Slip of a 2-pole 60 Hz induction motor running at 3400 rpm.	≈ 5.5%   (Ns = 3600)	fe::power_systems track::durable
+Rotational speed of a 60 Hz, 4-pole induction motor at full-load slip 0.1.	1620 rpm   (Ns = 1800, N = Ns(1 - s))	fe::power_systems track::durable
+Capacitor bank to raise 200 kW from 0.75 to 0.9 pf lagging (60 Hz, 600 V).	≈ 586 μF	fe::power_systems track::durable
+Reactive power to bring a 100 kW, 0.6 pf load to unity (480 V, 60 Hz).	≈ 133 kVAR	fe::power_systems track::durable
+Power factor after adding a 750 μF bank (400 V, 60 Hz) to a 75 kW, 0.80 pf load.	≈ 0.98	fe::power_systems track::durable
+Overall power factor of 75 kVA at 0.85 and 35 kVA at 0.75 (both lagging).	≈ 0.82	fe::power_systems track::durable
+Per-phase Y capacitance to raise a 375 kW, 0.85 pf 3φ load (Van = 120 V, 60 Hz) to 0.95.	≈ 7 mF	fe::power_systems track::durable
+# === Chapter 12 - Electromagnetics ===
+Divergence of E = 3x i + 2y^2 j + x k.	3 + 4y	fe::electromagnetics track::durable
+Divergence of D = xy i + yz j + xz^2 k.	y + z + 2xz	fe::electromagnetics track::durable
+Net electric flux from a sphere enclosing +1, +3, +1, and -2 nC.	≈ 339 V·m   (Q_enc/ε0 = 3 nC / ε0)	fe::electromagnetics track::durable
+Net flux of a sphere enclosing an inner shell (r = 1 cm, +3 μC/m^2) and outer shell (r = 3 cm, -5 μC/m^2).	≈ -5963 V·m	fe::electromagnetics track::durable
+Find 'a' so that B = 3a x i + 2y j - 2z k is a valid magnetic field.	a = 0   (∇·B must be 0)	fe::electromagnetics track::durable
+Which can be a magnetic field: A = 2x^2 i + y j + 3z^2 k or B = 2y^2 i + 3x j - 2xy k?	B   (its divergence is 0)	fe::electromagnetics track::durable
+Given induced E = 2yz i + 3x^2y j + x^2y^2 k, find ∂B/∂t (= -∇×E).	-2x^2y i - (2y - 2xy^2) j - (6xy - 2z) k	fe::electromagnetics track::durable
+Curl of the E field induced by B = -cos^2(3t) k.	-6 cos(3t) sin(3t) k	fe::electromagnetics track::durable
+Voltage induced in a 20-turn coil as flux goes 0.1 → 1.5 Wb in 2 s.	-14 V   (V = -N dΦ/dt)	fe::electromagnetics track::durable
+Induced voltage: 20 cm coil, 50 turns, 2 cm^2, current 50 → 100 mA in 1 s.	≈ 0.15 μV   (V = L di/dt)	fe::electromagnetics track::durable
+Magnetic flux density inside a torus, radius 2 cm, 50 turns, 1 A.	≈ 500 μT   (B = μ N I / (2πr))	fe::electromagnetics track::durable
+Total current in a wire producing 0.1 T at a radial distance of 20 cm (in air).	≈ 100 kA   (I = B·2πr/μ)	fe::electromagnetics track::durable
+Force on Q1 = 5 nC at (0,1,0) due to Q2 = 10 nC at (0,0,2).	≈ 90e-9 N   (r^2 = 5, F = k Q1 Q2 / r^2)	fe::electromagnetics track::durable
+E field at the origin from Q1 = 50 nC at (0,1,0) and Q2 = -50 nC at (0,-1,0).	≈ 900 V/m (directed along -y)	fe::electromagnetics track::durable
+E field between two infinite parallel plates with charge densities +ρs and -ρs.	ρs / ε	fe::electromagnetics track::durable
+E field midway between two infinite parallel wires (+2 C/m and -1 C/m, 1 m apart).	≈ 1e11 V/m	fe::electromagnetics track::durable
+Force on a 2 A conductor of length 2 m in a 0.5 T field at 30°.	1 N   (F = B I L sinθ)	fe::electromagnetics track::durable
+Energy stored in a 2 A/m magnetic field over a 2 m^3 volume.	≈ 5 μJ   (w = ½ μ H^2 × V)	fe::electromagnetics track::durable
+Reflection coefficient at a 300 + 50j Ω load on a 100 Ω line.	≈ 0.51∠6.9°   (Γ = (ZL - Z0)/(ZL + Z0))	fe::electromagnetics track::durable
+Standing wave ratio for a 50 Ω line with a 500 + 25j Ω load.	≈ 10	fe::electromagnetics track::durable
+Load magnitude giving Γ = 0.5 on a line with L = 100 mH, C = 10 μF per unit length.	300 Ω   (Z0 = √(L/C) = 100 Ω)	fe::electromagnetics track::durable
+Input impedance at 100 m: 200 Ω line, λ = 10 m, purely resistive 500 Ω load.	500 Ω   (100 m = 10λ, so Zin = ZL)	fe::electromagnetics track::durable
+Load on a 250 Ω line if the standing wave ratio is 2.	500 Ω   (ZL = Z0 × SWR)	fe::electromagnetics track::durable
+Which is NOT an electromagnetic coupling path: inductive, conductive, capacitive?	They are all coupling paths	fe::electromagnetics track::cram
+Why is electromagnetic shielding used?	To prevent external electromagnetic interference	fe::electromagnetics track::cram
+What does a system with cross-talk exhibit?	Electromagnetic interference within itself	fe::electromagnetics track::cram
+Name potential sources of EMC problems.	Electric motors, lightning, and arc welding	fe::electromagnetics track::cram
+How can the negative effects of EMI be mitigated?	Increase coupling-path separation, add hardware redundancy, and shield	fe::electromagnetics track::cram
+# === Chapter 13 - Control Systems (text-only; block-diagram/Bode/root-locus figures skipped) ===
+Poles of H(s) = 50(s + 2) / ((s + 100)(s + 1000)).	s = -100 and s = -1000	fe::control_systems track::durable
+Compute the Routh-array entry b1 for 2s^5 + 3s^4 + 2s^3 + 7s^2 + s + 10.	-8/3   ((3·2 - 2·7)/3)	fe::control_systems track::durable
+Range of k for stability of T(s) = k(s+10) / (3s^3 + 5s^2 + (k+10)s + 5k).	0 < k < 5	fe::control_systems track::durable
+State-space form of y'' + 3y' + 2y = 2u(t).	x' = [[0,1],[-2,-3]] x + [[0],[2]] u	fe::control_systems track::durable
+State-space form of 2y'' + 8y' + 10y = 6u(t).	x' = [[0,1],[-5,-4]] x + [[0],[3]] u	fe::control_systems track::durable
+State-space form of 3y''' + 6y'' + 12y' + 3y = 9u(t).	x' = [[0,1,0],[0,0,1],[-1,-4,-2]] x + [[0],[0],[3]] u	fe::control_systems track::durable
+Transfer function from the state model x' = Ax + Bu, y = Cx + Du.	T(s) = C(sI - A)^-1 B + D	fe::control_systems track::cram
+Discrete state-space form of y[n+2] + 3y[n+1] + 3y[n] = 2u[n].	x[n+1] = [[0,1],[-3,-3]] x[n] + [[0],[2]] u[n]	fe::control_systems track::durable
+# === Chapter 14 - Communications ===
+Transmitted power of a 1000 W carrier modulated at 80% (AM).	1320 W   (Pt = Pc(1 + m^2/2))	fe::communications track::durable
+Modulation index if a 4.75 kW carrier produces 5 kW total AM power.	≈ 32%   (5 = 4.75(1 + m^2/2))	fe::communications track::durable
+A Costas loop detects which modulation type?	Double-sideband AM (DSB)	fe::communications track::cram
+Modulation index of 5·sin2π(1000t) on a carrier 50·sin2π(4000t).	10%   (5/50)	fe::communications track::durable
+Efficiency of an AM wave with m = 0.8 and normalized average power 0.6.	≈ 27%	fe::communications track::durable
+98% power bandwidth of an FM signal, deviation ratio 1.25, message BW 10 kHz.	45 kHz   (Carson: 2(β + 1)fm)	fe::communications track::durable
+Angle-modulated signals are demodulated using what?	A phase-locked loop (PLL)	fe::communications track::cram
+98% power bandwidth of an FM signal, deviation ratio 0.1, message BW 10 kHz.	≈ 20 kHz (narrowband, ≈ 2 fm)	fe::communications track::durable
+How many quantization levels does a 7-bit word represent?	128   (2^7)	fe::communications track::durable
+Minimum bandwidth to transmit PCM of a signal band-limited to 100 Hz using 256 levels.	1600 Hz   (8 bits × 200 samples/s)	fe::communications track::durable
+Minimum clock (sampling) frequency for a PAM system on a 15 kHz signal.	30 kHz   (2 × 15 kHz)	fe::communications track::durable
+Time spacing between adjacent PAM samples for that 15 kHz signal.	≈ 33.3 μs   (1/30 kHz)	fe::communications track::durable
+Which is NOT part of the PCM process: quantization, encoding, sampling, or filtering?	Filtering	fe::communications track::cram
+Fourier transform of x(t) = cos(2π·300·t)·Π(t/6).	3 sinc(6(f - 300)) + 3 sinc(6(f + 300))	fe::communications track::durable
+Which multiplexing method is digital: TDM, FDM, or WDM?	Time-division multiplexing (TDM)	fe::communications track::cram
+Minimum link bandwidth to FDM three channels (50, 100, 50 kHz) with 5 kHz guard bands.	210 kHz   (200 + 2 × 5)	fe::communications track::durable
+Frame size for 5 TDM channels at 1 byte per channel.	5 bytes	fe::communications track::durable
+Bit rate for 5 TDM channels each sending 10 bytes/s (1 byte/channel/frame).	400 bps   (5 × 10 bytes/s × 8)	fe::communications track::durable
+Frame duration of a TDM multiplexer with three 50 kbps channels using 1-bit slots.	20 μs   (3 bits at 150 kbps)	fe::communications track::durable
+# === Chapter 15 - Computer Networks ===
+What is the process of finding efficient paths between nodes based on address called?	Routing	fe::computer_networks track::cram
+Which tables does a router maintain?	Routing table and forwarding table	fe::computer_networks track::cram
+In which OSI layer does routing take place?	The Network layer	fe::computer_networks track::cram
+Which device connects two or more networks to transfer data packets?	A router	fe::computer_networks track::cram
+Which device creates a network and lets devices within it communicate?	A switch	fe::computer_networks track::cram
+In which OSI layer does a network switch generally operate?	The Data Link layer	fe::computer_networks track::cram
+Which is NOT a common network topology: bus, ring, or star?	They are all common topologies	fe::computer_networks track::cram
+Which network topology has a higher security risk: bus, ring, star, or wireless?	Wireless	fe::computer_networks track::cram
+In which OSI layer do HTTP and email run?	The Application layer	fe::computer_networks track::cram
+In which OSI layer does language translation for applications occur?	The Presentation layer	fe::computer_networks track::cram
+The session layer is NOT responsible for which: modulation, relating two end users, identifying users?	Modulation/demodulation	fe::computer_networks track::cram
+Breaking a single connection can disrupt the whole network in which topology?	Ring	fe::computer_networks track::cram
+A LAN can be implemented with which topologies?	Ring, star, and bus	fe::computer_networks track::cram
+Name commonly used LAN technologies.	Ethernet, wireless, and ATM	fe::computer_networks track::cram
+Ethernet is an example of which topology?	Bus topology	fe::computer_networks track::cram
+An ATM LAN is an example of which topology?	Star topology	fe::computer_networks track::cram
+Which serves the largest geographical region: LAN, WAN, MAN, or PAN?	WAN	fe::computer_networks track::cram
+# === Chapter 16 - Digital Systems (text-only; logic-circuit/K-map/flip-flop figures skipped) ===
+Convert hex 8AD to binary.	1000 1010 1101	fe::digital_systems track::durable
+Convert decimal 963 to binary.	1111000011	fe::digital_systems track::durable
+1's-complement sum of 0010 and 0011.	0101	fe::digital_systems track::durable
+1's-complement sum of 1101 and 1011.	1001   (end-around carry)	fe::digital_systems track::durable
+2's-complement sum of 1011 and 0101.	0000   (carry dropped)	fe::digital_systems track::durable
+2's-complement sum of 1110 and 0101.	0011   (carry dropped)	fe::digital_systems track::durable
+Simplify AB + B(A + C) + C(A + B).	AB + BC + AC	fe::digital_systems track::durable
+Convert (A + B)(A + B + C) to sum-of-products form.	A + B	fe::digital_systems track::durable
+# === Chapter 17 - Computer Systems ===
+Which is NOT an addressing mode: register, immediate, or indirect?	They are all addressing modes	fe::computer_systems track::cram
+What converts a high-level language into machine language?	A compiler	fe::computer_systems track::cram
+Which CPU section performs mathematical calculations?	The ALU (Arithmetic Logic Unit)	fe::computer_systems track::cram
+Batch data processing is useful for which kind of application?	Quarterly bank statements	fe::computer_systems track::cram
+Real-time data processing is useful for which kind of application?	Weather monitoring	fe::computer_systems track::cram
+During normal start-up, BIOS is read from what?	ROM	fe::computer_systems track::cram
+What is transforming data into a different format for another system called?	Encoding	fe::computer_systems track::cram
+What is transforming data for secrecy called?	Encryption	fe::computer_systems track::cram
+Instruction pipelining results in what?	Increased instruction throughput	fe::computer_systems track::cram
+What is the control unit of a computer responsible for?	Interpreting program instructions	fe::computer_systems track::cram
+Which register stores the address of the last requested program in a buffer?	The stack pointer	fe::computer_systems track::cram
+Which register stores the address of the current or next instruction?	The program counter	fe::computer_systems track::cram
+A single IC that executes coded instructions and controls associated circuitry is a?	Microprocessor	fe::computer_systems track::cram
+An interconnected group of ICs, I/Os, and memory used for data processing is a?	Microcomputer	fe::computer_systems track::cram
+A single IC integrating processor, I/O, and memory is a?	Microcontroller	fe::computer_systems track::cram
+Which bus transfers information between the microprocessor and I/O units?	The data bus	fe::computer_systems track::cram
+Which bus selects a location for reading/writing?	The address bus	fe::computer_systems track::cram
+Which storage device uses random access: cassette tape, CD, hard disk, or flash memory?	Flash memory	fe::computer_systems track::cram
+How many bits are in a gigabyte?	8 × 2^30 bits	fe::computer_systems track::cram
+What memory acts as a buffer between CPU and main memory to speed up processing?	Cache memory	fe::computer_systems track::cram
+Which is secondary memory: cache, RAM, DVD, or DRAM?	DVD	fe::computer_systems track::cram
+Which ROM can be programmed only once and is non-erasable?	PROM	fe::computer_systems track::cram
+What is the difference between EPROM and EEPROM?	EEPROM is erased electrically; EPROM is erased only by ultraviolet light	fe::computer_systems track::cram
+Which memory unit varies in size between computer systems: nibble, word, bit, or byte?	Word	fe::computer_systems track::cram
+# === Chapter 18 - Software Development ===
+Trace x=0, y=0, z=10; do-while(z>0){ y=y+1; x=2y-1; z=z-3 }. Final value of x?	7	fe::software_development track::durable
+For that same loop, what is the final value of z?	-2	fe::software_development track::durable
+Spreadsheet: A4 = B1 × C2, with B1 = 5 and C2 = B$1 = 5. Value of A4?	25	fe::software_development track::durable
+Spreadsheet: B4 = A4 + C4, with A4 = 25 and C4 = A4 × 4 = 100. Value of B4?	125	fe::software_development track::durable
+Arrays, lists, stacks, and trees are examples of what?	Data structures	fe::software_development track::cram
+The performance of a searching algorithm is measured by what?	Worst-case time	fe::software_development track::cram
+A binary tree in which every leaf is the same distance from the root is called?	A complete binary tree	fe::software_development track::cram
+Efficiency of binary search as a function of n comparisons?	log2(n)	fe::software_development track::cram
+Name examples of sorting algorithms.	Bubble, quick, and heap sort	fe::software_development track::cram
+Which sorting algorithm has the best worst-case time: bubble, insertion, or heap?	Heap sort (n·log2 n)	fe::software_development track::cram
+Which is a static data structure: lists, stacks, arrays, or trees?	Arrays	fe::software_development track::cram
+Which is NOT a phase of the Software Development Lifecycle: testing, implementation, deployment, or marketing?	Marketing	fe::software_development track::cram
+A design that tends to break in unrelated places when changed is called?	Fragile	fe::software_development track::cram
+A good software design displays what quality?	It can be extended without modifying the original design	fe::software_development track::cram
+Static software testing verifies through what?	Program code review	fe::software_development track::cram
+Dynamic software testing verifies through what?	Program code execution	fe::software_development track::cram
+The "top-down" approach is most applicable to which programming style?	Structured programming	fe::software_development track::cram
+The concept of a "class" is most applicable to which programming style?	Object-oriented programming	fe::software_development track::cram
+Which is NOT a structured-programming language: FORTRAN, BASIC, COBOL, or C#?	C# (it is object-oriented)	fe::software_development track::cram
+Which of PHP, JavaScript, and Python is not a scripting language?	They are all scripting languages	fe::software_development track::cram
