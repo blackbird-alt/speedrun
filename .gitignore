@@ -24,3 +24,8 @@ ts/.svelte-kit
 docs/_build/
 docs/autoapi/
 .complexipy_cache
+
+# Local secrets (OpenAI key for FE AI features) — never commit, never ship.
+.env
+*.env
+!feprep/**/*.env.example

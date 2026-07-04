@@ -419,7 +419,19 @@ html,body{background:#0b1220!important;}
         self.mw.web.setFocus()
         # user hook
         gui_hooks.reviewer_did_show_question(c)
+        self._fe_ai_refresh_helper()
         self._auto_advance_to_answer_if_enabled()
+
+    def _fe_ai_refresh_helper(self) -> None:
+        """Keep the AI helper panel (if open) pointed at the current card. A
+        no-op when the panel is closed. Never disrupts review."""
+        try:
+            from aqt.fe_ai_helper import update_context
+
+            front, back, source = self._fe_ai_card_content()
+            update_context(front, back, source)
+        except Exception:
+            pass
 
     def _auto_advance_to_answer_if_enabled(self) -> None:
         self._clear_auto_advance_timers()
@@ -697,6 +709,16 @@ html,body{background:#0b1220!important;}
             self.mw.onEditCurrent()
         elif url == "more":
             self.showContextMenu()
+        elif url == "fecalc":
+            from aqt.fe_calculator import show_fe_calculator
+
+            show_fe_calculator(self.mw)
+        elif url == "fehandbook":
+            from aqt.fe_handbook import show_fe_handbook
+
+            show_fe_handbook(self.mw)
+        elif url == "feai":
+            self._open_fe_ai_helper()
         elif url.startswith("play:"):
             play_clicked_audio(url, self.card)
         elif url.startswith("updateToolbar"):
@@ -834,6 +856,14 @@ html,body{background:#0b1220!important;}
 <style>
 html,body,#outer{background:#0b1220!important;}
 #innertable,#middle,#header,table,td{background:transparent!important;border:none!important;}
+/* Speedrun fork: flex bottom bar so the Show Answer / grade buttons stay
+   centered on the page no matter how many buttons sit on either side. The two
+   sides take equal width (flex:1 1 0), so the middle is always page-centered. */
+#outer{display:flex!important;align-items:flex-start;width:100%!important;gap:8px;padding:2px 10px;}
+.fe-bb-side{flex:1 1 0;display:flex;gap:6px;align-items:flex-start;min-width:0;flex-wrap:wrap;}
+.fe-bb-left{justify-content:flex-start;}
+.fe-bb-right{justify-content:flex-end;}
+#middle{flex:0 0 auto;display:flex;justify-content:center;align-items:flex-start;}
 button{
   background:#141f36!important;color:#d3ddf0!important;
   border:1px solid #26344f!important;border-radius:9px!important;
@@ -859,22 +889,20 @@ button#defease{border-color:#E0A45C!important;}
 
     def _bottomHTML(self) -> str:
         return self._FE_REVIEW_BOTTOM_STYLE + """
-<center id=outer>
-<table id=innertable width=100%% cellspacing=0 cellpadding=0>
-<tr>
-<td align=start valign=top class=stat>
-<button title="%(editkey)s" onclick="pycmd('edit');">%(edit)s</button></td>
-<td align=center valign=top id=middle>
-</td>
-<td align=end valign=top class=stat>
+<div id=outer>
+<div class="fe-bb-side fe-bb-left">
+<button title="%(editkey)s" onclick="pycmd('edit');">%(edit)s</button>
+<button title="FE Calculator (Ctrl+Shift+C)" onclick="pycmd('fecalc');">Calculator</button>
+<button title="FE Reference Handbook (Ctrl+Shift+H)" onclick="pycmd('fehandbook');">Handbook</button>%(aibtn)s
+</div>
+<div id=middle></div>
+<div class="fe-bb-side fe-bb-right">
 <button title="%(morekey)s" onclick="pycmd('more');">
 %(more)s %(downArrow)s
 <span id=time class=stattxt></span>
 </button>
-</td>
-</tr>
-</table>
-</center>
+</div>
+</div>
 <script>
 time = %(time)d;
 timerStopped = false;
@@ -886,7 +914,64 @@ timerStopped = false;
             morekey=tr.actions_shortcut_key(val="M"),
             downArrow=downArrow(),
             time=self.card.time_taken() // 1000,
+            aibtn=self._fe_ai_bottom_button(),
         )
+
+    def _fe_ai_bottom_button(self) -> str:
+        """The AI helper button for the reviewer bottom bar.
+
+        Returns an empty string (so the affordance simply does not exist) when
+        no OpenAI key is configured. This is the graceful-degradation gate: with
+        the AI unavailable, there is nothing to click and nothing can fail.
+        """
+        try:
+            from aqt import fe_ai
+
+            if not fe_ai.ai_available():
+                return ""
+        except Exception:
+            return ""
+        # Rendered hidden: the AI helper is only usable once the answer is
+        # shown. _showEaseButtons() reveals this span when Show Answer runs; the
+        # next question re-renders _bottomHTML, so it starts hidden again.
+        return (
+            '\n<span id="fe-ai-btn" style="display:none">'
+            '<button title="Ask the AI to solve or explain this card" '
+            "onclick=\"pycmd('feai');\">AI Helper</button></span>"
+        )
+
+    def _open_fe_ai_helper(self) -> None:
+        """Open the per-card AI helper panel for the current card. Fully
+        defensive: any problem here must never disrupt the review."""
+        try:
+            from aqt import fe_ai
+            from aqt.fe_ai_helper import show_fe_ai_helper
+
+            if not fe_ai.ai_available() or self.card is None:
+                return
+            # Belt-and-suspenders: the helper is answer-side only. Ignore the
+            # link while the reviewer is still showing the question.
+            if self.state != "answer":
+                return
+            front, back, source = self._fe_ai_card_content()
+            show_fe_ai_helper(self.mw, front=front, back=back, source=source)
+        except Exception:
+            pass
+
+    def _fe_ai_card_content(self) -> tuple[str, str, str]:
+        """Extract (front, back, source) for the current card for the tutor.
+
+        Uses the note's raw fields (front/back) rather than rendered HTML so the
+        AI sees the actual card text. The back field doubles as the grounding
+        source. Never raises."""
+        try:
+            note = self.card.note()
+            fields = note.fields
+            front = fields[0] if len(fields) > 0 else ""
+            back = fields[1] if len(fields) > 1 else ""
+            return front, back, back
+        except Exception:
+            return "", "", ""
 
     def _showAnswerButton(self) -> None:
         middle = """
@@ -914,6 +999,10 @@ timerStopped = false;
         conf = self.mw.col.decks.config_dict_for_deck_id(self.card.current_deck_id())
         self.bottom.web.eval(
             f"showAnswer({json.dumps(middle)}, {json.dumps(conf['stopTimerOnAnswer'])});"
+        )
+        # Reveal the (hidden-by-default) AI helper button now the answer is up.
+        self.bottom.web.eval(
+            "var b=document.getElementById('fe-ai-btn'); if(b){b.style.display='';}"
         )
 
     def _remaining(self) -> str:

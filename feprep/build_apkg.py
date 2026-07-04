@@ -34,7 +34,11 @@ from anki.collection import Collection, ExportAnkiPackageOptions
 HERE = Path(__file__).resolve().parent
 DECKS_DIR = HERE / "decks"
 MEDIA_DIR = DECKS_DIR / "media"
-DEFAULT_SOURCES = [DECKS_DIR / "fe-bank.txt"]
+DEFAULT_SOURCES = [
+    DECKS_DIR / "fe-problems.txt",
+    DECKS_DIR / "fe-figures.txt",
+    DECKS_DIR / "fe-seed-deck.txt",
+]
 DEFAULT_DECK_NAME = "FE Electrical and Computer"
 DEFAULT_ACCENT = "#2F6BFF"
 
@@ -101,6 +105,9 @@ BACK_TEMPLATE = """\
   <div class="fe-q">{{Front}}</div>
   <div class="fe-trace"></div>
   <div class="fe-a"><span class="fe-a-label">Answer</span>{{Back}}</div>
+  {{#Explanation}}
+  <div class="fe-x"><span class="fe-x-label">Worked solution &middot; AI</span><div class="fe-x-body">{{Explanation}}</div></div>
+  {{/Explanation}}
 </div>
 """
 
@@ -193,6 +200,19 @@ CARD_CSS = """\
 }
 @keyframes fe-rise{ from{opacity:0; transform:translateY(7px)} to{opacity:1; transform:none} }
 @keyframes fe-trace{ from{opacity:0; transform:scaleX(.4)} to{opacity:.85; transform:none} }
+.fe-x{
+  margin-top:18px; border:1px dashed color-mix(in srgb,var(--chip) 40%,transparent);
+  border-radius:11px; padding:14px 16px; background:color-mix(in srgb,var(--chip) 7%,transparent);
+}
+.fe-x-label{
+  display:block; font:600 10px/1 var(--sans); letter-spacing:.16em;
+  text-transform:uppercase; color:var(--muted); margin-bottom:9px;
+}
+.fe-x-body{ font:400 clamp(.98rem,.9rem+.5vw,1.12rem)/1.5 var(--sans); color:var(--text); }
+/* fe-math-overflow: keep long MathJax/math inside the card (scale + scroll, never clip off-screen) */
+.fe-q, .fe-a, .fe-x-body{ max-width:100%; overflow-x:auto; overflow-y:hidden; overflow-wrap:anywhere; }
+mjx-container{ max-width:100%; }
+mjx-container[display="true"]{ overflow-x:auto; overflow-y:hidden; padding-bottom:2px; }
 """
 
 # Matches <img src="foo.png"> / <img src='foo.png'> and the [img:foo.png] shorthand.
@@ -259,7 +279,7 @@ def parse_source(path: Path) -> tuple[str, list[tuple[str, str, list[str]]]]:
 def build_fe_model(col: Collection):
     mm = col.models
     model = mm.new(MODEL_NAME)
-    for field in ("Front", "Back", "Topic", "Accent"):
+    for field in ("Front", "Back", "Topic", "Accent", "Explanation"):
         mm.add_field(model, mm.new_field(field))
     template = mm.new_template("Card 1")
     template["qfmt"] = FRONT_TEMPLATE
@@ -279,10 +299,11 @@ def build(
     """Build the .apkg.
 
     Deck placement, in order of precedence:
-    - `tracks`: nest each area under a Durable/Cram group, i.e.
-      `FE Electrical and Computer::Durable::<Area>` or `::Cram::<Area>`, using
-      the desktop's default track assignment (DURABLE_AREAS). Implies sections.
-    - `sections`: per-knowledge-area subdeck `FE Electrical and Computer::<Area>`.
+    - `tracks` or `sections`: one monolithic subdeck per NCEES area,
+      `FE Electrical and Computer::<Area>`. Durable vs. cram is a per-area policy
+      applied at runtime by the desktop dashboard (qt/aqt/deckbrowser.py): a whole
+      section is studied durable or cram (no per-card split), so it is not baked
+      into the deck tree.
     - otherwise: the deck named by each source's `#deck:` header (Bank/Seed/...).
     """
     total_cards = 0
@@ -296,10 +317,9 @@ def build(
             model = build_fe_model(col)
 
             def deck_for(topic_name: str, source_deck: str) -> int:
-                if tracks:
-                    group = "Durable" if topic_name in DURABLE_AREAS else "Cram"
-                    name = f"{DEFAULT_DECK_NAME}::{group}::{topic_name}"
-                elif sections:
+                if tracks or sections:
+                    # One monolithic subdeck per area; durable vs. cram is a
+                    # runtime per-area policy (deckbrowser.py), not a split.
                     name = f"{DEFAULT_DECK_NAME}::{topic_name}"
                 else:
                     name = source_deck

@@ -420,9 +420,55 @@ impl crate::services::SchedulerService for Collection {
             topics_covered: score.topics_covered,
             last_updated: score.last_updated,
             main_reason: score.main_reason,
+            next_action: score.next_action,
             withheld_reason: score.withheld_reason,
             min_reviews_required: score.min_reviews_required,
             min_topics_required: score.min_topics_required,
+        })
+    }
+
+    fn performance_score(
+        &mut self,
+        input: scheduler::PerformanceScoreRequest,
+    ) -> Result<scheduler::PerformanceScoreResponse> {
+        let score = self.compute_fe_performance_score(&input.search)?;
+        Ok(scheduler::PerformanceScoreResponse {
+            shown: score.shown,
+            point_estimate: score.point_estimate,
+            range_low: score.range_low,
+            range_high: score.range_high,
+            coverage: score.coverage,
+            graded_reviews: score.graded_reviews,
+            topics_covered: score.topics_covered,
+            last_updated: score.last_updated,
+            main_reason: score.main_reason,
+            next_action: score.next_action,
+            withheld_reason: score.withheld_reason,
+            min_reviews_required: score.min_reviews_required,
+            min_topics_required: score.min_topics_required,
+        })
+    }
+
+    fn readiness_score(
+        &mut self,
+        input: scheduler::ReadinessScoreRequest,
+    ) -> Result<scheduler::ReadinessScoreResponse> {
+        let score = self.compute_fe_readiness_score(&input.search)?;
+        Ok(scheduler::ReadinessScoreResponse {
+            shown: score.shown,
+            pass_probability: score.pass_probability,
+            range_low: score.range_low,
+            range_high: score.range_high,
+            coverage: score.coverage,
+            areas_covered: score.areas_covered,
+            areas_total: score.areas_total,
+            graded_reviews: score.graded_reviews,
+            last_updated: score.last_updated,
+            main_reason: score.main_reason,
+            next_action: score.next_action,
+            withheld_reason: score.withheld_reason,
+            min_reviews_required: score.min_reviews_required,
+            min_coverage_required: score.min_coverage_required,
         })
     }
 }

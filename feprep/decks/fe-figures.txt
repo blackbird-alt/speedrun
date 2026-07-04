@@ -7,41 +7,41 @@
 # back = verified answer. BUILD-ONLY: package with build_apkg.py so the
 # [img:...] refs expand and decks/media/ files are bundled.
 # === Chapter 7 - Circuit Analysis (figures) ===
-[img:fe_fig_7_1a.png]	-14.6 V	fe::circuit_analysis track::durable
-[img:fe_fig_7_1b.png]	6 mA	fe::circuit_analysis track::durable
-[img:fe_fig_7_1c.png]	1.87 V	fe::circuit_analysis track::durable
-[img:fe_fig_7_1d.png]	1.7 A	fe::circuit_analysis track::durable
-[img:fe_fig_7_1e.png]	3.1 mA	fe::circuit_analysis track::durable
-[img:fe_fig_7_1f.png]	875 uA	fe::circuit_analysis track::durable
-[img:fe_fig_7_2a.png]	3.4 kΩ	fe::circuit_analysis track::durable
-[img:fe_fig_7_2b.png]	2 kΩ	fe::circuit_analysis track::durable
-[img:fe_fig_7_2c.png]	3.5 kΩ	fe::circuit_analysis track::durable
-[img:fe_fig_7_2d.png]	0.825 kΩ	fe::circuit_analysis track::durable
-[img:fe_fig_7_2e.png]	6 kΩ	fe::circuit_analysis track::durable
-[img:fe_fig_7_3a.png]	5 V	fe::circuit_analysis track::durable
-[img:fe_fig_7_3c.png]	1.25 kΩ	fe::circuit_analysis track::durable
-[img:fe_fig_7_3d.png]	7.5 mA	fe::circuit_analysis track::durable
-[img:fe_fig_7_4e.png]	1 A	fe::circuit_analysis track::durable
-[img:fe_fig_7_5a.png]	1.8∠-120° A	fe::circuit_analysis track::durable
-[img:fe_fig_7_5c.png]	0.14∠11.3° A	fe::circuit_analysis track::durable
-[img:fe_fig_7_5d.png]	2665∠100° A	fe::circuit_analysis track::durable
-[img:fe_fig_7_6a.png]	12 - j Ω	fe::circuit_analysis track::durable
-[img:fe_fig_7_6b.png]	2 - 3j Ω	fe::circuit_analysis track::durable
-[img:fe_fig_7_6c.png]	50 - j26525 Ω	fe::circuit_analysis track::durable
-[img:fe_fig_7_6d.png]	(10 + j0.5 Ω) ∥ (-j100 Ω)	fe::circuit_analysis track::durable
+[img:fe_fig_7_1a.png]	\(-14.6\ \text{V}\)	fe::circuit_analysis track::durable
+[img:fe_fig_7_1b.png]	\(6\ \text{mA}\)	fe::circuit_analysis track::durable
+[img:fe_fig_7_1c.png]	\(1.87\ \text{V}\)	fe::circuit_analysis track::durable
+[img:fe_fig_7_1d.png]	\(1.7\ \text{A}\)	fe::circuit_analysis track::durable
+[img:fe_fig_7_1e.png]	\(3.1\ \text{mA}\)	fe::circuit_analysis track::durable
+[img:fe_fig_7_1f.png]	\(875\ \text{uA}\)	fe::circuit_analysis track::durable
+[img:fe_fig_7_2a.png]	\(3.4\ \text{k}\Omega\)	fe::circuit_analysis track::durable
+[img:fe_fig_7_2b.png]	\(2\ \text{k}\Omega\)	fe::circuit_analysis track::durable
+[img:fe_fig_7_2c.png]	\(3.5\ \text{k}\Omega\)	fe::circuit_analysis track::durable
+[img:fe_fig_7_2d.png]	\(0.825\ \text{k}\Omega\)	fe::circuit_analysis track::durable
+[img:fe_fig_7_2e.png]	\(6\ \text{k}\Omega\)	fe::circuit_analysis track::durable
+[img:fe_fig_7_3a.png]	\(5\ \text{V}\)	fe::circuit_analysis track::durable
+[img:fe_fig_7_3c.png]	\(1.25\ \text{k}\Omega\)	fe::circuit_analysis track::durable
+[img:fe_fig_7_3d.png]	\(7.5\ \text{mA}\)	fe::circuit_analysis track::durable
+[img:fe_fig_7_4e.png]	\(1\ \text{A}\)	fe::circuit_analysis track::durable
+[img:fe_fig_7_5a.png]	\(1.8\angle -120^{\circ}\ \text{A}\)	fe::circuit_analysis track::durable
+[img:fe_fig_7_5c.png]	\(0.14\angle 11.3^{\circ}\ \text{A}\)	fe::circuit_analysis track::durable
+[img:fe_fig_7_5d.png]	\(2665\angle 100^{\circ}\ \text{A}\)	fe::circuit_analysis track::durable
+[img:fe_fig_7_6a.png]	\(12 - j\ \Omega\)	fe::circuit_analysis track::durable
+[img:fe_fig_7_6b.png]	\(2 - 3j\ \Omega\)	fe::circuit_analysis track::durable
+[img:fe_fig_7_6c.png]	\(50 - j26525\ \Omega\)	fe::circuit_analysis track::durable
+[img:fe_fig_7_6d.png]	\((10 + j0.5\ \Omega) \parallel (-j100\ \Omega)\)	fe::circuit_analysis track::durable
 # === Chapter 8 - Linear Systems (figures) ===
-[img:fe_fig_8_1a.png]	1 V	fe::linear_systems track::durable
-[img:fe_fig_8_1b.png]	10·e^(-t/2) V	fe::linear_systems track::durable
-[img:fe_fig_8_1c.png]	0.01(1 - e^(-500000t)) A	fe::linear_systems track::durable
-[img:fe_fig_8_1d.png]	22.6 μA	fe::linear_systems track::durable
-[img:fe_fig_8_1e.png]	67 mV	fe::linear_systems track::durable
-[img:fe_fig_8_2a.png]	2236 rad/s	fe::linear_systems track::durable
-[img:fe_fig_8_2c.png]	12 A	fe::linear_systems track::durable
-[img:fe_fig_8_5a.png]	z11 = z22 = 4 Ω; z12 = z21 = 2 Ω	fe::linear_systems track::durable
-[img:fe_fig_8_5b.png]	y11 = y22 = 1/5 S; y12 = y21 = -1/10 S	fe::linear_systems track::durable
-[img:fe_fig_8_5c.png]	y11 = y22 = 1/3 S; y12 = y21 = -1/6 S	fe::linear_systems track::durable
-[img:fe_fig_8_5d.png]	z11 = 11.11 Ω	fe::linear_systems track::durable
-[img:fe_fig_8_5e.png]	h12 = 0.66	fe::linear_systems track::durable
+[img:fe_fig_8_1a.png]	\(1\ \text{V}\)	fe::linear_systems track::durable
+[img:fe_fig_8_1b.png]	\(10\cdot e^{-t/2}\ \text{V}\)	fe::linear_systems track::durable
+[img:fe_fig_8_1c.png]	\(0.01(1 - e^{-500000t})\ \text{A}\)	fe::linear_systems track::durable
+[img:fe_fig_8_1d.png]	\(22.6\ \mu\text{A}\)	fe::linear_systems track::durable
+[img:fe_fig_8_1e.png]	\(67\ \text{mV}\)	fe::linear_systems track::durable
+[img:fe_fig_8_2a.png]	\(2236\ \text{rad/s}\)	fe::linear_systems track::durable
+[img:fe_fig_8_2c.png]	\(12\ \text{A}\)	fe::linear_systems track::durable
+[img:fe_fig_8_5a.png]	\(z_{11} = z_{22} = 4\ \Omega;\ z_{12} = z_{21} = 2\ \Omega\)	fe::linear_systems track::durable
+[img:fe_fig_8_5b.png]	\(y_{11} = y_{22} = 1/5\ \text{S};\ y_{12} = y_{21} = -1/10\ \text{S}\)	fe::linear_systems track::durable
+[img:fe_fig_8_5c.png]	\(y_{11} = y_{22} = 1/3\ \text{S};\ y_{12} = y_{21} = -1/6\ \text{S}\)	fe::linear_systems track::durable
+[img:fe_fig_8_5d.png]	\(z_{11} = 11.11\ \Omega\)	fe::linear_systems track::durable
+[img:fe_fig_8_5e.png]	\(h_{12} = 0.66\)	fe::linear_systems track::durable
 # === Chapter 9 - Signal Processing (figures) ===
 [img:fe_fig_9_1a.png]	Option C	fe::signal_processing track::durable
 [img:fe_fig_9_1b.png]	Option A	fe::signal_processing track::durable
@@ -53,38 +53,38 @@
 [img:fe_fig_9_2d.png]	Option C	fe::signal_processing track::durable
 [img:fe_fig_9_2e.png]	Option C	fe::signal_processing track::durable
 # === Chapter 10 - Electronics (figures) ===
-[img:fe_fig_10_2a.png]	D1 on, D2 off	fe::electronics track::durable
+[img:fe_fig_10_2a.png]	\(D_1\) on, \(D_2\) off	fe::electronics track::durable
 [img:fe_fig_10_2b.png]	Option A	fe::electronics track::durable
-[img:fe_fig_10_2c.png]	(0 V, 0.66 mA)	fe::electronics track::durable
-[img:fe_fig_10_2d.png]	0.13 mA	fe::electronics track::durable
-[img:fe_fig_10_2e.png]	ID1 = 0, ID2 = 2.4 mA	fe::electronics track::durable
-[img:fe_fig_10_3a.png]	Ie = 2.09 mA, Vce = 1.68 V	fe::electronics track::durable
-[img:fe_fig_10_3b.png]	Ic = 1.13 mA, Vce = 1.3 V	fe::electronics track::durable
+[img:fe_fig_10_2c.png]	\((0\ \text{V},\ 0.66\ \text{mA})\)	fe::electronics track::durable
+[img:fe_fig_10_2d.png]	\(0.13\ \text{mA}\)	fe::electronics track::durable
+[img:fe_fig_10_2e.png]	\(I_{D1} = 0,\ I_{D2} = 2.4\ \text{mA}\)	fe::electronics track::durable
+[img:fe_fig_10_3a.png]	\(I_e = 2.09\ \text{mA},\ V_{ce} = 1.68\ \text{V}\)	fe::electronics track::durable
+[img:fe_fig_10_3b.png]	\(I_c = 1.13\ \text{mA},\ V_{ce} = 1.3\ \text{V}\)	fe::electronics track::durable
 [img:fe_fig_10_3c.png]	Cut-off	fe::electronics track::durable
-[img:fe_fig_10_3d.png]	Ie = 2.4 mA, Vce = 2.7 V	fe::electronics track::durable
-[img:fe_fig_10_3e.png]	Ie = 3.2 mA, Vec = 5.1 V	fe::electronics track::durable
-[img:fe_fig_10_3f.png]	Ie = 1.5 mA, Vec = 2 V	fe::electronics track::durable
-[img:fe_fig_10_4a.png]	3.2 mA	fe::electronics track::durable
+[img:fe_fig_10_3d.png]	\(I_e = 2.4\ \text{mA},\ V_{ce} = 2.7\ \text{V}\)	fe::electronics track::durable
+[img:fe_fig_10_3e.png]	\(I_e = 3.2\ \text{mA},\ V_{ec} = 5.1\ \text{V}\)	fe::electronics track::durable
+[img:fe_fig_10_3f.png]	\(I_e=1.5\ \text{mA}\), \(V_{ec}=2\ \text{V}\)	fe::electronics track::durable
+[img:fe_fig_10_4a.png]	\(3.2\ \text{mA}\)	fe::electronics track::durable
 [img:fe_fig_10_4b.png]	Triode (ohmic) region	fe::electronics track::durable
-[img:fe_fig_10_4c.png]	3.28 V	fe::electronics track::durable
-[img:fe_fig_10_4d.png]	0.1 mA	fe::electronics track::durable
-[img:fe_fig_10_4e.png]	0.44 mA	fe::electronics track::durable
-[img:fe_fig_10_5a.png]	-5 V	fe::electronics track::durable
-[img:fe_fig_10_5b.png]	5 kΩ	fe::electronics track::durable
-[img:fe_fig_10_5c.png]	2.5 V	fe::electronics track::durable
-[img:fe_fig_10_5d.png]	-35 V	fe::electronics track::durable
-[img:fe_fig_10_5e.png]	0.5 V	fe::electronics track::durable
-[img:fe_fig_10_6d.png]	200 Ω	fe::electronics track::durable
-[img:fe_fig_10_6f.png]	1.98 V	fe::electronics track::durable
-[img:fe_fig_10_6g.png]	2.1 V	fe::electronics track::durable
-[img:fe_fig_10_6h.png]	2%	fe::electronics track::durable
+[img:fe_fig_10_4c.png]	\(3.28\ \text{V}\)	fe::electronics track::durable
+[img:fe_fig_10_4d.png]	\(0.1\ \text{mA}\)	fe::electronics track::durable
+[img:fe_fig_10_4e.png]	\(0.44\ \text{mA}\)	fe::electronics track::durable
+[img:fe_fig_10_5a.png]	\(-5\ \text{V}\)	fe::electronics track::durable
+[img:fe_fig_10_5b.png]	\(5\ \text{k}\Omega\)	fe::electronics track::durable
+[img:fe_fig_10_5c.png]	\(2.5\ \text{V}\)	fe::electronics track::durable
+[img:fe_fig_10_5d.png]	\(-35\ \text{V}\)	fe::electronics track::durable
+[img:fe_fig_10_5e.png]	\(0.5\ \text{V}\)	fe::electronics track::durable
+[img:fe_fig_10_6d.png]	\(200\ \Omega\)	fe::electronics track::durable
+[img:fe_fig_10_6f.png]	\(1.98\ \text{V}\)	fe::electronics track::durable
+[img:fe_fig_10_6g.png]	\(2.1\ \text{V}\)	fe::electronics track::durable
+[img:fe_fig_10_6h.png]	\(2\%\)	fe::electronics track::durable
 # === Chapter 11 - Power (figures) ===
-[img:fe_fig_11_1b.png]	1.96∠68.7° A	fe::power_systems track::durable
-[img:fe_fig_11_1c.png]	200∠-67.3° VA	fe::power_systems track::durable
-[img:fe_fig_11_1d.png]	9.19 W	fe::power_systems track::durable
-[img:fe_fig_11_1e.png]	5 W	fe::power_systems track::durable
-[img:fe_fig_11_1f.png]	12 - j Ω	fe::power_systems track::durable
-[img:fe_fig_11_1g.png]	5 - 2j Ω	fe::power_systems track::durable
+[img:fe_fig_11_1b.png]	\(1.96\angle 68.7^{\circ}\ \text{A}\)	fe::power_systems track::durable
+[img:fe_fig_11_1c.png]	\(200\angle -67.3^{\circ}\ \text{VA}\)	fe::power_systems track::durable
+[img:fe_fig_11_1d.png]	\(9.19\ \text{W}\)	fe::power_systems track::durable
+[img:fe_fig_11_1e.png]	\(5\ \text{W}\)	fe::power_systems track::durable
+[img:fe_fig_11_1f.png]	\(12-j\ \Omega\)	fe::power_systems track::durable
+[img:fe_fig_11_1g.png]	\(5-2j\ \Omega\)	fe::power_systems track::durable
 # === Chapter 13 - Control Systems (figures) ===
 [img:fe_fig_13_1a.png]	Option C	fe::control_systems track::durable
 [img:fe_fig_13_1b.png]	Option C	fe::control_systems track::durable
@@ -94,9 +94,9 @@
 [img:fe_fig_13_2a.png]	Option A	fe::control_systems track::durable
 [img:fe_fig_13_2b.png]	Option D	fe::control_systems track::durable
 [img:fe_fig_13_3a.png]	0.24	fe::control_systems track::durable
-[img:fe_fig_13_3b.png]	∞	fe::control_systems track::durable
-[img:fe_fig_13_3c.png]	∞	fe::control_systems track::durable
-[img:fe_fig_13_3d.png]	∞	fe::control_systems track::durable
+[img:fe_fig_13_3b.png]	\(\infty\)	fe::control_systems track::durable
+[img:fe_fig_13_3c.png]	\(\infty\)	fe::control_systems track::durable
+[img:fe_fig_13_3d.png]	\(\infty\)	fe::control_systems track::durable
 [img:fe_fig_13_3e.png]	0.11	fe::control_systems track::durable
 [img:fe_fig_13_5a.png]	Option A	fe::control_systems track::durable
 [img:fe_fig_13_5b.png]	Option C	fe::control_systems track::durable
@@ -119,12 +119,12 @@
 [img:fe_fig_16_4e.png]	Option C	fe::digital_systems track::durable
 [img:fe_fig_16_4f.png]	Option C	fe::digital_systems track::durable
 [img:fe_fig_16_5a.png]	010	fe::digital_systems track::durable
-[img:fe_fig_16_5b.png]	RS flip-flop	fe::digital_systems track::durable
-[img:fe_fig_16_5c.png]	D flip-flop	fe::digital_systems track::durable
-[img:fe_fig_16_5d.png]	JK flip-flop	fe::digital_systems track::durable
+[img:fe_fig_16_5b.png]	RS flip-flop	fe::digital_systems track::cram
+[img:fe_fig_16_5c.png]	D flip-flop	fe::digital_systems track::cram
+[img:fe_fig_16_5d.png]	JK flip-flop	fe::digital_systems track::cram
 [img:fe_fig_16_5e.png]	001	fe::digital_systems track::durable
 [img:fe_fig_16_5f.png]	111	fe::digital_systems track::durable
-[img:fe_fig_16_5g.png]	1100 (Q3Q2Q1Q0)	fe::digital_systems track::durable
+[img:fe_fig_16_5g.png]	1100 (\(Q_3Q_2Q_1Q_0\))	fe::digital_systems track::durable
 [img:fe_fig_16_5h.png]	Option A	fe::digital_systems track::durable
 [img:fe_fig_16_6a.png]	Option C	fe::digital_systems track::durable
 [img:fe_fig_16_6d.png]	Option A	fe::digital_systems track::durable

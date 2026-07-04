@@ -1,0 +1,562 @@
+{"nid": 1782957650020, "front": "What is the derivative of cos(x) with respect to x?", "back": "−sin(x)", "area": "mathematics"}
+{"nid": 1782957650023, "front": "What is the derivative of e^x with respect to x?", "back": "e^x", "area": "mathematics"}
+{"nid": 1782957650025, "front": "What is the derivative of ln(x) with respect to x?", "back": "1/x", "area": "mathematics"}
+{"nid": 1782957650027, "front": "What is the derivative of tan(x) with respect to x?", "back": "sec²(x)", "area": "mathematics"}
+{"nid": 1782957650029, "front": "What is the derivative of x^n with respect to x?", "back": "n·x^(n−1)", "area": "mathematics"}
+{"nid": 1782957650031, "front": "State the product rule for d/dx[f(x)g(x)].", "back": "f'g + fg'", "area": "mathematics"}
+{"nid": 1782957650033, "front": "State the quotient rule for d/dx[f/g].", "back": "(f'g − fg')/g²", "area": "mathematics"}
+{"nid": 1782957650036, "front": "State the chain rule for d/dx[f(g(x))].", "back": "f'(g(x))·g'(x)", "area": "mathematics"}
+{"nid": 1782957650039, "front": "What is ∫ e^x dx?", "back": "e^x + C", "area": "mathematics"}
+{"nid": 1782957650040, "front": "What is ∫ (1/x) dx?", "back": "ln|x| + C", "area": "mathematics"}
+{"nid": 1782957650042, "front": "What is ∫ cos(x) dx?", "back": "sin(x) + C", "area": "mathematics"}
+{"nid": 1782957650044, "front": "What is ∫ sin(x) dx?", "back": "−cos(x) + C", "area": "mathematics"}
+{"nid": 1782957650046, "front": "What is the Maclaurin series of e^x?", "back": "Σ x^n/n! = 1 + x + x²/2! + ...", "area": "mathematics"}
+{"nid": 1782957650048, "front": "What is the value of sin²(x) + cos²(x)?", "back": "1", "area": "mathematics"}
+{"nid": 1782957650050, "front": "Convert the complex number a + jb to polar form magnitude.", "back": "√(a² + b²)", "area": "mathematics"}
+{"nid": 1782957650052, "front": "Convert a + jb to polar form angle.", "back": "atan2(b, a)", "area": "mathematics"}
+{"nid": 1782957650054, "front": "State Euler's formula for e^(jθ).", "back": "cos(θ) + j·sin(θ)", "area": "mathematics"}
+{"nid": 1782957650056, "front": "What is the cross product magnitude of vectors A and B?", "back": "|A||B|sin(θ)", "area": "mathematics"}
+{"nid": 1782957650057, "front": "What is the dot product A·B in terms of magnitudes and angle?", "back": "|A||B|cos(θ)", "area": "mathematics"}
+{"nid": 1782957650059, "front": "What is the general solution form of a first-order linear ODE y' + p(x)y = 0?", "back": "y = C·e^(−∫p dx)", "area": "mathematics"}
+{"nid": 1782957650061, "front": "What is the quadratic formula for ax² + bx + c = 0?", "back": "x = (−b ± √(b² − 4ac)) / (2a)", "area": "mathematics"}
+{"nid": 1782957650063, "front": "What does the discriminant b² − 4ac indicate when negative?", "back": "Two complex conjugate roots", "area": "mathematics"}
+{"nid": 1782957650064, "front": "What is the gradient of a scalar field f?", "back": "∇f = (∂f/∂x, ∂f/∂y, ∂f/∂z)", "area": "mathematics"}
+{"nid": 1782957650066, "front": "What is the divergence of a vector field F?", "back": "∇·F", "area": "mathematics"}
+{"nid": 1782957650068, "front": "What is the curl of a vector field F?", "back": "∇×F", "area": "mathematics"}
+{"nid": 1782957650070, "front": "What is the sum of an infinite geometric series with ratio r (|r|<1) and first term a?", "back": "a/(1 − r)", "area": "mathematics"}
+{"nid": 1782957650071, "front": "What is log_b(xy) expanded?", "back": "log_b(x) + log_b(y)", "area": "mathematics"}
+{"nid": 1782957650073, "front": "What is the matrix product requirement for A·B to be defined?", "back": "Columns of A equal rows of B", "area": "mathematics"}
+{"nid": 1782957650074, "front": "What is the inverse of a 2x2 matrix [[a,b],[c,d]]?", "back": "(1/det)·[[d,−b],[−c,a]]", "area": "mathematics"}
+{"nid": 1782957650076, "front": "When does a system Ax = b have a unique solution?", "back": "When det(A) ≠ 0", "area": "mathematics"}
+{"nid": 1782957650077, "front": "What is an eigenvalue λ of matrix A defined by?", "back": "Av = λv for nonzero v", "area": "mathematics"}
+{"nid": 1782957650079, "front": "What is L'Hôpital's rule used for?", "back": "Evaluating limits of indeterminate form 0/0 or ∞/∞", "area": "mathematics"}
+{"nid": 1782957650081, "front": "What is the derivative of arctan(x)?", "back": "1/(1 + x²)", "area": "mathematics"}
+{"nid": 1782957650083, "front": "What is the Taylor series first-order approximation of f near a?", "back": "f(a) + f'(a)(x − a)", "area": "mathematics"}
+{"nid": 1782957650085, "front": "What is the area under one arch of sin(x) from 0 to π?", "back": "2", "area": "mathematics"}
+{"nid": 1782957650087, "front": "What is the definition of a function's critical point?", "back": "Where f'(x) = 0 or is undefined", "area": "mathematics"}
+{"nid": 1782957650089, "front": "What does the second derivative test indicate when f''(x) > 0?", "back": "Local minimum", "area": "mathematics"}
+{"nid": 1782957650090, "front": "What is the magnitude of a unit vector?", "back": "1", "area": "mathematics"}
+{"nid": 1782957650092, "front": "What is the trigonometric identity for sin(2x)?", "back": "2·sin(x)·cos(x)", "area": "mathematics"}
+{"nid": 1782957650093, "front": "What is cos(2x) in terms of cos²(x)?", "back": "2cos²(x) − 1", "area": "mathematics"}
+{"nid": 1782957650097, "front": "State Ohm's law in phasor form.", "back": "V = I·Z", "area": "circuit_analysis"}
+{"nid": 1782957650100, "front": "What is the equivalent resistance of R1 and R2 in series?", "back": "R1 + R2", "area": "circuit_analysis"}
+{"nid": 1782957650102, "front": "What is Kirchhoff's Voltage Law?", "back": "Sum of voltages around any closed loop equals zero", "area": "circuit_analysis"}
+{"nid": 1782957650104, "front": "What is instantaneous power in terms of v and i?", "back": "p(t) = v(t)·i(t)", "area": "circuit_analysis"}
+{"nid": 1782957650105, "front": "What is the energy stored in a capacitor?", "back": "½·C·V²", "area": "circuit_analysis"}
+{"nid": 1782957650107, "front": "What is the energy stored in an inductor?", "back": "½·L·I²", "area": "circuit_analysis"}
+{"nid": 1782957650109, "front": "What is the current-voltage relationship for a capacitor?", "back": "i = C·dv/dt", "area": "circuit_analysis"}
+{"nid": 1782957650111, "front": "What is the voltage-current relationship for an inductor?", "back": "v = L·di/dt", "area": "circuit_analysis"}
+{"nid": 1782957650113, "front": "What is the time constant of a series RL circuit?", "back": "τ = L/R", "area": "circuit_analysis"}
+{"nid": 1782957650115, "front": "After how many time constants is a first-order transient ~99% complete?", "back": "About 5 time constants", "area": "circuit_analysis"}
+{"nid": 1782957650117, "front": "State the voltage divider rule for R1 in series with R2 (output across R2).", "back": "V_out = V_in·R2/(R1 + R2)", "area": "circuit_analysis"}
+{"nid": 1782957650118, "front": "State the current divider rule for two parallel resistors.", "back": "I_R1 = I·R2/(R1 + R2)", "area": "circuit_analysis"}
+{"nid": 1782957650121, "front": "What does Thevenin's theorem replace a linear network with?", "back": "A single voltage source in series with a resistance", "area": "circuit_analysis"}
+{"nid": 1782957650123, "front": "What does Norton's theorem replace a linear network with?", "back": "A single current source in parallel with a resistance", "area": "circuit_analysis"}
+{"nid": 1782957650124, "front": "How are Thevenin and Norton equivalents related?", "back": "V_th = I_N·R, with R_th = R_N", "area": "circuit_analysis"}
+{"nid": 1782957650126, "front": "What is the condition for maximum power transfer to a load?", "back": "Load resistance equals source (Thevenin) resistance", "area": "circuit_analysis"}
+{"nid": 1782957650128, "front": "What is the resonant frequency of a series RLC circuit?", "back": "ω = 1/√(LC)", "area": "circuit_analysis"}
+{"nid": 1782957650129, "front": "What is the quality factor Q of a series RLC circuit?", "back": "ω₀L/R", "area": "circuit_analysis"}
+{"nid": 1782957650131, "front": "What is the phase relationship between voltage and current in a pure inductor?", "back": "Current lags voltage by 90°", "area": "circuit_analysis"}
+{"nid": 1782957650133, "front": "What is the phase relationship between voltage and current in a pure capacitor?", "back": "Current leads voltage by 90°", "area": "circuit_analysis"}
+{"nid": 1782957650135, "front": "What is the rms value of a sinusoid with peak amplitude Vm?", "back": "Vm/√2", "area": "circuit_analysis"}
+{"nid": 1782957650137, "front": "What is the average value of a full sine wave over one period?", "back": "0", "area": "circuit_analysis"}
+{"nid": 1782957650139, "front": "What is admittance Y in terms of impedance Z?", "back": "Y = 1/Z", "area": "circuit_analysis"}
+{"nid": 1782957650141, "front": "What is the real part of complex impedance called?", "back": "Resistance", "area": "circuit_analysis"}
+{"nid": 1782957650142, "front": "What is the imaginary part of complex impedance called?", "back": "Reactance", "area": "circuit_analysis"}
+{"nid": 1782957650144, "front": "What is the superposition principle for linear circuits?", "back": "Total response equals the sum of responses from each independent source acting alone", "area": "circuit_analysis"}
+{"nid": 1782957650146, "front": "When applying superposition, how are ideal voltage sources treated?", "back": "Replaced by short circuits", "area": "circuit_analysis"}
+{"nid": 1782957650148, "front": "When applying superposition, how are ideal current sources treated?", "back": "Replaced by open circuits", "area": "circuit_analysis"}
+{"nid": 1782957650151, "front": "What is the total capacitance of capacitors in series C1 and C2?", "back": "C1·C2/(C1 + C2)", "area": "circuit_analysis"}
+{"nid": 1782957650153, "front": "What is the total capacitance of capacitors in parallel?", "back": "C1 + C2", "area": "circuit_analysis"}
+{"nid": 1782957650154, "front": "What is the total inductance of inductors in series (no coupling)?", "back": "L1 + L2", "area": "circuit_analysis"}
+{"nid": 1782957650156, "front": "What is nodal analysis based on?", "back": "Kirchhoff's Current Law at circuit nodes", "area": "circuit_analysis"}
+{"nid": 1782957650158, "front": "What is mesh analysis based on?", "back": "Kirchhoff's Voltage Law around loops", "area": "circuit_analysis"}
+{"nid": 1782957650160, "front": "In a purely resistive AC circuit, what is the power factor?", "back": "1 (unity)", "area": "circuit_analysis"}
+{"nid": 1782957650161, "front": "What is reactive power's unit?", "back": "VAR (volt-ampere reactive)", "area": "circuit_analysis"}
+{"nid": 1782957650163, "front": "What is apparent power's unit?", "back": "VA (volt-ampere)", "area": "circuit_analysis"}
+{"nid": 1782957650165, "front": "What happens to capacitive reactance as frequency increases?", "back": "It decreases", "area": "circuit_analysis"}
+{"nid": 1782957650167, "front": "What happens to inductive reactance as frequency increases?", "back": "It increases", "area": "circuit_analysis"}
+{"nid": 1782957650169, "front": "At resonance in a series RLC circuit, what is the net reactance?", "back": "Zero (impedance is purely resistive)", "area": "circuit_analysis"}
+{"nid": 1782957650170, "front": "What is a node in a circuit?", "back": "A point where two or more elements connect", "area": "circuit_analysis"}
+{"nid": 1782957650174, "front": "What is the reactive power Q of a load with rms V, rms I, and angle θ?", "back": "Q = V·I·sinθ", "area": "power_systems"}
+{"nid": 1782957650176, "front": "What is the complex power S in rectangular form?", "back": "S = P + jQ", "area": "power_systems"}
+{"nid": 1782957650177, "front": "What is the total three-phase real power in terms of line quantities and power factor?", "back": "P = √3·V_line·I_line·cosθ", "area": "power_systems"}
+{"nid": 1782957650179, "front": "In a balanced three-phase system, what is the phase difference between phases?", "back": "120 degrees", "area": "power_systems"}
+{"nid": 1782957650181, "front": "What is the purpose of power factor correction?", "back": "To reduce reactive power drawn and improve the power factor toward unity", "area": "power_systems"}
+{"nid": 1782957650183, "front": "What type of load is added to correct a lagging (inductive) power factor?", "back": "Capacitors", "area": "power_systems"}
+{"nid": 1782957650184, "front": "What is the turns ratio relationship for an ideal transformer (voltage)?", "back": "V1/V2 = N1/N2", "area": "power_systems"}
+{"nid": 1782957650187, "front": "What is the current relationship for an ideal transformer?", "back": "I1/I2 = N2/N1", "area": "power_systems"}
+{"nid": 1782957650188, "front": "How does impedance transform across an ideal transformer?", "back": "Z reflects by the square of the turns ratio", "area": "power_systems"}
+{"nid": 1782957650190, "front": "What is the efficiency of a transformer defined as?", "back": "Output power divided by input power", "area": "power_systems"}
+{"nid": 1782957650192, "front": "What does per-unit analysis normalize quantities against?", "back": "Chosen base values (base power and base voltage)", "area": "power_systems"}
+{"nid": 1782957650193, "front": "What is the base impedance in per-unit given base voltage and base power?", "back": "Z_base = V_base²/S_base", "area": "power_systems"}
+{"nid": 1782957650195, "front": "What is a synchronous generator's electrical frequency related to?", "back": "Rotor speed and number of poles: f = P·N/120", "area": "power_systems"}
+{"nid": 1782957650200, "front": "What is the slip of an induction motor?", "back": "(N_sync − N_rotor)/N_sync", "area": "power_systems"}
+{"nid": 1782957650203, "front": "At what slip does an induction motor develop starting torque?", "back": "Slip = 1 (rotor stationary)", "area": "power_systems"}
+{"nid": 1782957650205, "front": "What is a wye connection also known as?", "back": "Star (Y) connection", "area": "power_systems"}
+{"nid": 1782957650206, "front": "In a delta connection, how does line voltage relate to phase voltage?", "back": "They are equal", "area": "power_systems"}
+{"nid": 1782957650208, "front": "What device steps voltage up or down in AC power systems?", "back": "Transformer", "area": "power_systems"}
+{"nid": 1782957650210, "front": "What is the main advantage of high-voltage transmission?", "back": "Lower current, reducing I²R line losses", "area": "power_systems"}
+{"nid": 1782957650211, "front": "What are copper losses in a transformer proportional to?", "back": "The square of the load current", "area": "power_systems"}
+{"nid": 1782957650213, "front": "What are core (iron) losses in a transformer mainly due to?", "back": "Hysteresis and eddy currents", "area": "power_systems"}
+{"nid": 1782957650214, "front": "What is the function of a circuit breaker?", "back": "To interrupt fault current and protect the system", "area": "power_systems"}
+{"nid": 1782957650216, "front": "What is a bus in a power system?", "back": "A common node where lines, loads, and generators connect", "area": "power_systems"}
+{"nid": 1782957650217, "front": "What does a fault study compute?", "back": "Currents and voltages during short-circuit conditions", "area": "power_systems"}
+{"nid": 1782957650219, "front": "What is the most common type of power system fault?", "back": "Single line-to-ground fault", "area": "power_systems"}
+{"nid": 1782957650221, "front": "What symmetrical components decompose an unbalanced 3-phase set into?", "back": "Positive, negative, and zero sequence components", "area": "power_systems"}
+{"nid": 1782957650222, "front": "What is the power triangle's hypotenuse?", "back": "Apparent power S", "area": "power_systems"}
+{"nid": 1782957650224, "front": "What is a leading power factor associated with?", "back": "A capacitive (or overexcited) load", "area": "power_systems"}
+{"nid": 1782957650225, "front": "What is the primary winding of a transformer?", "back": "The winding connected to the source", "area": "power_systems"}
+{"nid": 1782957650227, "front": "What is voltage regulation of a transformer?", "back": "The change in output voltage from no-load to full-load, as a fraction of full-load voltage", "area": "power_systems"}
+{"nid": 1782957650229, "front": "What is the typical connection for a distribution transformer feeding single-phase loads?", "back": "Delta-wye", "area": "power_systems"}
+{"nid": 1782957650230, "front": "What does a capacitor bank provide to a power system?", "back": "Reactive power (VARs) support", "area": "power_systems"}
+{"nid": 1782957650232, "front": "What is the skin effect in AC conductors?", "back": "Current concentrates near the conductor surface at high frequency, raising effective resistance", "area": "power_systems"}
+{"nid": 1782957650236, "front": "What is the ideal op-amp assumption for input impedance?", "back": "Infinite", "area": "electronics"}
+{"nid": 1782957650237, "front": "What is the ideal op-amp assumption for output impedance?", "back": "Zero", "area": "electronics"}
+{"nid": 1782957650239, "front": "What is the ideal op-amp open-loop gain?", "back": "Infinite", "area": "electronics"}
+{"nid": 1782957650241, "front": "What is the gain of a non-inverting op-amp amplifier with Rf and Rin?", "back": "1 + Rf/Rin", "area": "electronics"}
+{"nid": 1782957650242, "front": "What is the gain of a unity-gain buffer (voltage follower)?", "back": "1", "area": "electronics"}
+{"nid": 1782957650244, "front": "What does an op-amp integrator's output represent?", "back": "The time integral of the input signal", "area": "electronics"}
+{"nid": 1782957650245, "front": "What is the function of a diode in a rectifier circuit?", "back": "To allow current flow in only one direction", "area": "electronics"}
+{"nid": 1782957650247, "front": "What is the output of a full-wave rectifier compared to half-wave?", "back": "It conducts on both halves of the input cycle", "area": "electronics"}
+{"nid": 1782957650249, "front": "What is the peak inverse voltage (PIV) of a diode?", "back": "The maximum reverse voltage it can withstand without breakdown", "area": "electronics"}
+{"nid": 1782957650250, "front": "What is a Zener diode primarily used for?", "back": "Voltage regulation (operating in reverse breakdown)", "area": "electronics"}
+{"nid": 1782957650252, "front": "In a common-emitter BJT amplifier, what is the phase relationship of output to input?", "back": "Inverted (180 degrees)", "area": "electronics"}
+{"nid": 1782957650253, "front": "What are the three regions of BJT operation?", "back": "Cutoff, active, and saturation", "area": "electronics"}
+{"nid": 1782957650255, "front": "What is the relationship between collector and base current (β)?", "back": "I_C = β·I_B", "area": "electronics"}
+{"nid": 1782957650257, "front": "What is the relationship α = I_C/I_E in terms of β?", "back": "α = β/(β + 1)", "area": "electronics"}
+{"nid": 1782957650258, "front": "What are the three terminals of a MOSFET?", "back": "Gate, drain, and source", "area": "electronics"}
+{"nid": 1782957650260, "front": "What controls the current in a MOSFET?", "back": "The gate-to-source voltage", "area": "electronics"}
+{"nid": 1782957650261, "front": "What is the threshold voltage of a MOSFET?", "back": "The gate-source voltage at which the channel begins to conduct", "area": "electronics"}
+{"nid": 1782957650263, "front": "In which region does a MOSFET act like a current source?", "back": "Saturation region", "area": "electronics"}
+{"nid": 1782957650265, "front": "What is a current mirror used for?", "back": "To copy a reference current to another branch", "area": "electronics"}
+{"nid": 1782957650266, "front": "What is the small-signal transconductance gm of a transistor?", "back": "The ratio of output current change to input voltage change", "area": "electronics"}
+{"nid": 1782957650268, "front": "What is the purpose of negative feedback in amplifiers?", "back": "To stabilize gain and increase bandwidth", "area": "electronics"}
+{"nid": 1782957650270, "front": "What does a low-pass RC filter do to high-frequency signals?", "back": "Attenuates them", "area": "electronics"}
+{"nid": 1782957650272, "front": "What is the cutoff frequency of an RC low-pass filter?", "back": "f = 1/(2πRC)", "area": "electronics"}
+{"nid": 1782957650273, "front": "What is the gain-bandwidth product of an op-amp?", "back": "A constant equal to gain times bandwidth", "area": "electronics"}
+{"nid": 1782957650275, "front": "What is clipping in an amplifier?", "back": "Output distortion when the signal exceeds the supply rails", "area": "electronics"}
+{"nid": 1782957650276, "front": "What is a comparator?", "back": "An op-amp circuit that outputs high or low based on which input is larger", "area": "electronics"}
+{"nid": 1782957650278, "front": "What is hysteresis in a Schmitt trigger for?", "back": "Noise immunity via two switching thresholds", "area": "electronics"}
+{"nid": 1782957650280, "front": "What semiconductor doping creates n-type material?", "back": "Adding donor (pentavalent) impurities", "area": "electronics"}
+{"nid": 1782957650281, "front": "What semiconductor doping creates p-type material?", "back": "Adding acceptor (trivalent) impurities", "area": "electronics"}
+{"nid": 1782957650283, "front": "What forms at a p-n junction with no applied bias?", "back": "A depletion region", "area": "electronics"}
+{"nid": 1782957650285, "front": "What is a light-emitting diode (LED)?", "back": "A diode that emits light when forward biased", "area": "electronics"}
+{"nid": 1782957650289, "front": "What is the truth-table output of an AND gate for inputs 1 and 0?", "back": "0", "area": "digital_systems"}
+{"nid": 1782957650290, "front": "What is the output of an OR gate for inputs 0 and 0?", "back": "0", "area": "digital_systems"}
+{"nid": 1782957650292, "front": "What is the output of a NAND gate for inputs 1 and 1?", "back": "0", "area": "digital_systems"}
+{"nid": 1782957650293, "front": "What is the output of a NOR gate for inputs 0 and 0?", "back": "1", "area": "digital_systems"}
+{"nid": 1782957650295, "front": "What does a NOT gate do?", "back": "Inverts its single input", "area": "digital_systems"}
+{"nid": 1782957650297, "front": "State De Morgan's theorem for NOT(A AND B).", "back": "(NOT A) OR (NOT B)", "area": "digital_systems"}
+{"nid": 1782957650299, "front": "State De Morgan's theorem for NOT(A OR B).", "back": "(NOT A) AND (NOT B)", "area": "digital_systems"}
+{"nid": 1782957650301, "front": "What is the decimal value of binary 1010?", "back": "10", "area": "digital_systems"}
+{"nid": 1782957650303, "front": "What is the hexadecimal value of decimal 255?", "back": "FF", "area": "digital_systems"}
+{"nid": 1782957650304, "front": "What is the binary value of hexadecimal A?", "back": "1010", "area": "digital_systems"}
+{"nid": 1782957650306, "front": "How many values can 4 bits represent?", "back": "16", "area": "digital_systems"}
+{"nid": 1782957650307, "front": "What is the range of an 8-bit two's complement number?", "back": "−128 to 127", "area": "digital_systems"}
+{"nid": 1782957650309, "front": "What is a Karnaugh map used for?", "back": "Simplifying Boolean expressions", "area": "digital_systems"}
+{"nid": 1782957650311, "front": "What is a half adder's output for inputs 1 and 1?", "back": "Sum 0, carry 1", "area": "digital_systems"}
+{"nid": 1782957650313, "front": "What additional input does a full adder have over a half adder?", "back": "A carry-in", "area": "digital_systems"}
+{"nid": 1782957650314, "front": "What is a multiplexer (MUX)?", "back": "A circuit that selects one of several inputs onto a single output", "area": "digital_systems"}
+{"nid": 1782957650315, "front": "How many select lines does an 8-to-1 multiplexer need?", "back": "3", "area": "digital_systems"}
+{"nid": 1782957650317, "front": "What is a decoder?", "back": "A circuit that activates one output line based on a binary input code", "area": "digital_systems"}
+{"nid": 1782957650319, "front": "What is the difference between combinational and sequential logic?", "back": "Sequential logic has memory (depends on past state); combinational does not", "area": "digital_systems"}
+{"nid": 1782957650321, "front": "What is the characteristic behavior of a D flip-flop?", "back": "Output Q follows input D on the active clock edge", "area": "digital_systems"}
+{"nid": 1782957650322, "front": "What is the toggle behavior of a JK flip-flop when J=K=1?", "back": "Q toggles on each clock", "area": "digital_systems"}
+{"nid": 1782957650323, "front": "What is a register in digital logic?", "back": "A group of flip-flops storing multiple bits", "area": "digital_systems"}
+{"nid": 1782957650325, "front": "What does a counter do?", "back": "Sequences through a set of states, typically counting clock pulses", "area": "digital_systems"}
+{"nid": 1782957650326, "front": "What is setup time for a flip-flop?", "back": "The time data must be stable before the clock edge", "area": "digital_systems"}
+{"nid": 1782957650328, "front": "What is hold time for a flip-flop?", "back": "The time data must remain stable after the clock edge", "area": "digital_systems"}
+{"nid": 1782957650330, "front": "What is propagation delay?", "back": "The time for a change at input to appear at output", "area": "digital_systems"}
+{"nid": 1782957650332, "front": "What is a tri-state buffer's third state?", "back": "High-impedance (disconnected)", "area": "digital_systems"}
+{"nid": 1782957650334, "front": "What logic family is CMOS known for?", "back": "Low static power consumption", "area": "digital_systems"}
+{"nid": 1782957650336, "front": "What is fan-out?", "back": "The number of gate inputs a single output can reliably drive", "area": "digital_systems"}
+{"nid": 1782957650338, "front": "What is a finite state machine?", "back": "A model with a finite set of states, transitions, and outputs", "area": "digital_systems"}
+{"nid": 1782957650340, "front": "What distinguishes a Mealy machine from a Moore machine?", "back": "Mealy outputs depend on state and inputs; Moore outputs depend only on state", "area": "digital_systems"}
+{"nid": 1782957650341, "front": "What is a synchronous circuit?", "back": "One in which all state changes occur on a common clock edge", "area": "digital_systems"}
+{"nid": 1782957650345, "front": "What is a transfer function?", "back": "The ratio of output to input in the Laplace domain, assuming zero initial conditions", "area": "control_systems"}
+{"nid": 1782957650346, "front": "For BIBO stability, where must all poles of a system lie?", "back": "In the open left half of the s-plane", "area": "control_systems"}
+{"nid": 1782957650349, "front": "What is the Laplace transform of a unit impulse δ(t)?", "back": "1", "area": "control_systems"}
+{"nid": 1782957650350, "front": "What is the Laplace transform of e^(−at)?", "back": "1/(s + a)", "area": "control_systems"}
+{"nid": 1782957650352, "front": "What is the final value theorem?", "back": "lim(t→∞) f(t) = lim(s→0) s·F(s), if the limit exists", "area": "control_systems"}
+{"nid": 1782957650354, "front": "What is the initial value theorem?", "back": "lim(t→0) f(t) = lim(s→∞) s·F(s)", "area": "control_systems"}
+{"nid": 1782957650356, "front": "What is the DC gain of a transfer function G(s)?", "back": "G(0)", "area": "control_systems"}
+{"nid": 1782957650357, "front": "What is the order of a control system?", "back": "The highest power of s in the denominator of its transfer function", "area": "control_systems"}
+{"nid": 1782957650359, "front": "What is the time constant of a first-order system with pole at s = −a?", "back": "1/a", "area": "control_systems"}
+{"nid": 1782957650361, "front": "What is the damping ratio range for an underdamped second-order system?", "back": "0 < ζ < 1", "area": "control_systems"}
+{"nid": 1782957650362, "front": "What is the response type when the damping ratio ζ = 1?", "back": "Critically damped", "area": "control_systems"}
+{"nid": 1782957650364, "front": "What is the natural frequency ωn in a standard second-order system?", "back": "The undamped oscillation frequency", "area": "control_systems"}
+{"nid": 1782957650365, "front": "What is percent overshoot primarily determined by?", "back": "The damping ratio ζ", "area": "control_systems"}
+{"nid": 1782957650367, "front": "What does a PID controller stand for?", "back": "Proportional-Integral-Derivative", "area": "control_systems"}
+{"nid": 1782957650368, "front": "What effect does integral control have on steady-state error?", "back": "It reduces or eliminates it", "area": "control_systems"}
+{"nid": 1782957650373, "front": "What effect does derivative control tend to have?", "back": "Improves transient response and damping", "area": "control_systems"}
+{"nid": 1782957650375, "front": "What is the steady-state error to a step for a type-0 system?", "back": "A finite nonzero value", "area": "control_systems"}
+{"nid": 1782957650377, "front": "What does the Routh-Hurwitz criterion determine?", "back": "System stability from the characteristic polynomial coefficients", "area": "control_systems"}
+{"nid": 1782957650378, "front": "What does a root locus plot show?", "back": "How closed-loop poles move as a gain parameter varies", "area": "control_systems"}
+{"nid": 1782957650380, "front": "What is gain margin?", "back": "The additional gain before the system becomes unstable", "area": "control_systems"}
+{"nid": 1782957650381, "front": "What is phase margin?", "back": "The additional phase lag before the system becomes unstable", "area": "control_systems"}
+{"nid": 1782957650383, "front": "What does the Nyquist criterion assess?", "back": "Closed-loop stability from the open-loop frequency response", "area": "control_systems"}
+{"nid": 1782957650385, "front": "On a Bode plot, what is the slope contribution of a single pole?", "back": "−20 dB/decade", "area": "control_systems"}
+{"nid": 1782957650386, "front": "On a Bode plot, what is the slope contribution of a single zero?", "back": "+20 dB/decade", "area": "control_systems"}
+{"nid": 1782957650389, "front": "What is the bandwidth of a control system?", "back": "The frequency range over which the system responds adequately", "area": "control_systems"}
+{"nid": 1782957650390, "front": "What is an open-loop system?", "back": "One without feedback from output to input", "area": "control_systems"}
+{"nid": 1782957650392, "front": "What is the main benefit of feedback control?", "back": "Reduced sensitivity to disturbances and parameter variation", "area": "control_systems"}
+{"nid": 1782957650393, "front": "What is the characteristic equation of a closed-loop system?", "back": "1 + G(s)H(s) = 0", "area": "control_systems"}
+{"nid": 1782957650395, "front": "What is a lead compensator used to improve?", "back": "Transient response and phase margin", "area": "control_systems"}
+{"nid": 1782957650397, "front": "What is a lag compensator used to improve?", "back": "Steady-state accuracy", "area": "control_systems"}
+{"nid": 1782957650401, "front": "What is a linear time-invariant (LTI) system?", "back": "One that is both linear and whose behavior does not change over time", "area": "linear_systems"}
+{"nid": 1782957650402, "front": "What are the two properties required for linearity?", "back": "Superposition (additivity) and homogeneity (scaling)", "area": "linear_systems"}
+{"nid": 1782957650404, "front": "What operation relates the input, impulse response, and output of an LTI system?", "back": "Convolution", "area": "linear_systems"}
+{"nid": 1782957650405, "front": "What is the impulse response of a system?", "back": "Its output when the input is a unit impulse", "area": "linear_systems"}
+{"nid": 1782957650407, "front": "What is the frequency response of an LTI system?", "back": "The Fourier transform of its impulse response", "area": "linear_systems"}
+{"nid": 1782957650408, "front": "What is the convolution of any signal with a unit impulse?", "back": "The signal itself", "area": "linear_systems"}
+{"nid": 1782957650411, "front": "What does the region of convergence (ROC) determine for a Laplace transform?", "back": "The values of s for which the transform converges (and system stability/causality)", "area": "linear_systems"}
+{"nid": 1782957650413, "front": "For a causal stable system, where does the ROC lie relative to poles?", "back": "To the right of the rightmost pole", "area": "linear_systems"}
+{"nid": 1782957650414, "front": "What is a causal system?", "back": "One whose output depends only on present and past inputs", "area": "linear_systems"}
+{"nid": 1782957650416, "front": "What is the z-transform used for?", "back": "Analyzing discrete-time LTI systems", "area": "linear_systems"}
+{"nid": 1782957650418, "front": "For a discrete stable system, where must poles lie in the z-plane?", "back": "Inside the unit circle", "area": "linear_systems"}
+{"nid": 1782957650419, "front": "What is the relationship between the s-plane and z-plane mapping?", "back": "z = e^(sT)", "area": "linear_systems"}
+{"nid": 1782957650421, "front": "What is the step response of a system?", "back": "Its output when the input is a unit step", "area": "linear_systems"}
+{"nid": 1782957650422, "front": "What property means a system's output does not grow unbounded for bounded input?", "back": "BIBO stability", "area": "linear_systems"}
+{"nid": 1782957650423, "front": "What is a time-invariant system?", "back": "One where a time shift in input produces the same time shift in output", "area": "linear_systems"}
+{"nid": 1782957650425, "front": "What is the eigenfunction of an LTI system?", "back": "The complex exponential e^(st)", "area": "linear_systems"}
+{"nid": 1782957650426, "front": "What is the transfer function in terms of Laplace transforms?", "back": "Y(s)/X(s) with zero initial conditions", "area": "linear_systems"}
+{"nid": 1782957650428, "front": "What does a system's zero represent?", "back": "A frequency where the transfer function's numerator is zero", "area": "linear_systems"}
+{"nid": 1782957650429, "front": "What does a system's pole represent?", "back": "A frequency where the transfer function's denominator is zero (output tends to infinity)", "area": "linear_systems"}
+{"nid": 1782957650431, "front": "What is a memoryless system?", "back": "One whose output depends only on the current input", "area": "linear_systems"}
+{"nid": 1782957650432, "front": "What is the impulse response length of an FIR filter?", "back": "Finite", "area": "linear_systems"}
+{"nid": 1782957650434, "front": "What distinguishes an IIR filter?", "back": "It has an infinite-duration impulse response (uses feedback)", "area": "linear_systems"}
+{"nid": 1782957650439, "front": "What is the Nyquist sampling theorem's minimum sampling rate?", "back": "At least twice the highest frequency in the signal", "area": "signal_processing"}
+{"nid": 1782957650440, "front": "What is aliasing?", "back": "Distortion when a signal is sampled below the Nyquist rate, folding high frequencies to low", "area": "signal_processing"}
+{"nid": 1782957650442, "front": "What is the purpose of an anti-aliasing filter?", "back": "To band-limit a signal before sampling", "area": "signal_processing"}
+{"nid": 1782957650444, "front": "What does the Fourier transform convert a signal from and to?", "back": "From the time domain to the frequency domain", "area": "signal_processing"}
+{"nid": 1782957650445, "front": "What is the DFT?", "back": "The Discrete Fourier Transform, computing frequency content of a sampled signal", "area": "signal_processing"}
+{"nid": 1782957650447, "front": "What is the FFT?", "back": "A fast algorithm to compute the DFT", "area": "signal_processing"}
+{"nid": 1782957650449, "front": "What is the computational complexity of the FFT?", "back": "O(N log N)", "area": "signal_processing"}
+{"nid": 1782957650451, "front": "What does a low-pass filter allow to pass?", "back": "Frequencies below the cutoff", "area": "signal_processing"}
+{"nid": 1782957650452, "front": "What does a high-pass filter allow to pass?", "back": "Frequencies above the cutoff", "area": "signal_processing"}
+{"nid": 1782957650454, "front": "What does a band-pass filter allow to pass?", "back": "Frequencies within a specific band", "area": "signal_processing"}
+{"nid": 1782957650456, "front": "What is the Nyquist frequency?", "back": "Half the sampling frequency", "area": "signal_processing"}
+{"nid": 1782957650458, "front": "What is quantization in an ADC?", "back": "Mapping continuous amplitudes to discrete levels", "area": "signal_processing"}
+{"nid": 1782957650459, "front": "What is quantization error bounded by for a uniform quantizer?", "back": "±½ LSB", "area": "signal_processing"}
+{"nid": 1782957650461, "front": "How many quantization levels does an n-bit ADC have?", "back": "2^n", "area": "signal_processing"}
+{"nid": 1782957650463, "front": "What is the SNR improvement per additional ADC bit (approx)?", "back": "About 6 dB", "area": "signal_processing"}
+{"nid": 1782957650465, "front": "What is a windowing function used for in spectral analysis?", "back": "Reducing spectral leakage", "area": "signal_processing"}
+{"nid": 1782957650466, "front": "What is convolution in the time domain equivalent to in the frequency domain?", "back": "Multiplication", "area": "signal_processing"}
+{"nid": 1782957650468, "front": "What is multiplication in the time domain equivalent to in the frequency domain?", "back": "Convolution", "area": "signal_processing"}
+{"nid": 1782957650469, "front": "What is a signal's power spectral density (PSD)?", "back": "The distribution of signal power over frequency", "area": "signal_processing"}
+{"nid": 1782957650471, "front": "What is the group delay of a filter?", "back": "The negative derivative of phase with respect to frequency", "area": "signal_processing"}
+{"nid": 1782957650473, "front": "What is a linear-phase filter desirable for?", "back": "Avoiding phase distortion (preserving waveform shape)", "area": "signal_processing"}
+{"nid": 1782957650475, "front": "What does decimation do to a discrete signal?", "back": "Reduces the sampling rate (downsampling)", "area": "signal_processing"}
+{"nid": 1782957650477, "front": "What does interpolation do to a discrete signal?", "back": "Increases the sampling rate (upsampling)", "area": "signal_processing"}
+{"nid": 1782957650478, "front": "What is the modulation property used for in communications?", "back": "Shifting a signal's spectrum to a carrier frequency", "area": "signal_processing"}
+{"nid": 1782957650479, "front": "What is the bandwidth of an ideal sampled reconstruction filter?", "back": "The Nyquist frequency (half the sampling rate)", "area": "signal_processing"}
+{"nid": 1782957650483, "front": "What is the purpose of modulation in communications?", "back": "To shift baseband signals to a carrier frequency for transmission", "area": "communications"}
+{"nid": 1782957650485, "front": "What is amplitude modulation (AM)?", "back": "Varying the carrier amplitude in proportion to the message signal", "area": "communications"}
+{"nid": 1782957650486, "front": "What is frequency modulation (FM)?", "back": "Varying the carrier frequency in proportion to the message signal", "area": "communications"}
+{"nid": 1782957650488, "front": "What is the bandwidth of a standard AM signal for a message of bandwidth W?", "back": "2W", "area": "communications"}
+{"nid": 1782957650489, "front": "What is Carson's rule for FM bandwidth?", "back": "B ≈ 2(Δf + fm)", "area": "communications"}
+{"nid": 1782957650491, "front": "What is the main advantage of FM over AM?", "back": "Better noise immunity", "area": "communications"}
+{"nid": 1782957650492, "front": "What is the Shannon channel capacity formula?", "back": "C = B·log2(1 + SNR)", "area": "communications"}
+{"nid": 1782957650493, "front": "What does increasing bandwidth do to channel capacity?", "back": "Increases it (linearly)", "area": "communications"}
+{"nid": 1782957650495, "front": "What is the Nyquist signaling rate for a channel of bandwidth B?", "back": "2B symbols per second", "area": "communications"}
+{"nid": 1782957650497, "front": "What is QAM?", "back": "Quadrature Amplitude Modulation, encoding data in both amplitude and phase", "area": "communications"}
+{"nid": 1782957650498, "front": "What is the difference between baseband and passband signals?", "back": "Baseband is centered near DC; passband is centered on a carrier frequency", "area": "communications"}
+{"nid": 1782957650500, "front": "What is frequency-division multiplexing (FDM)?", "back": "Sharing a channel by assigning different frequency bands to signals", "area": "communications"}
+{"nid": 1782957650501, "front": "What is time-division multiplexing (TDM)?", "back": "Sharing a channel by assigning different time slots to signals", "area": "communications"}
+{"nid": 1782957650503, "front": "What is the purpose of a matched filter?", "back": "To maximize SNR at the sampling instant for a known signal shape", "area": "communications"}
+{"nid": 1782957650504, "front": "What is intersymbol interference (ISI)?", "back": "Spreading of symbols in time causing them to overlap and interfere", "area": "communications"}
+{"nid": 1782957650506, "front": "What is the Nyquist criterion for zero ISI?", "back": "Pulse shaping so that pulses are zero at other symbol sampling instants", "area": "communications"}
+{"nid": 1782957650507, "front": "What is a common pulse shaping filter used to limit ISI?", "back": "Raised-cosine filter", "area": "communications"}
+{"nid": 1782957650509, "front": "What is bit error rate (BER)?", "back": "The fraction of bits received in error", "area": "communications"}
+{"nid": 1782957650510, "front": "What does the term dB represent?", "back": "A logarithmic ratio: 10·log10(power ratio)", "area": "communications"}
+{"nid": 1782957650511, "front": "What is the decibel expression for a power ratio of 100?", "back": "20 dB", "area": "communications"}
+{"nid": 1782957650513, "front": "What modulation encodes bits as phase shifts?", "back": "Phase-shift keying (PSK)", "area": "communications"}
+{"nid": 1782957650515, "front": "What is the constellation diagram?", "back": "A plot of symbol points in the in-phase/quadrature plane", "area": "communications"}
+{"nid": 1782957650517, "front": "What is a spread-spectrum technique's benefit?", "back": "Resistance to interference and jamming", "area": "communications"}
+{"nid": 1782957650519, "front": "What is the sampling process's effect on a signal's spectrum?", "back": "It creates periodic replicas of the spectrum at multiples of the sampling frequency", "area": "communications"}
+{"nid": 1782957650520, "front": "What is coherent detection?", "back": "Demodulation using a locally generated carrier synchronized in phase", "area": "communications"}
+{"nid": 1782957650522, "front": "What limits the maximum error-free data rate of a channel?", "back": "Its capacity as given by the Shannon-Hartley theorem", "area": "communications"}
+{"nid": 1782957650525, "front": "What does Coulomb's law describe?", "back": "The electrostatic force between two point charges", "area": "electromagnetics"}
+{"nid": 1782957650527, "front": "What is the force between two point charges q1 and q2 separated by r?", "back": "F = k·q1·q2/r²", "area": "electromagnetics"}
+{"nid": 1782957650528, "front": "What is the electric field of a point charge at distance r?", "back": "E = k·q/r²", "area": "electromagnetics"}
+{"nid": 1782957650530, "front": "What does Gauss's law relate?", "back": "Electric flux through a closed surface to the enclosed charge", "area": "electromagnetics"}
+{"nid": 1782957650531, "front": "What is the integral form of Gauss's law?", "back": "∮E·dA = Q_enclosed/ε₀", "area": "electromagnetics"}
+{"nid": 1782957650533, "front": "What is the relationship between electric field and potential?", "back": "E = −∇V", "area": "electromagnetics"}
+{"nid": 1782957650534, "front": "What is the capacitance of a parallel-plate capacitor?", "back": "C = εA/d", "area": "electromagnetics"}
+{"nid": 1782957650536, "front": "What is Ampère's law relate?", "back": "The magnetic field around a loop to the enclosed current", "area": "electromagnetics"}
+{"nid": 1782957650540, "front": "What is Faraday's law of induction?", "back": "An EMF is induced equal to the negative rate of change of magnetic flux", "area": "electromagnetics"}
+{"nid": 1782957650543, "front": "What is Lenz's law?", "back": "The induced current opposes the change in flux that produced it", "area": "electromagnetics"}
+{"nid": 1782957650545, "front": "What is the magnetic force on a moving charge (Lorentz force)?", "back": "F = q·v×B", "area": "electromagnetics"}
+{"nid": 1782957650547, "front": "What is the magnetic force per unit length on a current-carrying wire?", "back": "F/L = I·L×B (magnitude BIL for perpendicular)", "area": "electromagnetics"}
+{"nid": 1782957650548, "front": "What are the four Maxwell's equations collectively describing?", "back": "The behavior of electric and magnetic fields", "area": "electromagnetics"}
+{"nid": 1782957650550, "front": "What is the speed of an electromagnetic wave in free space?", "back": "c = 1/√(μ₀ε₀) ≈ 3×10⁸ m/s", "area": "electromagnetics"}
+{"nid": 1782957650552, "front": "What is the intrinsic impedance of free space?", "back": "About 377 ohms", "area": "electromagnetics"}
+{"nid": 1782957650554, "front": "What is the wavelength of a wave in terms of speed and frequency?", "back": "λ = c/f", "area": "electromagnetics"}
+{"nid": 1782957650556, "front": "What is the characteristic impedance of a lossless transmission line?", "back": "Z₀ = √(L/C)", "area": "electromagnetics"}
+{"nid": 1782957650558, "front": "What is the reflection coefficient at a load Z_L on a line of Z₀?", "back": "Γ = (Z_L − Z₀)/(Z_L + Z₀)", "area": "electromagnetics"}
+{"nid": 1782957650560, "front": "What is the VSWR when a line is perfectly matched?", "back": "1", "area": "electromagnetics"}
+{"nid": 1782957650562, "front": "What does a Smith chart help analyze?", "back": "Transmission line impedance and matching", "area": "electromagnetics"}
+{"nid": 1782957650564, "front": "What is the skin depth's dependence on frequency?", "back": "It decreases as frequency increases", "area": "electromagnetics"}
+{"nid": 1782957650565, "front": "What is the boundary condition for the tangential E field across an interface?", "back": "It is continuous", "area": "electromagnetics"}
+{"nid": 1782957650567, "front": "What is the permittivity of free space ε₀ approximately?", "back": "8.85×10⁻¹² F/m", "area": "electromagnetics"}
+{"nid": 1782957650569, "front": "What is the permeability of free space μ₀?", "back": "4π×10⁻⁷ H/m", "area": "electromagnetics"}
+{"nid": 1782957650571, "front": "What is the Poynting vector?", "back": "The directional energy flux (power per unit area) of an EM field: E×H", "area": "electromagnetics"}
+{"nid": 1782957650573, "front": "What is a standing wave on a transmission line caused by?", "back": "Reflections from an impedance mismatch", "area": "electromagnetics"}
+{"nid": 1782957650575, "front": "What is the electric flux density D in terms of E?", "back": "D = εE", "area": "electromagnetics"}
+{"nid": 1782957650577, "front": "What is the magnetic flux density B in terms of H?", "back": "B = μH", "area": "electromagnetics"}
+{"nid": 1782957650580, "front": "What is displacement current?", "back": "The changing-electric-field term Maxwell added to Ampère's law", "area": "electromagnetics"}
+{"nid": 1782957650582, "front": "What is the energy density stored in an electric field?", "back": "½·ε·E²", "area": "electromagnetics"}
+{"nid": 1782957650585, "front": "What is Newton's second law?", "back": "F = m·a", "area": "engineering_sciences"}
+{"nid": 1782957650587, "front": "What is the SI unit of force?", "back": "Newton (kg·m/s²)", "area": "engineering_sciences"}
+{"nid": 1782957650589, "front": "What is work done by a constant force over a displacement?", "back": "W = F·d·cosθ", "area": "engineering_sciences"}
+{"nid": 1782957650591, "front": "What is kinetic energy?", "back": "½·m·v²", "area": "engineering_sciences"}
+{"nid": 1782957650593, "front": "What is gravitational potential energy near Earth's surface?", "back": "m·g·h", "area": "engineering_sciences"}
+{"nid": 1782957650594, "front": "What is the principle of conservation of energy?", "back": "Energy cannot be created or destroyed, only transformed", "area": "engineering_sciences"}
+{"nid": 1782957650596, "front": "What is power in mechanical terms?", "back": "The rate of doing work (W = work/time)", "area": "engineering_sciences"}
+{"nid": 1782957650598, "front": "What is momentum?", "back": "The product of mass and velocity (p = m·v)", "area": "engineering_sciences"}
+{"nid": 1782957650599, "front": "What is the impulse-momentum theorem?", "back": "Impulse equals change in momentum (F·Δt = Δp)", "area": "engineering_sciences"}
+{"nid": 1782957650602, "front": "What is the first law of thermodynamics?", "back": "Energy conservation: ΔU = Q − W", "area": "engineering_sciences"}
+{"nid": 1782957650604, "front": "What is the second law of thermodynamics (entropy statement)?", "back": "The entropy of an isolated system never decreases", "area": "engineering_sciences"}
+{"nid": 1782957650605, "front": "What is the ideal gas law?", "back": "PV = nRT", "area": "engineering_sciences"}
+{"nid": 1782957650607, "front": "What is specific heat capacity?", "back": "The energy needed to raise a unit mass by one degree", "area": "engineering_sciences"}
+{"nid": 1782957650609, "front": "What is the mechanism of heat transfer through direct contact?", "back": "Conduction", "area": "engineering_sciences"}
+{"nid": 1782957650611, "front": "What is heat transfer by fluid motion called?", "back": "Convection", "area": "engineering_sciences"}
+{"nid": 1782957650612, "front": "What is heat transfer by electromagnetic waves called?", "back": "Radiation", "area": "engineering_sciences"}
+{"nid": 1782957650614, "front": "What is Fourier's law of heat conduction?", "back": "q = −k·A·dT/dx", "area": "engineering_sciences"}
+{"nid": 1782957650616, "front": "What is stress in a material?", "back": "Force per unit area", "area": "engineering_sciences"}
+{"nid": 1782957650617, "front": "What is strain?", "back": "Deformation per unit length (ΔL/L)", "area": "engineering_sciences"}
+{"nid": 1782957650619, "front": "What is Hooke's law for elastic materials?", "back": "Stress is proportional to strain (σ = E·ε)", "area": "engineering_sciences"}
+{"nid": 1782957650621, "front": "What is Young's modulus?", "back": "The ratio of stress to strain in the elastic region", "area": "engineering_sciences"}
+{"nid": 1782957650622, "front": "What is Bernoulli's principle about?", "back": "Conservation of energy in a flowing fluid (pressure, velocity, elevation)", "area": "engineering_sciences"}
+{"nid": 1782957650624, "front": "What is the continuity equation for incompressible flow?", "back": "A1·v1 = A2·v2", "area": "engineering_sciences"}
+{"nid": 1782957650626, "front": "What distinguishes laminar from turbulent flow?", "back": "The Reynolds number (low = laminar, high = turbulent)", "area": "engineering_sciences"}
+{"nid": 1782957650629, "front": "What is a von Neumann architecture?", "back": "A computer design with shared memory for instructions and data", "area": "computer_systems"}
+{"nid": 1782957650631, "front": "What is the difference between RISC and CISC?", "back": "RISC uses simple fixed instructions; CISC uses complex variable instructions", "area": "computer_systems"}
+{"nid": 1782957650633, "front": "What is the function of the CPU's ALU?", "back": "To perform arithmetic and logic operations", "area": "computer_systems"}
+{"nid": 1782957650634, "front": "What is a cache memory?", "back": "Fast memory between CPU and main memory that stores frequently used data", "area": "computer_systems"}
+{"nid": 1782957650636, "front": "What is the principle of locality?", "back": "Programs tend to reuse recently accessed data/instructions (temporal) and nearby ones (spatial)", "area": "computer_systems"}
+{"nid": 1782957650638, "front": "What is pipelining in a CPU?", "back": "Overlapping the execution stages of multiple instructions", "area": "computer_systems"}
+{"nid": 1782957650639, "front": "What is a pipeline hazard?", "back": "A condition that prevents the next instruction from executing in its designated cycle", "area": "computer_systems"}
+{"nid": 1782957650641, "front": "What is virtual memory?", "back": "A technique giving programs the illusion of a large contiguous memory using disk and RAM", "area": "computer_systems"}
+{"nid": 1782957650642, "front": "What is the purpose of the program counter (PC)?", "back": "To hold the address of the next instruction", "area": "computer_systems"}
+{"nid": 1782957650644, "front": "What is an interrupt?", "back": "A signal that diverts the CPU to handle an event", "area": "computer_systems"}
+{"nid": 1782957650646, "front": "What is the difference between big-endian and little-endian?", "back": "Byte ordering: big-endian stores the most significant byte first", "area": "computer_systems"}
+{"nid": 1782957650647, "front": "What is the two's complement representation for?", "back": "Representing signed integers in binary", "area": "computer_systems"}
+{"nid": 1782957650650, "front": "What is a bus in a computer system?", "back": "A shared set of lines carrying data, addresses, or control signals", "area": "computer_systems"}
+{"nid": 1782957650651, "front": "What does DMA (Direct Memory Access) allow?", "back": "Peripherals to transfer data to/from memory without CPU involvement", "area": "computer_systems"}
+{"nid": 1782957650653, "front": "What is clock speed?", "back": "The rate at which a CPU executes cycles, measured in Hz", "area": "computer_systems"}
+{"nid": 1782957650655, "front": "What is a word in computer architecture?", "back": "The natural unit of data for the processor (e.g., 32 or 64 bits)", "area": "computer_systems"}
+{"nid": 1782957650656, "front": "What is the difference between volatile and non-volatile memory?", "back": "Volatile loses data without power (RAM); non-volatile retains it (flash/ROM)", "area": "computer_systems"}
+{"nid": 1782957650658, "front": "What is the memory hierarchy ordered from fastest to slowest?", "back": "Registers, cache, main memory, secondary storage", "area": "computer_systems"}
+{"nid": 1782957650659, "front": "What is an operating system's role in process scheduling?", "back": "Deciding which process runs on the CPU and when", "area": "computer_systems"}
+{"nid": 1782957650661, "front": "What is a deadlock?", "back": "A state where processes wait indefinitely for resources held by each other", "area": "computer_systems"}
+{"nid": 1782957650663, "front": "What is Amdahl's law about?", "back": "The limit on speedup from parallelizing only part of a task", "area": "computer_systems"}
+{"nid": 1782957650665, "front": "What is the difference between a thread and a process?", "back": "Threads share the same address space; processes have separate address spaces", "area": "computer_systems"}
+{"nid": 1782957650666, "front": "What is a semaphore used for?", "back": "Synchronizing access to shared resources", "area": "computer_systems"}
+{"nid": 1782957650670, "front": "What are the layers of the OSI model (count)?", "back": "Seven", "area": "computer_networks"}
+{"nid": 1782957650672, "front": "What is the transport layer responsible for?", "back": "End-to-end delivery, reliability, and flow control", "area": "computer_networks"}
+{"nid": 1782957650674, "front": "What protocol provides reliable, connection-oriented transport?", "back": "TCP", "area": "computer_networks"}
+{"nid": 1782957650675, "front": "What protocol provides connectionless, best-effort transport?", "back": "UDP", "area": "computer_networks"}
+{"nid": 1782957650677, "front": "What does IP stand for and do?", "back": "Internet Protocol; provides addressing and routing of packets", "area": "computer_networks"}
+{"nid": 1782957650679, "front": "How many bits are in an IPv4 address?", "back": "32", "area": "computer_networks"}
+{"nid": 1782957650681, "front": "How many bits are in an IPv6 address?", "back": "128", "area": "computer_networks"}
+{"nid": 1782957650682, "front": "What does DNS do?", "back": "Translates domain names to IP addresses", "area": "computer_networks"}
+{"nid": 1782957650684, "front": "What layer does a router primarily operate at?", "back": "The network layer (Layer 3)", "area": "computer_networks"}
+{"nid": 1782957650685, "front": "What layer does a switch primarily operate at?", "back": "The data link layer (Layer 2)", "area": "computer_networks"}
+{"nid": 1782957650687, "front": "What is a MAC address?", "back": "A hardware address identifying a network interface at the data link layer", "area": "computer_networks"}
+{"nid": 1782957650688, "front": "What is the purpose of the TCP three-way handshake?", "back": "To establish a connection (SYN, SYN-ACK, ACK)", "area": "computer_networks"}
+{"nid": 1782957650690, "front": "What does CSMA/CD stand for?", "back": "Carrier Sense Multiple Access with Collision Detection", "area": "computer_networks"}
+{"nid": 1782957650691, "front": "What is bandwidth in networking?", "back": "The maximum data rate of a link", "area": "computer_networks"}
+{"nid": 1782957650693, "front": "What is latency in networking?", "back": "The time for data to travel from source to destination", "area": "computer_networks"}
+{"nid": 1782957650694, "front": "What is a subnet mask used for?", "back": "Dividing an IP address into network and host portions", "area": "computer_networks"}
+{"nid": 1782957650696, "front": "What is packet switching?", "back": "Breaking data into packets routed independently across a network", "area": "computer_networks"}
+{"nid": 1782957650697, "front": "What is the purpose of ARP?", "back": "Mapping an IP address to a MAC address", "area": "computer_networks"}
+{"nid": 1782957650698, "front": "What port does HTTP use by default?", "back": "80", "area": "computer_networks"}
+{"nid": 1782957650700, "front": "What port does HTTPS use by default?", "back": "443", "area": "computer_networks"}
+{"nid": 1782957650701, "front": "What does a firewall do?", "back": "Filters network traffic based on security rules", "area": "computer_networks"}
+{"nid": 1782957650703, "front": "What is encapsulation in networking?", "back": "Wrapping data with protocol headers as it moves down the layers", "area": "computer_networks"}
+{"nid": 1782957650705, "front": "What is throughput?", "back": "The actual rate of successful data delivery over a channel", "area": "computer_networks"}
+{"nid": 1782957650708, "front": "What is a variable's scope?", "back": "The region of a program where the variable is accessible", "area": "software_development"}
+{"nid": 1782957650709, "front": "What is the difference between compilation and interpretation?", "back": "Compilation translates the whole program to machine code first; interpretation executes line by line", "area": "software_development"}
+{"nid": 1782957650711, "front": "What is a stack data structure's access order?", "back": "Last-in, first-out (LIFO)", "area": "software_development"}
+{"nid": 1782957650716, "front": "What is a queue data structure's access order?", "back": "First-in, first-out (FIFO)", "area": "software_development"}
+{"nid": 1782957650719, "front": "What is the time complexity of binary search?", "back": "O(log n)", "area": "software_development"}
+{"nid": 1782957650721, "front": "What is the time complexity of linear search?", "back": "O(n)", "area": "software_development"}
+{"nid": 1782957650723, "front": "What is the average time complexity of quicksort?", "back": "O(n log n)", "area": "software_development"}
+{"nid": 1782957650724, "front": "What is the worst-case time complexity of bubble sort?", "back": "O(n²)", "area": "software_development"}
+{"nid": 1782957650726, "front": "What does Big-O notation describe?", "back": "The upper bound on an algorithm's growth rate", "area": "software_development"}
+{"nid": 1782957650727, "front": "What is recursion?", "back": "A function that calls itself to solve smaller subproblems", "area": "software_development"}
+{"nid": 1782957650729, "front": "What is a base case in recursion?", "back": "The condition that stops the recursion", "area": "software_development"}
+{"nid": 1782957650731, "front": "What is the difference between an array and a linked list?", "back": "Arrays have contiguous indexed storage; linked lists use nodes with pointers", "area": "software_development"}
+{"nid": 1782957650733, "front": "What is a hash table's average lookup time?", "back": "O(1)", "area": "software_development"}
+{"nid": 1782957650734, "front": "What is a binary tree?", "back": "A tree where each node has at most two children", "area": "software_development"}
+{"nid": 1782957650736, "front": "What is a pointer?", "back": "A variable that stores a memory address", "area": "software_development"}
+{"nid": 1782957650737, "front": "What is the difference between pass-by-value and pass-by-reference?", "back": "By value copies the argument; by reference passes access to the original", "area": "software_development"}
+{"nid": 1782957650739, "front": "What is an infinite loop?", "back": "A loop whose termination condition is never met", "area": "software_development"}
+{"nid": 1782957650740, "front": "What is a boolean data type?", "back": "A type with two values: true and false", "area": "software_development"}
+{"nid": 1782957650742, "front": "What is object-oriented programming based on?", "back": "Objects that encapsulate data and behavior", "area": "software_development"}
+{"nid": 1782957650743, "front": "What is inheritance in OOP?", "back": "A mechanism where a class derives properties from another class", "area": "software_development"}
+{"nid": 1782957650745, "front": "What is encapsulation in OOP?", "back": "Bundling data with methods and restricting direct access", "area": "software_development"}
+{"nid": 1782957650747, "front": "What is polymorphism in OOP?", "back": "The ability of different objects to respond to the same interface", "area": "software_development"}
+{"nid": 1782957650749, "front": "What is a syntax error?", "back": "A violation of the programming language's grammar rules", "area": "software_development"}
+{"nid": 1782957650751, "front": "What is a logic error?", "back": "A flaw where the program runs but produces incorrect results", "area": "software_development"}
+{"nid": 1782957650752, "front": "What is the purpose of version control?", "back": "Tracking and managing changes to source code over time", "area": "software_development"}
+{"nid": 1782957650754, "front": "What is a compiler's lexical analysis phase?", "back": "Breaking source code into tokens", "area": "software_development"}
+{"nid": 1782957650757, "front": "What is the probability of the sample space?", "back": "1", "area": "probability_statistics"}
+{"nid": 1782957650758, "front": "What is the range of any probability value?", "back": "Between 0 and 1 inclusive", "area": "probability_statistics"}
+{"nid": 1782957650760, "front": "What is the complement rule P(A')?", "back": "1 − P(A)", "area": "probability_statistics"}
+{"nid": 1782957650762, "front": "For independent events A and B, what is P(A ∩ B)?", "back": "P(A)·P(B)", "area": "probability_statistics"}
+{"nid": 1782957650764, "front": "What is conditional probability P(A|B)?", "back": "P(A ∩ B)/P(B)", "area": "probability_statistics"}
+{"nid": 1782957650765, "front": "What does Bayes' theorem compute?", "back": "P(A|B) from P(B|A), P(A), and P(B)", "area": "probability_statistics"}
+{"nid": 1782957650767, "front": "What is the mean of a discrete random variable?", "back": "The expected value E[X] = Σ x·P(x)", "area": "probability_statistics"}
+{"nid": 1782957650769, "front": "What is variance a measure of?", "back": "The spread of a distribution about its mean", "area": "probability_statistics"}
+{"nid": 1782957650771, "front": "What is the variance formula in terms of expectations?", "back": "E[X²] − (E[X])²", "area": "probability_statistics"}
+{"nid": 1782957650772, "front": "What is the standard deviation?", "back": "The square root of the variance", "area": "probability_statistics"}
+{"nid": 1782957650774, "front": "What is the shape of the normal distribution?", "back": "A symmetric bell curve", "area": "probability_statistics"}
+{"nid": 1782957650775, "front": "What percent of normal data lies within one standard deviation of the mean?", "back": "About 68%", "area": "probability_statistics"}
+{"nid": 1782957650777, "front": "What percent of normal data lies within two standard deviations?", "back": "About 95%", "area": "probability_statistics"}
+{"nid": 1782957650779, "front": "What distribution models the number of successes in n independent trials?", "back": "The binomial distribution", "area": "probability_statistics"}
+{"nid": 1782957650780, "front": "What is the mean of a binomial distribution with n trials and probability p?", "back": "n·p", "area": "probability_statistics"}
+{"nid": 1782957650782, "front": "What distribution models rare events over a fixed interval?", "back": "The Poisson distribution", "area": "probability_statistics"}
+{"nid": 1782957650784, "front": "What does the central limit theorem state?", "back": "Sample means approach a normal distribution as sample size grows", "area": "probability_statistics"}
+{"nid": 1782957650786, "front": "What is a z-score?", "back": "The number of standard deviations a value is from the mean", "area": "probability_statistics"}
+{"nid": 1782957650788, "front": "What is the median of a data set?", "back": "The middle value when data is ordered", "area": "probability_statistics"}
+{"nid": 1782957650789, "front": "What is the mode of a data set?", "back": "The most frequently occurring value", "area": "probability_statistics"}
+{"nid": 1782957650790, "front": "How many ways to arrange n distinct items (permutations)?", "back": "n!", "area": "probability_statistics"}
+{"nid": 1782957650792, "front": "What is the combination formula C(n, r)?", "back": "n!/(r!(n−r)!)", "area": "probability_statistics"}
+{"nid": 1782957650794, "front": "What is a confidence interval?", "back": "A range likely to contain the true parameter at a stated confidence level", "area": "probability_statistics"}
+{"nid": 1782957650795, "front": "For mutually exclusive events, what is P(A ∩ B)?", "back": "0", "area": "probability_statistics"}
+{"nid": 1782957650797, "front": "What is the addition rule for any two events P(A ∪ B)?", "back": "P(A) + P(B) − P(A ∩ B)", "area": "probability_statistics"}
+{"nid": 1782957650800, "front": "What is the time value of money principle?", "back": "Money available now is worth more than the same amount in the future", "area": "engineering_economics"}
+{"nid": 1782957650802, "front": "What is the future worth formula F given present P?", "back": "F = P(1 + i)^n", "area": "engineering_economics"}
+{"nid": 1782957650804, "front": "What is the present worth factor (P/F, i, n)?", "back": "1/(1 + i)^n", "area": "engineering_economics"}
+{"nid": 1782957650806, "front": "What is nominal interest rate?", "back": "The stated annual rate before compounding effects", "area": "engineering_economics"}
+{"nid": 1782957650807, "front": "What is effective annual interest rate for nominal r compounded m times?", "back": "(1 + r/m)^m − 1", "area": "engineering_economics"}
+{"nid": 1782957650809, "front": "What is an annuity?", "back": "A series of equal payments at regular intervals", "area": "engineering_economics"}
+{"nid": 1782957650810, "front": "What does the capital recovery factor (A/P, i, n) compute?", "back": "The equal periodic payment to recover a present amount", "area": "engineering_economics"}
+{"nid": 1782957650812, "front": "What is net present value (NPV)?", "back": "The present worth of all cash inflows minus outflows", "area": "engineering_economics"}
+{"nid": 1782957650814, "front": "What decision rule applies to NPV for a viable project?", "back": "Accept if NPV is greater than or equal to zero", "area": "engineering_economics"}
+{"nid": 1782957650815, "front": "What is the internal rate of return (IRR)?", "back": "The interest rate at which NPV equals zero", "area": "engineering_economics"}
+{"nid": 1782957650817, "front": "What is the payback period?", "back": "The time required to recover the initial investment", "area": "engineering_economics"}
+{"nid": 1782957650818, "front": "What is straight-line depreciation per year?", "back": "(Cost − salvage value)/useful life", "area": "engineering_economics"}
+{"nid": 1782957650820, "front": "What is book value?", "back": "The asset's cost minus accumulated depreciation", "area": "engineering_economics"}
+{"nid": 1782957650821, "front": "What is salvage value?", "back": "The estimated value of an asset at the end of its useful life", "area": "engineering_economics"}
+{"nid": 1782957650823, "front": "What is a sunk cost?", "back": "A past cost that cannot be recovered and is irrelevant to future decisions", "area": "engineering_economics"}
+{"nid": 1782957650824, "front": "What is opportunity cost?", "back": "The value of the best alternative forgone", "area": "engineering_economics"}
+{"nid": 1782957650826, "front": "What is the benefit-cost ratio decision criterion?", "back": "Accept if the ratio is greater than or equal to 1", "area": "engineering_economics"}
+{"nid": 1782957650828, "front": "What is inflation?", "back": "A general increase in prices reducing purchasing power", "area": "engineering_economics"}
+{"nid": 1782957650829, "front": "What is the real interest rate approximately?", "back": "Nominal rate minus inflation rate", "area": "engineering_economics"}
+{"nid": 1782957650831, "front": "What is a cash flow diagram?", "back": "A graphical timeline of costs and revenues", "area": "engineering_economics"}
+{"nid": 1782957650833, "front": "What is compound interest?", "back": "Interest earned on both principal and previously accumulated interest", "area": "engineering_economics"}
+{"nid": 1782957650834, "front": "What is the difference between simple and compound interest?", "back": "Simple interest is on principal only; compound is on principal plus accrued interest", "area": "engineering_economics"}
+{"nid": 1782957650836, "front": "What is a MARR?", "back": "Minimum Attractive Rate of Return, the hurdle rate for investments", "area": "engineering_economics"}
+{"nid": 1782957650838, "front": "What is the annual worth method?", "back": "Converting all cash flows to an equivalent uniform annual amount", "area": "engineering_economics"}
+{"nid": 1782957650842, "front": "What is conductivity's relationship to resistivity?", "back": "Conductivity is the reciprocal of resistivity", "area": "properties_of_electrical_materials"}
+{"nid": 1782957650843, "front": "What is resistivity's temperature dependence in metals?", "back": "Resistivity increases with temperature", "area": "properties_of_electrical_materials"}
+{"nid": 1782957650845, "front": "What is a semiconductor?", "back": "A material with conductivity between a conductor and an insulator", "area": "properties_of_electrical_materials"}
+{"nid": 1782957650846, "front": "What happens to a semiconductor's conductivity as temperature rises?", "back": "It increases (more carriers are generated)", "area": "properties_of_electrical_materials"}
+{"nid": 1782957650848, "front": "What is the band gap of an insulator compared to a semiconductor?", "back": "Larger", "area": "properties_of_electrical_materials"}
+{"nid": 1782957650850, "front": "What is the majority carrier in n-type material?", "back": "Electrons", "area": "properties_of_electrical_materials"}
+{"nid": 1782957650852, "front": "What is the majority carrier in p-type material?", "back": "Holes", "area": "properties_of_electrical_materials"}
+{"nid": 1782957650854, "front": "What is a dielectric material?", "back": "An insulator that can be polarized by an electric field", "area": "properties_of_electrical_materials"}
+{"nid": 1782957650855, "front": "What is the dielectric constant (relative permittivity)?", "back": "The ratio of a material's permittivity to that of free space", "area": "properties_of_electrical_materials"}
+{"nid": 1782957650857, "front": "What is dielectric strength?", "back": "The maximum electric field a material withstands before breakdown", "area": "properties_of_electrical_materials"}
+{"nid": 1782957650859, "front": "What is a ferromagnetic material?", "back": "One that can be strongly magnetized (e.g., iron, nickel, cobalt)", "area": "properties_of_electrical_materials"}
+{"nid": 1782957650860, "front": "What is magnetic permeability?", "back": "A measure of how easily a material supports magnetic flux", "area": "properties_of_electrical_materials"}
+{"nid": 1782957650862, "front": "What is hysteresis in magnetic materials?", "back": "The lag of magnetization behind the applied field", "area": "properties_of_electrical_materials"}
+{"nid": 1782957650863, "front": "What is a superconductor?", "back": "A material with zero electrical resistance below a critical temperature", "area": "properties_of_electrical_materials"}
+{"nid": 1782957650865, "front": "What is the temperature coefficient of resistance?", "back": "The fractional change in resistance per degree of temperature change", "area": "properties_of_electrical_materials"}
+{"nid": 1782957650866, "front": "What is doping?", "back": "Adding impurities to a semiconductor to control its conductivity", "area": "properties_of_electrical_materials"}
+{"nid": 1782957650868, "front": "What is intrinsic silicon?", "back": "Pure, undoped semiconductor silicon", "area": "properties_of_electrical_materials"}
+{"nid": 1782957650870, "front": "What is the Curie temperature?", "back": "The temperature above which a ferromagnet loses its permanent magnetism", "area": "properties_of_electrical_materials"}
+{"nid": 1782957650871, "front": "What is drift current in a semiconductor?", "back": "Carrier movement due to an applied electric field", "area": "properties_of_electrical_materials"}
+{"nid": 1782957650873, "front": "What is diffusion current in a semiconductor?", "back": "Carrier movement due to a concentration gradient", "area": "properties_of_electrical_materials"}
+{"nid": 1782957650874, "front": "What is carrier mobility?", "back": "How quickly a charge carrier moves through a material per unit electric field", "area": "properties_of_electrical_materials"}
+{"nid": 1782957650876, "front": "What is a paramagnetic material?", "back": "One weakly attracted to magnetic fields", "area": "properties_of_electrical_materials"}
+{"nid": 1782957650882, "front": "What is thermal conductivity?", "back": "A material's ability to conduct heat", "area": "properties_of_electrical_materials"}
+{"nid": 1782957650887, "front": "What is the primary obligation under the NSPE Code of Ethics?", "back": "To hold paramount the safety, health, and welfare of the public", "area": "ethics"}
+{"nid": 1782957650889, "front": "Under what conditions should engineers issue public statements?", "back": "Only in an objective and truthful manner", "area": "ethics"}
+{"nid": 1782957650890, "front": "In what areas may engineers perform services?", "back": "Only in their areas of competence", "area": "ethics"}
+{"nid": 1782957650892, "front": "How must engineers act for clients and employers?", "back": "As faithful agents or trustees", "area": "ethics"}
+{"nid": 1782957650894, "front": "What must engineers avoid regarding conflicts of interest?", "back": "Deceptive acts and undisclosed conflicts of interest", "area": "ethics"}
+{"nid": 1782957650896, "front": "What should an engineer do upon discovering a danger to the public?", "back": "Notify the proper authority and take appropriate action", "area": "ethics"}
+{"nid": 1782957650897, "front": "Can engineers accept gifts intended to influence their judgment?", "back": "No", "area": "ethics"}
+{"nid": 1782957650899, "front": "Whose confidential information must engineers protect?", "back": "That of present and former clients or employers", "area": "ethics"}
+{"nid": 1782957650901, "front": "What is plagiarism in an engineering context?", "back": "Presenting another's work or ideas as one's own", "area": "ethics"}
+{"nid": 1782957650902, "front": "Should an engineer sign off on plans they did not prepare or review?", "back": "No, only those prepared under their responsible charge", "area": "ethics"}
+{"nid": 1782957650904, "front": "What is a licensed Professional Engineer (PE) responsible for?", "back": "Work performed under their stamp and responsible charge", "area": "ethics"}
+{"nid": 1782957650905, "front": "What must an engineer do if their judgment is overruled endangering the public?", "back": "Notify their employer or client and possibly the appropriate authorities", "area": "ethics"}
+{"nid": 1782957650907, "front": "Should engineers give credit for engineering work to those to whom it is due?", "back": "Yes", "area": "ethics"}
+{"nid": 1782957650908, "front": "Is it ethical to compete unfairly by discrediting other engineers falsely?", "back": "No", "area": "ethics"}
+{"nid": 1782957650910, "front": "What is the engineer's duty regarding sustainable development?", "back": "To strive to protect the environment and public welfare", "area": "ethics"}
+{"nid": 1782957650911, "front": "Can an engineer accept work if it creates a conflict of interest without disclosure?", "back": "No, conflicts must be disclosed", "area": "ethics"}
+{"nid": 1782957650913, "front": "Should engineers continue their professional development?", "back": "Yes, throughout their careers", "area": "ethics"}
+{"nid": 1782957650914, "front": "Is accepting compensation from multiple parties for the same project ethical?", "back": "Only with full disclosure and consent of all parties", "area": "ethics"}
+{"nid": 1782957650916, "front": "What is the purpose of a code of ethics?", "back": "To guide professional conduct and protect the public interest", "area": "ethics"}
+{"nid": 1782957650918, "front": "What should engineers base technical decisions on?", "back": "Sound engineering judgment and factual evidence", "area": "ethics"}
+{"nid": 1782957650919, "front": "Find all real solutions to 2x² − 5x − 3 = 0.", "back": "x = 3 and x = −0.5", "area": "mathematics"}
+{"nid": 1782957650921, "front": "Evaluate lim(x→0) sin(3x)/(5x).", "back": "3/5", "area": "mathematics"}
+{"nid": 1782957650922, "front": "Find d/dx[x²·ln(x)].", "back": "2x·ln(x) + x", "area": "mathematics"}
+{"nid": 1782957650924, "front": "Evaluate the definite integral of sin(x) from 0 to π/2.", "back": "1", "area": "mathematics"}
+{"nid": 1782957650926, "front": "For z = 3 + 4j, find the magnitude and argument in degrees.", "back": "|z| = 5, arg = 53.13°", "area": "mathematics"}
+{"nid": 1782957650928, "front": "Find det(A) for A = [[2, 1], [1, 3]].", "back": "5", "area": "mathematics"}
+{"nid": 1782957650929, "front": "Solve dy/dx + 2y = 0 with y(0) = 5.", "back": "y = 5·e^(−2x)", "area": "mathematics"}
+{"nid": 1782957650931, "front": "Find the dot product of a = (1, 2, 3) and b = (4, −5, 6).", "back": "12", "area": "mathematics"}
+{"nid": 1782957650932, "front": "Find the gradient of f(x, y) = x² + 3xy + y².", "back": "(2x + 3y, 3x + 2y)", "area": "mathematics"}
+{"nid": 1782957650934, "front": "A series circuit has a 12 V source with a 4 Ω and a 6 Ω resistor. What is the voltage drop across the 6 Ω resistor?", "back": "7.2 V (I = 1.2 A)", "area": "circuit_analysis"}
+{"nid": 1782957650936, "front": "A balanced three-phase wye load draws 10 A line current from a 480 V line-to-line source at 0.85 pf lagging. What is the total real power?", "back": "≈ 7,067 W (√3·480·10·0.85)", "area": "power_systems"}
+{"nid": 1782957650938, "front": "A positive-sequence balanced wye source has V_an = 120∠30° V. What is V_bn?", "back": "120∠−90° V", "area": "power_systems"}
+{"nid": 1782957650939, "front": "An inverting op-amp has Rf = 100 kΩ, Rin = 10 kΩ, and Vin = 0.5 V. What is Vout?", "back": "−5.0 V (gain = −10)", "area": "electronics"}
+{"nid": 1782957650940, "front": "Simplify the Boolean expression A·B + A·B' + A'·B.", "back": "A + B", "area": "digital_systems"}
+{"nid": 1782957650942, "front": "An analog signal has components up to 4 kHz. What is the minimum Nyquist sampling rate?", "back": "8 kHz", "area": "signal_processing"}
+{"nid": 1782957650943, "front": "Find the transform L{e^(−3t)·u(t)}.", "back": "1/(s + 3)", "area": "signal_processing"}
+{"nid": 1782957650945, "front": "A parallel-plate capacitor has A = 0.02 m², d = 1 mm, and εr = 4. What is its capacitance? (ε0 = 8.854e−12 F/m)", "back": "≈ 708 pF", "area": "electromagnetics"}
+{"nid": 1782957650946, "front": "A signal travels on STP cable with velocity factor 0.7. What is the wavelength of a 2 GHz signal?", "back": "≈ 0.105 m (v = 0.7c)", "area": "electromagnetics"}
+{"nid": 1782957650948, "front": "Two line-of-sight towers are each 100 m tall; radio horizon d = 4.1·√h km. What is their maximum separation?", "back": "≈ 82 km (41 km each)", "area": "communications"}
+{"nid": 1782957650950, "front": "For the system G(s) = 10/(s² + 5s + 6), where are the poles and is it stable?", "back": "Poles at s = −2, −3; stable", "area": "control_systems"}
+{"nid": 1782957650951, "front": "A quality process runs two independent tests with pass probabilities 0.95 and 0.90. What is the probability of passing both?", "back": "0.855", "area": "probability_statistics"}
+{"nid": 1782957650953, "front": "Equipment costs $10,000 now and saves $3,000/yr for 5 years at 8%. What is the net present worth?", "back": "≈ $1,978 (P/A = 3.9927)", "area": "engineering_economics"}
+{"nid": 1782957650954, "front": "Using Euler's identity, what is e^(jπ)?", "back": "−1", "area": "mathematics"}
+{"nid": 1782957650956, "front": "An 8-bit ADC spans a 5 V range. What is the approximate voltage resolution (one LSB)?", "back": "5/256 ≈ 19.5 mV", "area": "signal_processing"}
+{"nid": 1782957650958, "front": "A 60 Hz, 4-pole synchronous generator runs at what synchronous speed?", "back": "1800 rpm (N = 120·f/P)", "area": "power_systems"}
+{"nid": 1782957650965, "front": "What is the derivative of sin(x) with respect to x?", "back": "cos(x)", "area": "mathematics"}
+{"nid": 1782957650967, "front": "What is the determinant of the 2x2 matrix [[a, b], [c, d]]?", "back": "ad − bc", "area": "mathematics"}
+{"nid": 1782957650969, "front": "Evaluate the indefinite integral ∫ x dx.", "back": "x²/2 + C", "area": "mathematics"}
+{"nid": 1782957650971, "front": "What does Euler's identity e^(jπ) + 1 equal?", "back": "0", "area": "mathematics"}
+{"nid": 1782957650972, "front": "The dot product of two nonzero orthogonal vectors equals what?", "back": "0", "area": "mathematics"}
+{"nid": 1782957650974, "front": "What is the magnitude of the complex number 3 + 4j?", "back": "5", "area": "mathematics"}
+{"nid": 1782957650976, "front": "State Ohm's law relating voltage V, current I, and resistance R.", "back": "V = I·R", "area": "circuit_analysis"}
+{"nid": 1782957650977, "front": "What is the equivalent resistance of resistors R1 and R2 in parallel?", "back": "R1·R2 / (R1 + R2)", "area": "circuit_analysis"}
+{"nid": 1782957650979, "front": "What is the impedance of a capacitor C at angular frequency ω?", "back": "1 / (jωC)", "area": "circuit_analysis"}
+{"nid": 1782957650981, "front": "What is the impedance of an inductor L at angular frequency ω?", "back": "jωL", "area": "circuit_analysis"}
+{"nid": 1782957650982, "front": "By Kirchhoff's Current Law, the sum of currents entering a node equals what?", "back": "0 (current in equals current out)", "area": "circuit_analysis"}
+{"nid": 1782957650984, "front": "What is the time constant of a series RC circuit?", "back": "τ = R·C", "area": "circuit_analysis"}
+{"nid": 1782957650986, "front": "In an ideal op-amp, what is the input bias current?", "back": "0 (infinite input impedance)", "area": "electronics"}
+{"nid": 1782957650988, "front": "For an ideal op-amp with negative feedback, what is the voltage difference between its inputs?", "back": "0 (virtual short)", "area": "electronics"}
+{"nid": 1782957650990, "front": "What is the closed-loop gain of an inverting op-amp with feedback Rf and input Rin?", "back": "−Rf / Rin", "area": "electronics"}
+{"nid": 1782957650992, "front": "What is the approximate forward voltage drop of a conducting silicon diode?", "back": "≈ 0.7 V", "area": "electronics"}
+{"nid": 1782957650994, "front": "For a BJT in the active region, how are the base-emitter and base-collector junctions biased?", "back": "Base-emitter forward biased; base-collector reverse biased", "area": "electronics"}
+{"nid": 1782957650996, "front": "What is the real power P of a single-phase load with rms V, rms I, and power factor cosθ?", "back": "P = V·I·cosθ", "area": "power_systems"}
+{"nid": 1782957650998, "front": "Express apparent power S in terms of real power P and reactive power Q.", "back": "S = √(P² + Q²)", "area": "power_systems"}
+{"nid": 1782957651000, "front": "In a balanced wye (Y) connection, how does line voltage relate to phase voltage?", "back": "V_line = √3 · V_phase", "area": "power_systems"}
+{"nid": 1782957651002, "front": "In a balanced delta (Δ) connection, how does line current relate to phase current?", "back": "I_line = √3 · I_phase", "area": "power_systems"}
+{"nid": 1782957651003, "front": "Define power factor as a ratio.", "back": "Real power divided by apparent power (P/S)", "area": "power_systems"}
+{"nid": 1782957651005, "front": "When is the output of a 2-input XOR gate equal to logic 1?", "back": "When the two inputs differ", "area": "digital_systems"}
+{"nid": 1782957651007, "front": "How many bits are required to represent decimal 255 in unsigned binary?", "back": "8 bits (11111111)", "area": "digital_systems"}
+{"nid": 1782957651009, "front": "How do you form the two's complement of a binary number?", "back": "Invert all bits and add 1", "area": "digital_systems"}
+{"nid": 1782957651010, "front": "A positive-edge-triggered D flip-flop captures input D on which event?", "back": "The rising clock edge", "area": "digital_systems"}
+{"nid": 1782957651012, "front": "How many distinct states can be represented with n bits?", "back": "2^n", "area": "digital_systems"}
+{"nid": 1782957651014, "front": "For a continuous-time LTI system, where must all poles lie for BIBO stability?", "back": "In the open left half of the s-plane", "area": "control_systems"}
+{"nid": 1782957651015, "front": "What is the Laplace transform of the unit step u(t)?", "back": "1/s", "area": "control_systems"}
+{"nid": 1782957651017, "front": "What is the steady-state error of a type-1 system to a unit step input?", "back": "0", "area": "control_systems"}
+{"nid": 1782957651019, "front": "What does a transfer function represent?", "back": "Ratio of output to input in the Laplace domain with zero initial conditions", "area": "control_systems"}
+{"nid": 1782957651020, "front": "Under the NSPE Code of Ethics, what is an engineer's paramount obligation?", "back": "To hold paramount the safety, health, and welfare of the public", "area": "ethics"}
+{"nid": 1782957651022, "front": "Engineers should perform services only in which areas?", "back": "Only in their areas of competence", "area": "ethics"}
+{"nid": 1782957651023, "front": "Engineers shall act for each employer or client as what?", "back": "Faithful agents or trustees", "area": "ethics"}
+{"nid": 1782957651025, "front": "What is the future value F of present value P at interest rate i over n periods?", "back": "F = P(1 + i)^n", "area": "engineering_economics"}
+{"nid": 1782957651026, "front": "What is the single-payment present-worth factor (P/F, i, n)?", "back": "1 / (1 + i)^n", "area": "engineering_economics"}
+{"nid": 1782957651028, "front": "What is the simple interest on principal P at rate i over n years?", "back": "I = P·i·n", "area": "engineering_economics"}
+{"nid": 1782957651030, "front": "For mutually exclusive events A and B, what is P(A ∪ B)?", "back": "P(A) + P(B)", "area": "probability_statistics"}
+{"nid": 1782957651032, "front": "What is the total area under a probability density function over all x?", "back": "1", "area": "probability_statistics"}
+{"nid": 1782957651033, "front": "How is standard deviation related to variance?", "back": "It is the square root of the variance", "area": "probability_statistics"}

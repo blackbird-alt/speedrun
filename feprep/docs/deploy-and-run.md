@@ -108,12 +108,12 @@ note type:
 ```powershell
 $env:PYTHONPATH = "pylib;out/pylib"
 & "out\pyenv\Scripts\python.exe" feprep\build_apkg.py `
-    --source decks\fe-bank.txt decks\fe-seed-deck.txt `
+    --source decks\fe-problems.txt decks\fe-figures.txt decks\fe-seed-deck.txt `
     --out feprep\decks\fe-electrical.apkg --preview
 ```
 
 - `--source` accepts one or more tab-separated source decks (default:
-  `fe-bank.txt`).
+  `fe-problems.txt` + `fe-figures.txt` + `fe-seed-deck.txt`).
 - `--preview` also writes `feprep/decks/preview.html` for eyeballing the card
   design in a browser.
 - **Images**: any card that references an image (`<img src="name">` or the
@@ -166,7 +166,9 @@ Artifacts:
   unpacked, runnable bundle (zip and copy it if you don't want an installer).
 
 Install the `.msi` on a clean machine and launch; the app opens into a working
-review loop with AI off (the only mode that exists this milestone).
+review loop with AI off by default. AI is opt-in and stays inert until you add an
+OpenAI key (Tools → "Set OpenAI key…", or inline in the "Generate cards (AI)"
+dialog); studying and the three scores never call a model regardless.
 
 > Gotchas learned building this: (1) `cargo` must be on PATH
 > (`~\.cargo\bin`); (2) **close the running app first** — otherwise the build

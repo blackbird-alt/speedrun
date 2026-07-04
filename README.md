@@ -5,8 +5,10 @@
 
 This repository is a fork of [Anki](https://apps.ankiweb.net) that adds a study
 tool for the **NCEES FE Electrical and Computer** exam. It shares one Rust engine
-across desktop and phone and adds two small, honest, AI-free features. See
-[`feprep/README.md`](./feprep/README.md) for the full write-up.
+across desktop and phone. The study features are honest by construction — scores
+are shown as ranges with pre-registered give-up rules, and the app runs the same
+whether or not any AI is involved. See [`feprep/README.md`](./feprep/README.md)
+for the full write-up.
 
 > **Credit:** This project is a fork of Anki by Ankitects Pty Ltd and
 > contributors. The upstream project is licensed GNU AGPL-3.0-or-later, with some
@@ -16,22 +18,54 @@ across desktop and phone and adds two small, honest, AI-free features. See
 
 ## What this fork adds
 
-1. **Points-at-stake queue** — a read-only re-ordering of the due/new queue by
-   `topic weight × student weakness`, so the highest-value cards surface first.
-   Implemented in the shared Rust engine (`rslib/src/scheduler/points_at_stake.rs`),
-   exposed over protobuf, and callable from Python. It writes no scheduling
-   state, so undo and collection integrity are unaffected.
-2. **Honest memory score** — an aggregate of Anki's existing FSRS retrievability,
-   presented as a **range with a stated give-up rule**, never a bare single
-   number. No AI, no new model — just honest aggregation.
+1. **Three honest scores — each a range with a pre-registered give-up rule.**
+   None is ever a bare single number, and each stays *hidden* until enough data
+   exists to defend it. All three are read-only aggregates of Anki's existing
+   FSRS retrievability, computed in the shared Rust engine
+   (`rslib/src/scheduler/points_at_stake.rs`). One-page write-ups live in
+   [`feprep/docs/`](./feprep/docs/):
+   - **[Memory](./feprep/docs/model-memory.md)** — recall of studied material.
+     Withheld below **50 graded reviews across 3 topics**
+     (`feMemoryMinReviews` / `feMemoryMinTopics`).
+   - **[Performance](./feprep/docs/model-performance.md)** — recall on worked,
+     exam-style problems (`track::durable` cards). Withheld below **30 exam-style
+     reviews across 2 topics** (`fePerformanceMinReviews` /
+     `fePerformanceMinTopics`). Early-stage: a proxy, not a graded solution.
+   - **[Readiness](./feprep/docs/model-readiness.md)** — a pass-probability
+     range. **Deliberately abstains** below **200 graded reviews AND 50% area
+     coverage** (`feReadinessMinReviews` / `feReadinessMinCoverage`); when it
+     abstains it names the single best next action. Early-stage and uncalibrated
+     against real pass/fail outcomes, so silence is the honest default.
+2. **Points-at-stake queue (Rust)** — a read-only re-ordering of the due/new
+   queue by `topic weight × student weakness`, interleaved so a session spans
+   many areas while the heaviest/weakest surface most. In the shared engine
+   (`rslib/src/scheduler/points_at_stake.rs`), exposed over protobuf, callable
+   from Python. It writes no scheduling state, so undo and collection integrity
+   are unaffected.
+3. **AI card-generation pipeline (build-time, AI-off-safe)** — a reproducible
+   [`feprep/ai/`](./feprep/ai/) pipeline that turns already-verified FE content
+   into new cards: **grounded** (every card cites `doc:line`), **verifier-gated**
+   (blocks anything not `correct_useful`), measured on a **held-out gold set**
+   with cutoffs fixed in advance, and audited by a **leakage check**. Pluggable
+   **OpenAI / stub** providers (plus a documented Gemini path); the stub is fully
+   offline and deterministic. This is **authoring tooling only** — the running
+   app never calls a model, so it opens, reviews, and scores identically with AI
+   off or no network. Live generation needs an API key.
+4. **Two-way sync** — the fork syncs with a server the same way upstream Anki
+   does, so progress moves between desktop and phone.
+5. **In-app FE calculator and reference-handbook viewer** — an exam-style
+   calculator and the NCEES reference handbook are one click from the study
+   dashboard (`fecalc` / `fehandbook`), so practice happens under exam
+   conditions.
 
-### The memory-score give-up rule (pre-registered)
+### Honesty by construction
 
-The app shows **no memory score until there are at least 50 graded reviews across
-at least 3 topics**, and at least one card with FSRS memory state. Below that
-line it says it does not yet have enough data rather than showing a number. These
-thresholds are parameters set in advance (config keys `feMemoryMinReviews` /
-`feMemoryMinTopics`), not tuned after seeing which number looks good.
+Every score is a **range with a give-up rule set in advance** (PRD §7.3), not a
+number tuned after the fact. Readiness will show nothing on a small or narrow
+deck — that is intended. Run [`feprep/coverage_map.py`](./feprep/coverage_map.py)
+to see, per NCEES area, what the deck covers and whether it clears the readiness
+coverage line. AI card generation is opt-in and key-gated; with AI off the app is
+unchanged.
 
 ## Building
 

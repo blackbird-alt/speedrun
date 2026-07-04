@@ -72,6 +72,14 @@ service SchedulerService {
   // Honest aggregate of FSRS retrievability into a single "memory" score,
   // presented as a range with a give-up rule rather than a bare number.
   rpc MemoryScore(MemoryScoreRequest) returns (MemoryScoreResponse);
+  // Honest "performance" score: how well the student answers exam-style
+  // (worked-problem) cards, a different card population than the memory score.
+  // Presented as a range with its own give-up rule.
+  rpc PerformanceScore(PerformanceScoreRequest) returns (PerformanceScoreResponse);
+  // Honest "readiness" score on the FE pass/fail scale: a pass-probability
+  // range, or an abstention (with the single best next action) when there is
+  // not enough graded history / exam coverage to defend a number.
+  rpc ReadinessScore(ReadinessScoreRequest) returns (ReadinessScoreResponse);
 }
 
 // Implicitly includes any of the above methods that are not listed in the
@@ -557,9 +565,79 @@ message MemoryScoreResponse {
   int64 last_updated = 8;
   // Human-readable main driver of the current value.
   string main_reason = 9;
+  // The single best next thing to study (honesty-rule requirement).
+  string next_action = 13;
   // Why the score is withheld (only set when shown == false).
   string withheld_reason = 10;
   // The pre-registered give-up thresholds in force.
   uint32 min_reviews_required = 11;
   uint32 min_topics_required = 12;
+}
+
+// === Speedrun fork: honest performance score ===
+
+message PerformanceScoreRequest {
+  // Search scoping the exam-style (worked-problem) cards. When empty, defaults
+  // to "tag:track::durable" — the worked problems, not the fact/cram cards.
+  string search = 1;
+}
+
+message PerformanceScoreResponse {
+  // False when the give-up rule withholds the score for lack of data.
+  bool shown = 1;
+  // Point estimate: mean current recall across the scoped exam-style cards.
+  double point_estimate = 2;
+  // Honest 95% interval around the estimate, clamped to 0..1.
+  double range_low = 3;
+  double range_high = 4;
+  // Fraction of the scoped exam-style cards the estimate is based on.
+  double coverage = 5;
+  // Graded reviews observed across the scoped exam-style cards.
+  uint32 graded_reviews = 6;
+  // Distinct topics with at least one graded exam-style card.
+  uint32 topics_covered = 7;
+  int64 last_updated = 8;
+  string main_reason = 9;
+  // The single best next thing to study (honesty-rule requirement).
+  string next_action = 13;
+  string withheld_reason = 10;
+  // Pre-registered give-up thresholds in force.
+  uint32 min_reviews_required = 11;
+  uint32 min_topics_required = 12;
+}
+
+// === Speedrun fork: honest readiness score (FE pass/fail) ===
+
+message ReadinessScoreRequest {
+  // Search scoping the material the readiness estimate is built on. When empty,
+  // defaults to the studied material ("is:review OR is:learn").
+  string search = 1;
+}
+
+message ReadinessScoreResponse {
+  // False when the give-up rule withholds the score. The FE is pass/fail, so
+  // there is deliberately no invented numeric "score" — only a pass
+  // probability with a range, or an honest abstention.
+  bool shown = 1;
+  // Estimated probability of passing (0..1), only meaningful when shown.
+  double pass_probability = 2;
+  // Honest range around the pass probability.
+  double range_low = 3;
+  double range_high = 4;
+  // Fraction of the 17 NCEES areas with any graded history (exam coverage).
+  double coverage = 5;
+  uint32 areas_covered = 6;
+  uint32 areas_total = 7;
+  uint32 graded_reviews = 8;
+  int64 last_updated = 9;
+  // Human-readable driver of the current value / confidence.
+  string main_reason = 10;
+  // The single best next thing to study (honesty-rule requirement).
+  string next_action = 11;
+  // Why the score is withheld (only set when shown == false).
+  string withheld_reason = 12;
+  // Pre-registered give-up thresholds in force.
+  uint32 min_reviews_required = 13;
+  // Minimum area coverage fraction required (0..1).
+  double min_coverage_required = 14;
 }

@@ -1448,6 +1448,16 @@ title="{}" {}>{}</button>""".format(
         qconnect(m.action_check_for_updates.triggered, self.on_check_for_updates)
         qconnect(m.actionPreferences.triggered, self.onPrefs)
 
+        # Tools: FE exam scientific calculator (fork addition)
+        self.setup_fe_calculator_action()
+
+        # Tools: FE Reference Handbook viewer (fork addition)
+        self.setup_fe_handbook_action()
+
+        # Tools: FE AI features (card generator + OpenAI key management).
+        # Fork addition; degrades to hidden when no OpenAI key is configured.
+        self.setup_fe_ai_actions()
+
         # View
         qconnect(
             m.actionZoomIn.triggered,
@@ -1464,6 +1474,124 @@ title="{}" {}>{}</button>""".format(
             QKeySequence("F11") if is_lin else QKeySequence.StandardKey.FullScreen
         )
         m.actionFullScreen.setShortcutContext(Qt.ShortcutContext.ApplicationShortcut)
+
+    def setup_fe_calculator_action(self) -> None:
+        """Add a Tools-menu action + global shortcut for the FE calculator.
+
+        Additive to the existing menus so it is available during review.
+        """
+        from aqt.fe_calculator import show_fe_calculator
+
+        action = QAction(self)
+        action.setText("FE Calculator")
+        action.setShortcut(QKeySequence("Ctrl+Shift+C"))
+        # Application-wide so the shortcut works while a card is being reviewed.
+        action.setShortcutContext(Qt.ShortcutContext.ApplicationShortcut)
+        qconnect(action.triggered, lambda: show_fe_calculator(self))
+        self.form.menuTools.addAction(action)
+        # Keep the action alive and available even when the menubar is hidden.
+        self.addAction(action)
+
+    def setup_fe_handbook_action(self) -> None:
+        """Add Tools-menu actions + a global shortcut for the FE Reference
+        Handbook viewer. Additive, so it is available during review. The student
+        supplies their own handbook PDF; nothing copyrighted is bundled."""
+        from aqt.fe_handbook import show_fe_handbook
+
+        open_action = QAction(self)
+        open_action.setText("FE Handbook")
+        open_action.setShortcut(QKeySequence("Ctrl+Shift+H"))
+        # Application-wide so the shortcut works while a card is being reviewed.
+        open_action.setShortcutContext(Qt.ShortcutContext.ApplicationShortcut)
+        qconnect(open_action.triggered, lambda: show_fe_handbook(self))
+        self.form.menuTools.addAction(open_action)
+        self.addAction(open_action)
+
+        set_action = QAction(self)
+        set_action.setText("Set FE Handbook…")
+        qconnect(set_action.triggered, lambda: show_fe_handbook(self, choose=True))
+        self.form.menuTools.addAction(set_action)
+
+    def setup_fe_ai_actions(self) -> None:
+        """Add Tools-menu actions for the AI card generator and OpenAI key.
+
+        The generator action is always visible so the feature is usable any
+        time: opening it with no key configured shows an inline key row rather
+        than failing. The key actions let a student set/clear the (local, never
+        synced) key. Everything is additive to the existing menus.
+        """
+        # Card generator (grounded, verifier-gated). Global shortcut so it also
+        # works during review, like the calculator/handbook actions.
+        gen_action = QAction(self)
+        gen_action.setText("Generate FE cards (AI)…")
+        gen_action.setShortcut(QKeySequence("Ctrl+Shift+G"))
+        gen_action.setShortcutContext(Qt.ShortcutContext.ApplicationShortcut)
+        qconnect(gen_action.triggered, self._on_fe_ai_generate)
+        self.form.menuTools.addAction(gen_action)
+        self.addAction(gen_action)
+        self.fe_ai_generate_action = gen_action
+
+        set_key_action = QAction(self)
+        set_key_action.setText("Set OpenAI key…")
+        qconnect(set_key_action.triggered, self._on_fe_ai_set_key)
+        self.form.menuTools.addAction(set_key_action)
+
+        clear_key_action = QAction(self)
+        clear_key_action.setText("Clear OpenAI key")
+        qconnect(clear_key_action.triggered, self._on_fe_ai_clear_key)
+        self.form.menuTools.addAction(clear_key_action)
+
+        self._update_fe_ai_actions()
+
+    def _update_fe_ai_actions(self) -> None:
+        """Keep the AI generator action always available so it is usable any
+        time: when no key is set yet, the dialog lets the student add one inline.
+        (Kept as a hook so callers that toggle the key can still refresh menus.)"""
+        action = getattr(self, "fe_ai_generate_action", None)
+        if action is not None:
+            action.setVisible(True)
+
+    def _on_fe_ai_generate(self) -> None:
+        from aqt.fe_ai_generate import show_fe_ai_generate
+
+        show_fe_ai_generate(self)
+
+    def _on_fe_ai_set_key(self) -> None:
+        from aqt import fe_ai
+        from aqt.utils import getText
+
+        current = fe_ai.get_key() or ""
+        key, ok = getText(
+            "Enter your OpenAI API key. It is stored locally in this profile "
+            "(never synced). Leave blank to clear it.",
+            parent=self,
+            default=current,
+            title="Set OpenAI key",
+        )
+        if not ok:
+            return
+        fe_ai.set_key(key.strip())
+        self._update_fe_ai_actions()
+        # Reflect the new availability everywhere without a restart.
+        try:
+            self.reset()
+        except Exception:
+            pass
+        if fe_ai.ai_available():
+            tooltip("OpenAI key saved. AI features are now available.", parent=self)
+        else:
+            tooltip("OpenAI key cleared. AI features are hidden.", parent=self)
+
+    def _on_fe_ai_clear_key(self) -> None:
+        from aqt import fe_ai
+
+        fe_ai.clear_key()
+        self._update_fe_ai_actions()
+        try:
+            self.reset()
+        except Exception:
+            pass
+        tooltip("OpenAI key cleared. AI features are hidden.", parent=self)
 
     def updateTitleBar(self) -> None:
         self.setWindowTitle("Anki")

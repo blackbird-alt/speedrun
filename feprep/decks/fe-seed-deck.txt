@@ -3,43 +3,43 @@
 #notetype:Basic
 #deck:FE Electrical and Computer::Seed
 #tags column:3
-What is the derivative of sin(x) with respect to x?	cos(x)	fe::mathematics
-What is the determinant of the 2x2 matrix [[a, b], [c, d]]?	ad − bc	fe::mathematics
-Evaluate the indefinite integral ∫ x dx.	x²/2 + C	fe::mathematics
-What does Euler's identity e^(jπ) + 1 equal?	0	fe::mathematics
-The dot product of two nonzero orthogonal vectors equals what?	0	fe::mathematics
-What is the magnitude of the complex number 3 + 4j?	5	fe::mathematics
-State Ohm's law relating voltage V, current I, and resistance R.	V = I·R	fe::circuit_analysis
-What is the equivalent resistance of resistors R1 and R2 in parallel?	R1·R2 / (R1 + R2)	fe::circuit_analysis
-What is the impedance of a capacitor C at angular frequency ω?	1 / (jωC)	fe::circuit_analysis
-What is the impedance of an inductor L at angular frequency ω?	jωL	fe::circuit_analysis
-By Kirchhoff's Current Law, the sum of currents entering a node equals what?	0 (current in equals current out)	fe::circuit_analysis
-What is the time constant of a series RC circuit?	τ = R·C	fe::circuit_analysis
-In an ideal op-amp, what is the input bias current?	0 (infinite input impedance)	fe::electronics
-For an ideal op-amp with negative feedback, what is the voltage difference between its inputs?	0 (virtual short)	fe::electronics
-What is the closed-loop gain of an inverting op-amp with feedback Rf and input Rin?	−Rf / Rin	fe::electronics
-What is the approximate forward voltage drop of a conducting silicon diode?	≈ 0.7 V	fe::electronics
-For a BJT in the active region, how are the base-emitter and base-collector junctions biased?	Base-emitter forward biased; base-collector reverse biased	fe::electronics
-What is the real power P of a single-phase load with rms V, rms I, and power factor cosθ?	P = V·I·cosθ	fe::power_systems
-Express apparent power S in terms of real power P and reactive power Q.	S = √(P² + Q²)	fe::power_systems
-In a balanced wye (Y) connection, how does line voltage relate to phase voltage?	V_line = √3 · V_phase	fe::power_systems
-In a balanced delta (Δ) connection, how does line current relate to phase current?	I_line = √3 · I_phase	fe::power_systems
-Define power factor as a ratio.	Real power divided by apparent power (P/S)	fe::power_systems
-When is the output of a 2-input XOR gate equal to logic 1?	When the two inputs differ	fe::digital_systems
-How many bits are required to represent decimal 255 in unsigned binary?	8 bits (11111111)	fe::digital_systems
-How do you form the two's complement of a binary number?	Invert all bits and add 1	fe::digital_systems
-A positive-edge-triggered D flip-flop captures input D on which event?	The rising clock edge	fe::digital_systems
-How many distinct states can be represented with n bits?	2^n	fe::digital_systems
-For a continuous-time LTI system, where must all poles lie for BIBO stability?	In the open left half of the s-plane	fe::control_systems
-What is the Laplace transform of the unit step u(t)?	1/s	fe::control_systems
-What is the steady-state error of a type-1 system to a unit step input?	0	fe::control_systems
-What does a transfer function represent?	Ratio of output to input in the Laplace domain with zero initial conditions	fe::control_systems
-Under the NSPE Code of Ethics, what is an engineer's paramount obligation?	To hold paramount the safety, health, and welfare of the public	fe::ethics
-Engineers should perform services only in which areas?	Only in their areas of competence	fe::ethics
-Engineers shall act for each employer or client as what?	Faithful agents or trustees	fe::ethics
-What is the future value F of present value P at interest rate i over n periods?	F = P(1 + i)^n	fe::engineering_economics
-What is the single-payment present-worth factor (P/F, i, n)?	1 / (1 + i)^n	fe::engineering_economics
-What is the simple interest on principal P at rate i over n years?	I = P·i·n	fe::engineering_economics
-For mutually exclusive events A and B, what is P(A ∪ B)?	P(A) + P(B)	fe::probability_statistics
-What is the total area under a probability density function over all x?	1	fe::probability_statistics
-How is standard deviation related to variance?	It is the square root of the variance	fe::probability_statistics
+What is the derivative of \(\sin(x)\) with respect to \(x\)?	\(\cos(x)\)	fe::mathematics track::cram
+What is the determinant of the 2x2 matrix [[a, b], [c, d]]?	\(ad - bc\)	fe::mathematics track::cram
+Evaluate the indefinite integral \(\int x\,dx\).	\(\dfrac{x^{2}}{2} + C\)	fe::mathematics track::cram
+What does Euler's identity \(e^{j\pi} + 1\) equal?	\(0\)	fe::mathematics track::cram
+The dot product of two nonzero orthogonal vectors equals what?	\(0\)	fe::mathematics track::cram
+What is the magnitude of the complex number \(3 + 4j\)?	\(5\)	fe::mathematics track::durable
+State Ohm's law relating voltage \(V\), current \(I\), and resistance \(R\).	\(V = IR\)	fe::circuit_analysis track::cram
+What is the equivalent resistance of resistors \(R_1\) and \(R_2\) in parallel?	\(\dfrac{R_1 R_2}{R_1 + R_2}\)	fe::circuit_analysis track::cram
+What is the impedance of a capacitor \(C\) at angular frequency \(\omega\)?	\(\dfrac{1}{j\omega C}\)	fe::circuit_analysis track::cram
+What is the impedance of an inductor \(L\) at angular frequency \(\omega\)?	\(j\omega L\)	fe::circuit_analysis track::cram
+By Kirchhoff's Current Law, the sum of currents entering a node equals what?	\(0\) (current in equals current out)	fe::circuit_analysis track::cram
+What is the time constant of a series RC circuit?	\(\tau = RC\)	fe::circuit_analysis track::cram
+In an ideal op-amp, what is the input bias current?	\(0\) (infinite input impedance)	fe::electronics track::cram
+For an ideal op-amp with negative feedback, what is the voltage difference between its inputs?	\(0\) (virtual short)	fe::electronics track::cram
+What is the closed-loop gain of an inverting op-amp with feedback \(R_f\) and input \(R_\text{in}\)?	\(-\dfrac{R_f}{R_\text{in}}\)	fe::electronics track::cram
+What is the approximate forward voltage drop of a conducting silicon diode?	\(\approx 0.7\) V	fe::electronics track::cram
+For a BJT in the active region, how are the base-emitter and base-collector junctions biased?	Base-emitter forward biased; base-collector reverse biased	fe::electronics track::cram
+What is the real power \(P\) of a single-phase load with rms \(V\), rms \(I\), and power factor \(\cos\theta\)?	\(P = VI\cos\theta\)	fe::power_systems track::cram
+Express apparent power \(S\) in terms of real power \(P\) and reactive power \(Q\).	\(S = \sqrt{P^{2} + Q^{2}}\)	fe::power_systems track::cram
+In a balanced wye (Y) connection, how does line voltage relate to phase voltage?	\(V_\text{line} = \sqrt{3}\,V_\text{phase}\)	fe::power_systems track::cram
+In a balanced delta (Δ) connection, how does line current relate to phase current?	\(I_\text{line} = \sqrt{3}\,I_\text{phase}\)	fe::power_systems track::cram
+Define power factor as a ratio.	Real power divided by apparent power (\(P/S\))	fe::power_systems track::cram
+When is the output of a 2-input XOR gate equal to logic 1?	When the two inputs differ	fe::digital_systems track::cram
+How many bits are required to represent decimal 255 in unsigned binary?	8 bits (11111111)	fe::digital_systems track::durable
+How do you form the two's complement of a binary number?	Invert all bits and add 1	fe::digital_systems track::cram
+A positive-edge-triggered D flip-flop captures input D on which event?	The rising clock edge	fe::digital_systems track::cram
+How many distinct states can be represented with \(n\) bits?	\(2^{n}\)	fe::digital_systems track::cram
+For a continuous-time LTI system, where must all poles lie for BIBO stability?	In the open left half of the s-plane	fe::control_systems track::cram
+What is the Laplace transform of the unit step \(u(t)\)?	\(\dfrac{1}{s}\)	fe::control_systems track::cram
+What is the steady-state error of a type-1 system to a unit step input?	\(0\)	fe::control_systems track::cram
+What does a transfer function represent?	Ratio of output to input in the Laplace domain with zero initial conditions	fe::control_systems track::cram
+Under the NSPE Code of Ethics, what is an engineer's paramount obligation?	To hold paramount the safety, health, and welfare of the public	fe::ethics track::cram
+Engineers should perform services only in which areas?	Only in their areas of competence	fe::ethics track::cram
+Engineers shall act for each employer or client as what?	Faithful agents or trustees	fe::ethics track::cram
+What is the future value \(F\) of present value \(P\) at interest rate \(i\) over \(n\) periods?	\(F = P(1+i)^{n}\)	fe::engineering_economics track::cram
+What is the single-payment present-worth factor \((P/F, i, n)\)?	\(\dfrac{1}{(1+i)^{n}}\)	fe::engineering_economics track::cram
+What is the simple interest on principal \(P\) at rate \(i\) over \(n\) years?	\(I = P \cdot i \cdot n\)	fe::engineering_economics track::cram
+For mutually exclusive events \(A\) and \(B\), what is \(P(A \cup B)\)?	\(P(A) + P(B)\)	fe::probability_statistics track::cram
+What is the total area under a probability density function over all \(x\)?	\(1\)	fe::probability_statistics track::cram
+How is standard deviation related to variance?	It is the square root of the variance	fe::probability_statistics track::cram

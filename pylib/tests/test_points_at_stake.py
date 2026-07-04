@@ -60,3 +60,39 @@ def test_memory_score_is_withheld_on_a_fresh_deck():
     assert score.withheld_reason
     assert score.min_reviews_required == 50
     assert score.min_topics_required == 3
+
+
+def test_performance_score_is_withheld_on_a_fresh_deck():
+    col = getEmptyCol()
+    # A worked, exam-style card (track::durable) — but brand new, so no data.
+    note = col.newNote()
+    note["Front"] = "Find the Thevenin equivalent."
+    note["Back"] = "answer"
+    note.tags = ["fe::circuit_analysis", "track::durable"]
+    col.addNote(note)
+
+    score = col._backend.performance_score(search="tag:track::durable")
+
+    # Performance is a distinct population from memory and has its own give-up
+    # rule; a fresh deck must withhold rather than show a bare number.
+    assert score.shown is False
+    assert score.withheld_reason
+    assert score.min_reviews_required == 30
+    assert score.min_topics_required == 2
+
+
+def test_readiness_score_is_withheld_and_names_next_action():
+    col = getEmptyCol()
+    _add_tagged_note(col, "Norton equivalent?", "circuit_analysis")
+
+    score = col._backend.readiness_score(search="is:review OR is:learn")
+
+    # The FE is pass/fail; readiness must abstain far below the strict bar and
+    # still name the single best next action (honesty rule), never invent a
+    # number.
+    assert score.shown is False
+    assert score.withheld_reason
+    assert score.next_action
+    assert score.areas_total >= 17
+    assert score.min_reviews_required == 200
+    assert abs(score.min_coverage_required - 0.5) < 1e-9

@@ -120,6 +120,22 @@ class DeckBrowser:
             self._fe_start_track(arg)
         elif cmd == "fesetpolicy":
             self._fe_cycle_policy(arg)
+        elif cmd == "fecalc":
+            from aqt.fe_calculator import show_fe_calculator
+
+            show_fe_calculator(self.mw)
+        elif cmd == "fehandbook":
+            from aqt.fe_handbook import show_fe_handbook
+
+            show_fe_handbook(self.mw)
+        elif cmd == "feaigen":
+            from aqt.fe_ai_generate import show_fe_ai_generate
+
+            show_fe_ai_generate(self.mw)
+        elif cmd == "festudyall":
+            self._fe_study_all()
+        elif cmd == "febrowse":
+            self._fe_browse(arg)
         elif cmd == "opts":
             self._showOptions(arg)
         elif cmd == "shared":
@@ -151,6 +167,30 @@ class DeckBrowser:
             lambda _: self.mw.onOverview()
         ).run_in_background(initiator=self)
 
+    def _fe_release_filtered_decks(self, col: Collection) -> None:
+        """Remove the dashboard's FE filtered decks so their cards return to
+        their home decks (deleting a dynamic deck returns its cards home). Anki
+        filtered decks are mutually exclusive -- a card lives in at most one --
+        so without releasing the others first a new track/all build finds "no
+        cards", and the home decks look empty ("studied all") because the cards
+        were pulled into filtered decks. Removing (rather than just emptying)
+        also avoids leaving empty leftover decks behind. Only DYNAMIC decks
+        named "FE:"/"FE " are touched, so real decks (e.g. the
+        "FE Electrical and Computer" parent and its subdecks) are never removed.
+        These decks sync between devices, so this also frees cards trapped by a
+        session on the other device."""
+        dids: list[DeckId] = []
+        for entry in col.decks.all_names_and_ids(include_filtered=True):
+            name = entry.name
+            if name.startswith("FE:") or name.startswith("FE "):
+                try:
+                    if col.decks.is_filtered(entry.id):
+                        dids.append(DeckId(entry.id))
+                except Exception:
+                    pass
+        if dids:
+            col.decks.remove(dids)
+
     def _fe_start_track(self, track: str) -> None:
         """Build (or rebuild) the native filtered deck for a whole track
         (durable/cram) and drop the user into review.
@@ -174,6 +214,7 @@ class DeckBrowser:
             return
 
         def op(col: Collection) -> OpChangesWithId:
+            self._fe_release_filtered_decks(col)
             existing = col.decks.id_for_name(deck_name)
             deck = col.sched.get_or_create_filtered_deck(
                 deck_id=existing or DeckId(0)
@@ -213,25 +254,71 @@ class DeckBrowser:
             failure
         ).run_in_background()
 
+    def _fe_study_all(self) -> None:
+        """Build (or rebuild) a filtered deck over every FE-tagged card and drop
+        into review. The tag-driven equivalent of studying the whole FE parent
+        deck, for collections whose cards live in flat or differently-named
+        decks."""
+
+        def op(col: Collection) -> OpChangesWithId:
+            self._fe_release_filtered_decks(col)
+            existing = col.decks.id_for_name("FE: All")
+            deck = col.sched.get_or_create_filtered_deck(
+                deck_id=existing or DeckId(0)
+            )
+            deck.name = "FE: All"
+            config = deck.config
+            config.reschedule = True
+            del config.search_terms[:]
+            config.search_terms.append(
+                FilteredDeckConfig.SearchTerm(
+                    search='"tag:fe::*"',
+                    limit=9999,
+                    order=FilteredDeckConfig.SearchTerm.Order.RANDOM,
+                )
+            )
+            return col.sched.add_or_update_filtered_deck(deck)
+
+        def success(_out: OpChangesWithId) -> None:
+            self.mw.moveToState("review")
+
+        def failure(exc: Exception) -> None:
+            tooltip(f"Couldn't build deck: {exc}", parent=self.mw)
+            self.refresh()
+
+        CollectionOp(parent=self.mw, op=op).success(success).failure(
+            failure
+        ).run_in_background()
+
+    def _fe_browse(self, arg: str) -> None:
+        """Open the Browser filtered to one FE area (by fe:: tag key), or to all
+        FE cards when arg is empty/"*". Used by dashboard tiles when an area's
+        cards are not in a dedicated subdeck."""
+        key = (arg or "").strip()
+        search = '"tag:fe::*"' if key in ("", "*") else f'"tag:fe::{key}"'
+        aqt.dialogs.open("Browser", self.mw, search=(search,))
+
     # Durable vs. Cram track policy (per-area, user-overridable)
     ##########################################################################
 
-    # Per-area policy values:
-    #   "split"   -> route each card by its own track:: tag (durable unless the
-    #                card is tagged track::cram). Day-to-day core areas default
-    #                here: the real worked problems are durable, a few formulas
-    #                and definitions are cram.
-    #   "durable" -> study the whole area durable (learn for keeps).
-    #   "cram"    -> study the whole area cram (peak for test day, decay after).
-    # Defaults come from FE_DURABLE. The user can move any section; the override
-    # is stored per fe:: key in the collection config under "feTrackPolicy".
-    _FE_POLICY_CYCLE = ("split", "durable", "cram")
+    # Per-area policy: a whole FE section (NCEES area) is EITHER "durable" or
+    # "cram" -- there is NO per-card split. Every card in the area follows the
+    # area's policy.
+    #   "durable" -> learn for keeps (reschedules; builds long-term memory).
+    #   "cram"    -> peak for test day (won't reschedule; decays after the exam).
+    # Defaults come from FE_DURABLE (the engineering core defaults to durable,
+    # everything else to cram). Clicking an area toggles durable <-> cram; the
+    # override is stored per fe:: key in config under "feTrackPolicy".
+    _FE_POLICY_CYCLE = ("durable", "cram")
 
     def _fe_default_policy(self, disp: str) -> str:
-        return "split" if disp in self.FE_DURABLE else "cram"
+        return "durable" if disp in self.FE_DURABLE else "cram"
 
     def _fe_track_policy(self, col: Collection) -> dict[str, str]:
-        """Resolve display-name -> policy, merging user overrides over defaults."""
+        """Resolve display-name -> policy ("durable" or "cram"), merging user
+        overrides over defaults. Any legacy/invalid value (e.g. an old "split")
+        falls back to the area's default policy.
+        """
         try:
             overrides = col.get_config("feTrackPolicy", {}) or {}
         except Exception:
@@ -248,29 +335,21 @@ class DeckBrowser:
     def _fe_track_search(
         policy: dict[str, str], tag_keys: dict[str, str], track: str
     ) -> str:
-        """Build the Anki search selecting one track's cards.
-
-        Pure (no collection access) so it can be unit-tested. In a "split" area a
-        card is cram only when explicitly tagged track::cram; everything else
-        (including untagged legacy cards) defaults to durable.
+        """Build the Anki search selecting one track's cards. A whole area is
+        either durable or cram, so a track is simply every fe:: area whose policy
+        matches. Pure (no collection access) so it can be unit-tested.
         """
-        want_durable = track == "durable"
+        want = track if track in ("durable", "cram") else "durable"
         terms: list[str] = []
         for disp, key in tag_keys.items():
-            pol = policy.get(disp, "cram")
-            if pol == "split":
-                if want_durable:
-                    terms.append(f"(tag:fe::{key} -tag:track::cram)")
-                else:
-                    terms.append(f"(tag:fe::{key} tag:track::cram)")
-            elif (pol == "durable") == want_durable:
+            if policy.get(disp, "cram") == want:
                 terms.append(f"tag:fe::{key}")
         if not terms:
             return ""
         return "(" + " OR ".join(terms) + ")"
 
     def _fe_cycle_policy(self, key: str) -> None:
-        """Advance one area's track policy (split -> durable -> cram -> split)."""
+        """Toggle one whole FE section between the two tracks: durable <-> cram."""
         key = (key or "").strip()
         disp = next((d for d, k in self.FE_TAG_KEYS.items() if k == key), None)
         if disp is None:
@@ -281,9 +360,7 @@ class DeckBrowser:
             cur = pol.get(key, self._fe_default_policy(disp))
             if cur not in self._FE_POLICY_CYCLE:
                 cur = self._fe_default_policy(disp)
-            nxt = self._FE_POLICY_CYCLE[
-                (self._FE_POLICY_CYCLE.index(cur) + 1) % len(self._FE_POLICY_CYCLE)
-            ]
+            nxt = "cram" if cur == "durable" else "durable"
             pol[key] = nxt
             return col.set_config("feTrackPolicy", pol)
 
@@ -496,6 +573,27 @@ html,body{background:#0b1220!important;margin:0!important;padding:0!important;}
 .fe-mem-mark{position:absolute;top:-3px;width:3px;height:15px;border-radius:2px;background:var(--copper);box-shadow:0 0 8px 1px var(--copper);transform:translateX(-50%);}
 .fe-mem-note{font:400 13px/1.5 system-ui;color:var(--muted);margin-top:6px;}
 .fe-mem-note b{color:var(--text);font-weight:600;}
+/* HERO STATS (phone parity) */
+.fe-stats{display:flex;gap:34px;flex-wrap:wrap;margin-top:24px;}
+.fe-stat-num{font:700 26px/1 ui-monospace,Consolas,monospace;color:var(--copper);}
+.fe-stat-cap{font:600 10px/1 system-ui;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:6px;}
+/* THREE SCORES: memory / performance / readiness */
+.fe-scores-head{margin:2px 2px 0;}
+.fe-scores-label{font:700 15px/1 system-ui;color:var(--text);display:flex;align-items:center;}
+.fe-scores-desc{font:400 13px/1.5 system-ui;color:var(--muted);margin:6px 0 0;max-width:680px;}
+.fe-scores{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:14px 0 26px;}
+.fe-score{position:relative;overflow:hidden;background:var(--panel);border:1px solid var(--line);
+  border-radius:16px;padding:18px 20px;box-shadow:0 18px 44px -28px rgba(0,0,0,.7);}
+.fe-score::before{content:"";position:absolute;top:0;left:0;width:44px;height:3px;background:var(--copper);border-bottom-right-radius:3px;}
+.fe-score--off::before{background:var(--muted);}
+.fe-score-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;}
+.fe-score-chip{font:600 10px/1 system-ui;letter-spacing:.14em;text-transform:uppercase;color:var(--copper);}
+.fe-score--off .fe-score-chip{color:var(--muted);}
+.fe-score-range{font:600 11px/1 ui-monospace,Consolas,monospace;color:var(--muted);}
+.fe-score-val{font:700 34px/1 ui-monospace,Consolas,monospace;color:var(--copper);}
+.fe-score-unit{font-size:17px;color:var(--muted);margin-left:2px;}
+.fe-score-note{font:400 12px/1.5 system-ui;color:var(--muted);margin-top:8px;}
+.fe-score-next{font:600 12px/1.45 system-ui;color:var(--text);margin-top:8px;padding-top:8px;border-top:1px solid var(--line);}
 /* TOPIC GRID */
 .fe-sec-label{display:flex;align-items:baseline;justify-content:space-between;margin:6px 4px 14px;}
 .fe-sec-label>span:first-child{font:700 15px/1 system-ui;letter-spacing:.01em;color:var(--text);display:inline-flex;align-items:center;}
@@ -552,85 +650,172 @@ html,body{background:#0b1220!important;margin:0!important;padding:0!important;}
             return ""
         if not total:
             return ""
+        # A top-level deck named exactly ``parent_name`` (produced by build_apkg
+        # with --sections/--tracks) is used, when present, for deck-accurate hero
+        # counts and study/overview targets. It is optional: the dashboard is
+        # tag-driven, so it also renders when FE cards live in a flat or
+        # differently-named deck (e.g. Bank/Seed) -- everything then keys off the
+        # fe:: tags.
         parent_node = None
         for ch in getattr(self._render_data.tree, "children", []):
             if ch.name == parent_name:
                 parent_node = ch
                 break
-        if parent_node is None:
-            return ""
-        parent_new = parent_node.new_count
-        parent_due = parent_node.review_count + parent_node.learn_count
-        subs = {ch.name: ch for ch in parent_node.children}
+
+        # Area subdecks by leaf name -- only when a structured parent deck
+        # exists. Direct children ("FE …::Circuit Analysis") or nested under a
+        # track level ("FE …::Durable::Circuit Analysis") are both collected.
+        # Without a parent deck this stays empty and tiles key off the tags.
+        subs: dict[str, Any] = {}  # full deck name -> node
+        if parent_node is not None:
+            def _collect(n: Any, prefix: str) -> None:
+                for ch in n.children:
+                    full = f"{prefix}::{ch.name}"
+                    subs[full] = ch
+                    _collect(ch, full)
+
+            _collect(parent_node, parent_name)
+
+        def node_for(disp: str, track: str | None = None) -> Any:
+            # Per-card tracks nest as FE::<Area>::Durable / ::Cram (area parent =
+            # FE::<Area>); older/flat builds may use FE::<Track>::<Area> or just
+            # FE::<Area>. Fall back to the area parent, then None (browse by tag).
+            if track:
+                for full in (
+                    f"{parent_name}::{disp}::{track}",
+                    f"{parent_name}::{track}::{disp}",
+                ):
+                    if full in subs:
+                        return subs[full]
+            return subs.get(f"{parent_name}::{disp}")
+
+        def _count(search: str) -> int:
+            try:
+                return len(col.find_cards(search))
+            except Exception:
+                return 0
+
+        if parent_node is not None:
+            parent_new = parent_node.new_count
+            parent_due = parent_node.review_count + parent_node.learn_count
+        else:
+            parent_new = _count('"tag:fe::*" is:new')
+            parent_due = _count('"tag:fe::*" is:due')
 
         policy = self._fe_track_policy(col)
         durable_tiles = ""
         cram_tiles = ""
         covered = 0
-        for disp, accent, qrange in self.FE_TOPICS:
-            node = subs.get(disp)
-            if not node:
-                continue
-            covered += 1
-            key = self.FE_TAG_KEYS.get(disp)
-            try:
-                cnt = len(col.find_cards(f'"deck:{parent_name}::{disp}"'))
-            except Exception:
-                cnt = 0
-            # Cards of this topic reviewed today. Keyed on the fe:: tag rather
-            # than the deck so it stays correct no matter how the card was
-            # reached -- "Study all" on the parent, the topic deck directly, or
-            # a filtered track deck (where the card's deck is temporarily the
-            # filtered one but its tag is unchanged). rated:1 = last day/rollover.
-            studied = 0
-            if key:
-                try:
-                    studied = len(col.find_cards(f'"tag:fe::{key}" rated:1'))
-                except Exception:
-                    studied = 0
-            new = node.new_count
-            due = node.review_count + node.learn_count
+
+        # All counts key off the fe:: tag (not a deck path) so they stay correct
+        # no matter how the area deck is nested or which filtered track deck a
+        # card is temporarily pulled into. is:new/is:due = live queue; rated:1 =
+        # reviewed today (last day/rollover).
+        def _tile(
+            accent: str,
+            qrange: str,
+            disp: str,
+            key: str,
+            onclick_cmd: str,
+            search: str,
+            pol: str,
+            move_title: str,
+        ) -> str:
+            count = _count(search)
+            new = _count(f"{search} is:new")
+            due = _count(f"{search} is:due")
+            studied = _count(f"{search} rated:1")
             due_txt = f" &middot; {due} due" if due else ""
             studied_html = (
                 f'<div class="fe-tile-studied">{studied} studied today</div>'
                 if studied
                 else ""
             )
-            pol = policy.get(disp, "cram")
             move_html = (
-                f'<span class="fe-tile-move" title="Move this section between tracks '
-                f'(split \u2192 durable \u2192 cram)" onclick="event.stopPropagation();'
-                f"event.preventDefault();return pycmd('fesetpolicy:{key}')\">{pol}</span>"
-                if key
-                else ""
+                f'<span class="fe-tile-move" title="{html.escape(move_title)}" '
+                f'onclick="event.stopPropagation();event.preventDefault();'
+                f"return pycmd('fesetpolicy:{key}')\">{pol}</span>"
             )
-            tile = f"""<a class="fe-tile" style="--chip:{accent};" onclick="return pycmd('open:{node.deck_id}')">
+            return f"""<a class="fe-tile" style="--chip:{accent};" onclick="return pycmd('{onclick_cmd}')">
   <div class="fe-tile-top"><span class="fe-tile-dot"></span><span class="fe-tile-q">{qrange} Q</span></div>
   <div class="fe-tile-name">{html.escape(disp)}</div>
-  <div class="fe-tile-meta"><span class="fe-tile-count">{cnt} cards</span><span class="fe-tile-due">{new} new{due_txt}</span></div>
+  <div class="fe-tile-meta"><span class="fe-tile-count">{count} cards</span><span class="fe-tile-due">{new} new{due_txt}</span></div>
   {studied_html}
   <div class="fe-tile-track">{move_html}</div>
 </a>"""
+
+        for disp, accent, qrange in self.FE_TOPICS:
+            key = self.FE_TAG_KEYS.get(disp)
+            if not key:
+                continue
+            base = f'"tag:fe::{key}"'
+            # Tag-driven: an area shows when it has any fe:: cards, whether or
+            # not a matching subdeck exists.
+            if not _count(base):
+                continue
+            covered += 1
+            pol = policy.get(disp, "cram")
+            move_title = "Move this section between tracks (durable \u2194 cram)"
+            # Whole FE section on one track: every card in the area goes to Cram
+            # (pol=="cram") or Durable (pol=="durable"). No per-card split.
+            node = node_for(disp)
+            onclick_cmd = (
+                f"open:{node.deck_id}" if node is not None else f"febrowse:{key}"
+            )
+            tile = _tile(
+                accent, qrange, disp, key, onclick_cmd, base, pol, move_title
+            )
             if pol == "cram":
                 cram_tiles += tile
             else:
                 durable_tiles += tile
 
         parent_badge = f"{parent_new} new" + (f" &middot; {parent_due} due" if parent_due else "")
+        # Study/overview targets adapt to whether a structured parent deck
+        # exists. Without one, "Study all" builds a filtered deck over every
+        # fe:: card, and the nav button browses all FE cards by tag.
+        if parent_node is not None:
+            study_all_cmd = f"festudy:{parent_node.deck_id}"
+            nav_btn = f"""<a class="fe-btn fe-btn-ghost" onclick="return pycmd('open:{parent_node.deck_id}')">Deck overview</a>"""
+        else:
+            study_all_cmd = "festudyall"
+            nav_btn = """<a class="fe-btn fe-btn-ghost" onclick="return pycmd('febrowse:*')">Browse all</a>"""
+        studied_today = _count('"tag:fe::*" rated:1')
+        areas_total = len(self.FE_TOPICS)
+        # AI card generator: always offered so it is usable any time. Studying
+        # and the three scores never call a model; this button opens an opt-in,
+        # grounded, on-demand generator. If no OpenAI key is set yet, the dialog
+        # lets the student add one inline, so nothing has to be pre-configured.
+        ai_btn = (
+            '<a class="fe-btn fe-btn-ghost" '
+            "onclick=\"return pycmd('feaigen')\">Generate cards (AI)</a>"
+        )
         hero = f"""<header class="fe-hero">
-  <div class="fe-eyebrow">FE &middot; Electrical &amp; Computer &middot; study fork &middot; AI-free</div>
+  <div class="fe-eyebrow">FE &middot; Electrical &amp; Computer &middot; study fork &middot; AI-optional</div>
   <h1 class="fe-title"><span class="fe-title-num">{total}</span> verified cards, one exam.</h1>
   <p class="fe-lede">Every card is a checked FE fact or worked problem, tagged to one of the {covered} NCEES knowledge areas. Drill the whole exam at once, or target a single area &mdash; laid out in points-at-stake order (exam weight first).</p>
+  <div class="fe-stats">
+    <div><div class="fe-stat-num">{total}</div><div class="fe-stat-cap">cards</div></div>
+    <div><div class="fe-stat-num">{covered}/{areas_total}</div><div class="fe-stat-cap">areas covered</div></div>
+    <div><div class="fe-stat-num">{studied_today}</div><div class="fe-stat-cap">studied today</div></div>
+  </div>
   <div class="fe-hero-actions">
-    <a class="fe-btn fe-btn-primary" onclick="return pycmd('festudy:{parent_node.deck_id}')">Study all&nbsp;&nbsp;<span class="fe-btn-badge">{parent_badge}</span></a>
-    <a class="fe-btn fe-btn-ghost" onclick="return pycmd('open:{parent_node.deck_id}')">Deck overview</a>
+    <a class="fe-btn fe-btn-primary" onclick="return pycmd('{study_all_cmd}')">Study all&nbsp;&nbsp;<span class="fe-btn-badge">{parent_badge}</span></a>
+    {nav_btn}
+    {ai_btn}
   </div>
 </header>"""
 
+        # Three separate, honest scores from the shared Rust engine (no AI),
+        # using the same scopes as the phone (FeDashboardFragment) so both
+        # platforms show identical numbers on a synced collection.
         try:
-            mem = self._fe_mem_panel(col._backend.memory_score(search=""))
+            mem = col._backend.memory_score(search="is:review OR is:learn")
+            perf = col._backend.performance_score(search="tag:track::durable")
+            rdy = col._backend.readiness_score(search="is:review OR is:learn")
+            scores_html = self._fe_scores_section(mem, perf, rdy)
         except Exception:
-            mem = ""
+            scores_html = ""
 
         groups = ""
         if durable_tiles:
@@ -647,34 +832,52 @@ html,body{background:#0b1220!important;margin:0!important;padding:0!important;}
 </div>"""
         grid = f'<section class="fe-topics">{groups}</section>'
 
-        return self._FE_DASH_STYLE + f'<div class="fe-dash">{hero}{mem}{grid}</div>'
+        return self._FE_DASH_STYLE + f'<div class="fe-dash">{hero}{scores_html}{grid}</div>'
 
-    def _fe_mem_panel(self, score: Any) -> str:
+    def _fe_scores_section(self, mem: Any, perf: Any, rdy: Any) -> str:
+        """Render the three separate honest scores (memory / performance /
+        readiness) as a row of range-based panels, mirroring the phone. Each
+        shows a range (never a bare number) and its main reason; readiness also
+        shows the single best next action. Withheld scores show the give-up
+        reason instead of a number."""
+        panels = (
+            self._fe_score_panel("Memory", mem, "")
+            + self._fe_score_panel("Performance", perf, "")
+            + self._fe_score_panel("Readiness", rdy, getattr(rdy, "next_action", ""))
+        )
+        return f"""
+<div class="fe-scores-head">
+  <div class="fe-scores-label"><span class="fe-sec-dot fe-sec-dot--durable"></span>Readiness &amp; scores</div>
+  <div class="fe-scores-desc">Three separate, honest measures &mdash; each a range, never a bare number, and hidden until there is enough data to defend it.</div>
+</div>
+<div class="fe-scores">{panels}</div>"""
+
+    def _fe_score_panel(self, label: str, score: Any, next_action: str) -> str:
+        next_html = (
+            f'<div class="fe-score-next">Next: {html.escape(next_action)}</div>'
+            if next_action
+            else ""
+        )
         if not getattr(score, "shown", False):
-            return f"""
-<div class="fe-mem">
-  <div class="fe-mem-top"><span class="fe-mem-chip">Memory &middot; hidden</span>
-    <span class="fe-mem-meta">give-up rule</span></div>
-  <div class="fe-mem-note"><b>Not enough data yet.</b> {score.graded_reviews}/{score.min_reviews_required}
-    graded reviews &middot; {score.topics_covered}/{score.min_topics_required} topics. The score stays hidden until
-    the pre-registered threshold is met, so it never overstates what it knows.</div>
+            reason = getattr(score, "withheld_reason", "") or "Not enough data yet."
+            return f"""<div class="fe-score fe-score--off">
+  <div class="fe-score-top"><span class="fe-score-chip">{label}</span><span class="fe-score-range">withheld</span></div>
+  <div class="fe-score-note">{html.escape(reason)}</div>
+  {next_html}
 </div>"""
-        pct = round(score.point_estimate * 100)
+        # Memory/performance expose point_estimate; readiness exposes
+        # pass_probability. Everything else (range, reason) is shared.
+        est = getattr(score, "point_estimate", None)
+        if est is None:
+            est = getattr(score, "pass_probability", 0.0)
+        pct = round(est * 100)
         low = round(score.range_low * 100)
         high = round(score.range_high * 100)
-        cov = round(score.coverage * 100)
-        band_left = max(0, min(100, low))
-        band_right = max(0, min(100, 100 - high))
-        return f"""
-<div class="fe-mem">
-  <div class="fe-mem-top"><span class="fe-mem-chip">Memory</span>
-    <span class="fe-mem-meta">recall now</span></div>
-  <div class="fe-mem-val"><span class="fe-mem-pct">{pct}%</span>
-    <span class="fe-mem-range" style="margin-left:auto;">likely {low}&ndash;{high}%</span></div>
-  <div class="fe-mem-bar"><div class="fe-mem-band" style="left:{band_left}%;right:{band_right}%;"></div>
-    <div class="fe-mem-mark" style="left:{pct}%;"></div></div>
-  <div class="fe-mem-note">Based on <b>{cov}%</b> of studied material &middot; <b>{score.graded_reviews}</b> reviews
-    &middot; <b>{score.topics_covered}</b> topics.<br>{html.escape(score.main_reason)}</div>
+        return f"""<div class="fe-score">
+  <div class="fe-score-top"><span class="fe-score-chip">{label}</span><span class="fe-score-range">{low}&ndash;{high}%</span></div>
+  <div class="fe-score-val">{pct}<span class="fe-score-unit">%</span></div>
+  <div class="fe-score-note">{html.escape(score.main_reason)}</div>
+  {next_html}
 </div>"""
 
     def _renderDeckTree(self, top: DeckTreeNode) -> str:

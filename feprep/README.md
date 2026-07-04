@@ -1,14 +1,16 @@
 # FE Electrical and Computer study fork
 
 Fork-specific assets and documentation for the NCEES FE Electrical and Computer
-study tool built on Anki's shared Rust engine. Everything here is **AI-free** and
-built only on data the engine already owns (tags + FSRS memory state).
+study tool built on Anki's shared Rust engine. The study experience and its three
+scores are **model-free** — built only on data the engine already owns (tags +
+FSRS memory state). AI is strictly **opt-in**: a key-gated, on-demand
+"Generate cards (AI)" action (see `ai/`) that never runs unless you ask it to, and
+whose output is grounded in your own verified cards and passed through a verifier
+before you add it.
 
 ## Contents
 
 - `decks/fe-seed-deck.txt` — the original verified-correct seed deck (40 cards).
-- `decks/fe-bank.txt` — the larger verified bank (522 cards across all 18 NCEES
-  areas), including web-sourced worked problems.
 - `decks/fe-problems.txt` — worked exam-style problems converted from the
   author's FE practice-problem manuscript, tagged by area **and** by study track
   (`track::durable` / `track::cram`).
@@ -90,19 +92,18 @@ one-time, open-reference exam: **Durable** ("learn for keeps") for the skills a
 candidate's career will use, and **Cram** ("peak for test day") for lookup-able
 facts that may decay afterwards.
 
-- **Per-card nature.** Cards are tagged `track::durable` (a worked problem/skill)
-  or `track::cram` (a fact, formula, definition, or rule).
+- **Whole-section tracks (no per-card split).** Each FE section (NCEES area) is
+  studied **entirely durable or entirely cram** — every card in the area follows
+  the area's track. There is no per-card routing.
 - **Per-area policy** — resolved in `qt/aqt/deckbrowser.py`, stored under the
-  collection-config key `feTrackPolicy`:
-  - `split` — route each card by its own tag (durable unless tagged
-    `track::cram`; untagged legacy cards default to durable). The day-to-day
-    engineering core (`FE_DURABLE`) defaults here.
-  - `durable` / `cram` — study the whole area on a single track. Everything
-    outside the core (Ethics, Economics, Communications, …) defaults to `cram`.
-- **User override.** Each area tile shows its current track; clicking it cycles
-  `split → durable → cram`, letting the user move an entire section between
-  tracks. Overrides persist in config only — no card or scheduling data is
-  touched, so undo and collection integrity are unaffected.
+  collection-config key `feTrackPolicy`, one of:
+  - `durable` — the whole area is learned for keeps. The day-to-day engineering
+    core (`FE_DURABLE`) defaults here.
+  - `cram` — the whole area is drilled for test day. Everything outside the core
+    (Ethics, Economics, Communications, …) defaults to `cram`.
+- **User override.** Each area tile shows its current track; clicking it toggles
+  the whole section `durable ↔ cram`. Overrides persist in config only — no card
+  or scheduling data is touched, so undo and collection integrity are unaffected.
 - **How each track studies (the behavioural difference).** Both "Study …
   track" buttons build a native filtered deck from the cards routed to that
   track, but they differ in one setting — `reschedule` — resolved in

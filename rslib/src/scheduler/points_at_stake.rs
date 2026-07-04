@@ -39,6 +39,14 @@ pub const DEFAULT_TOPIC_WEIGHT_CONFIG_KEY: &str = "feDefaultTopicWeight";
 pub const MEMORY_MIN_REVIEWS_CONFIG_KEY: &str = "feMemoryMinReviews";
 /// Config key: minimum distinct topics before the memory score is shown.
 pub const MEMORY_MIN_TOPICS_CONFIG_KEY: &str = "feMemoryMinTopics";
+/// Config key: minimum graded exam-style reviews before performance is shown.
+pub const PERFORMANCE_MIN_REVIEWS_CONFIG_KEY: &str = "fePerformanceMinReviews";
+/// Config key: minimum distinct topics before performance is shown.
+pub const PERFORMANCE_MIN_TOPICS_CONFIG_KEY: &str = "fePerformanceMinTopics";
+/// Config key: minimum graded reviews before readiness is shown.
+pub const READINESS_MIN_REVIEWS_CONFIG_KEY: &str = "feReadinessMinReviews";
+/// Config key: minimum area-coverage fraction (0..1) before readiness is shown.
+pub const READINESS_MIN_COVERAGE_CONFIG_KEY: &str = "feReadinessMinCoverage";
 
 /// Fallback weight used when a card's topic is unknown or untagged. Chosen to
 /// sit near the lowest-weight NCEES areas so unmapped cards still surface, but
@@ -50,8 +58,23 @@ pub const DEFAULT_TOPIC_WEIGHT: f64 = 4.0;
 pub const DEFAULT_MEMORY_MIN_REVIEWS: u32 = 50;
 pub const DEFAULT_MEMORY_MIN_TOPICS: u32 = 3;
 
+/// Performance (exam-style problem) give-up thresholds. Lower than memory
+/// because the exam-style card population is a subset.
+pub const DEFAULT_PERFORMANCE_MIN_REVIEWS: u32 = 30;
+pub const DEFAULT_PERFORMANCE_MIN_TOPICS: u32 = 2;
+
+/// Readiness give-up thresholds (PRD example: "at least 200 graded reviews and
+/// 50% topic coverage"). Deliberately strict: for a small deck readiness will
+/// abstain, which is the honest, rewarded outcome.
+pub const DEFAULT_READINESS_MIN_REVIEWS: u32 = 200;
+pub const DEFAULT_READINESS_MIN_COVERAGE: f64 = 0.5;
+
 const DEFAULT_QUEUE_SEARCH: &str = "is:due OR is:new";
 const DEFAULT_MEMORY_SEARCH: &str = "is:review OR is:learn";
+/// Default scope for the performance score: worked, exam-style problem cards
+/// (tagged `track::durable`), not the fact/cram cards the memory score covers.
+const DEFAULT_PERFORMANCE_SEARCH: &str = "tag:track::durable";
+const DEFAULT_READINESS_SEARCH: &str = "is:review OR is:learn";
 /// Matches every note tagged under the `fe::` hierarchy.
 const TOPIC_TAG_SEARCH: &str = "tag:fe::*";
 
@@ -125,9 +148,50 @@ pub struct MemoryScore {
     pub topics_covered: u32,
     pub last_updated: i64,
     pub main_reason: String,
+    pub next_action: String,
     pub withheld_reason: String,
     pub min_reviews_required: u32,
     pub min_topics_required: u32,
+}
+
+/// Honest "performance" score over exam-style (worked-problem) cards. Same
+/// shape as [`MemoryScore`] but scoped to a different card population, so it is
+/// not a copy of the memory number.
+#[derive(Debug, Clone, PartialEq)]
+pub struct PerformanceScore {
+    pub shown: bool,
+    pub point_estimate: f64,
+    pub range_low: f64,
+    pub range_high: f64,
+    pub coverage: f64,
+    pub graded_reviews: u32,
+    pub topics_covered: u32,
+    pub last_updated: i64,
+    pub main_reason: String,
+    pub next_action: String,
+    pub withheld_reason: String,
+    pub min_reviews_required: u32,
+    pub min_topics_required: u32,
+}
+
+/// Honest "readiness" score on the FE pass/fail scale. Either a pass-probability
+/// range, or an abstention with the single best next action.
+#[derive(Debug, Clone, PartialEq)]
+pub struct ReadinessScore {
+    pub shown: bool,
+    pub pass_probability: f64,
+    pub range_low: f64,
+    pub range_high: f64,
+    pub coverage: f64,
+    pub areas_covered: u32,
+    pub areas_total: u32,
+    pub graded_reviews: u32,
+    pub last_updated: i64,
+    pub main_reason: String,
+    pub next_action: String,
+    pub withheld_reason: String,
+    pub min_reviews_required: u32,
+    pub min_coverage_required: f64,
 }
 
 /// Extract a topic key from a note's tags. Recognises the first tag under the
@@ -192,6 +256,26 @@ impl Collection {
     fn fe_memory_min_topics(&self) -> u32 {
         self.get_config_optional::<u32, _>(MEMORY_MIN_TOPICS_CONFIG_KEY)
             .unwrap_or(DEFAULT_MEMORY_MIN_TOPICS)
+    }
+
+    fn fe_performance_min_reviews(&self) -> u32 {
+        self.get_config_optional::<u32, _>(PERFORMANCE_MIN_REVIEWS_CONFIG_KEY)
+            .unwrap_or(DEFAULT_PERFORMANCE_MIN_REVIEWS)
+    }
+
+    fn fe_performance_min_topics(&self) -> u32 {
+        self.get_config_optional::<u32, _>(PERFORMANCE_MIN_TOPICS_CONFIG_KEY)
+            .unwrap_or(DEFAULT_PERFORMANCE_MIN_TOPICS)
+    }
+
+    fn fe_readiness_min_reviews(&self) -> u32 {
+        self.get_config_optional::<u32, _>(READINESS_MIN_REVIEWS_CONFIG_KEY)
+            .unwrap_or(DEFAULT_READINESS_MIN_REVIEWS)
+    }
+
+    fn fe_readiness_min_coverage(&self) -> f64 {
+        self.get_config_optional::<f64, _>(READINESS_MIN_COVERAGE_CONFIG_KEY)
+            .unwrap_or(DEFAULT_READINESS_MIN_COVERAGE)
     }
 
     /// Map of note id -> topic key for the given cards, fetched once.
@@ -322,6 +406,20 @@ impl Collection {
             with_memory as f64 / total_scoped as f64
         };
 
+        // Weakest covered topic drives both the main reason and the next action.
+        let weakest = per_topic
+            .iter()
+            .map(|(topic, (sum, count))| (topic.clone(), sum / *count as f64))
+            .min_by(|a, b| a.1.total_cmp(&b.1));
+        // Single best next action (honesty-rule requirement), always populated so
+        // the UI can show it whether or not the score itself is shown yet.
+        let next_action = match &weakest {
+            Some((topic, mean)) => {
+                format!("Drill {topic}, your weakest area at {:.0}%.", *mean * 100.0)
+            }
+            None => "Study your FE cards to start building a memory estimate.".to_string(),
+        };
+
         let mut score = MemoryScore {
             shown: false,
             point_estimate: 0.0,
@@ -332,6 +430,7 @@ impl Collection {
             topics_covered,
             last_updated,
             main_reason: String::new(),
+            next_action,
             withheld_reason: String::new(),
             min_reviews_required: min_reviews,
             min_topics_required: min_topics,
@@ -351,28 +450,257 @@ impl Collection {
         let mean = recalls.iter().sum::<f64>() / with_memory as f64;
         let (low, high) = confidence_interval(&recalls, mean);
 
-        // Main driver: the weakest covered topic, which is what drags the
-        // estimate down most.
-        let weakest = per_topic
-            .iter()
-            .map(|(topic, (sum, count))| (topic, sum / *count as f64))
-            .min_by(|a, b| a.1.total_cmp(&b.1));
-
         score.shown = true;
         score.point_estimate = mean;
         score.range_low = low;
         score.range_high = high;
-        score.main_reason = match weakest {
+        score.main_reason = match &weakest {
             Some((topic, topic_mean)) => format!(
                 "Estimate based on {with_memory} of {total_scoped} studied cards across \
                  {topics_covered} topics; lowest recall is {topic} at {:.0}%.",
-                topic_mean * 100.0
+                *topic_mean * 100.0
             ),
             None => format!(
                 "Estimate based on {with_memory} of {total_scoped} studied cards across \
                  {topics_covered} topics."
             ),
         };
+
+        Ok(score)
+    }
+
+    /// Honest performance score over exam-style (worked-problem) cards. Same
+    /// aggregation as the memory score but scoped to a *different* card
+    /// population (default `tag:track::durable`), so it is not a copy of the
+    /// memory number. Read-only.
+    pub fn compute_fe_performance_score(&mut self, search: &str) -> Result<PerformanceScore> {
+        let search = if search.trim().is_empty() {
+            DEFAULT_PERFORMANCE_SEARCH
+        } else {
+            search
+        };
+
+        let min_reviews = self.fe_performance_min_reviews();
+        let min_topics = self.fe_performance_min_topics();
+
+        let timing = self.timing_today()?;
+        let fsrs = FSRS::new(None)?;
+
+        let cards = self.all_cards_for_search(search)?;
+        let topics = self.topics_for_cards(&cards)?;
+
+        let total_scoped = cards.len();
+        let mut recalls: Vec<f64> = Vec::new();
+        let mut graded_reviews: u32 = 0;
+        let mut last_updated: i64 = 0;
+        let mut per_topic: HashMap<String, (f64, u32)> = HashMap::new();
+
+        for card in &cards {
+            graded_reviews = graded_reviews.saturating_add(card.reps);
+            if let Some(ts) = card.last_review_time {
+                last_updated = last_updated.max(ts.0);
+            }
+            if let Some(recall) = card_recall(card, &fsrs, &timing) {
+                let recall = recall as f64;
+                recalls.push(recall);
+                if let Some(Some(topic)) = topics.get(&card.note_id) {
+                    let entry = per_topic.entry(topic.clone()).or_insert((0.0, 0));
+                    entry.0 += recall;
+                    entry.1 += 1;
+                }
+            }
+        }
+
+        let with_memory = recalls.len();
+        let topics_covered = per_topic.len() as u32;
+        let coverage = if total_scoped == 0 {
+            0.0
+        } else {
+            with_memory as f64 / total_scoped as f64
+        };
+
+        // Weakest covered topic drives both the main reason and the next action.
+        let weakest = per_topic
+            .iter()
+            .map(|(topic, (sum, count))| (topic.clone(), sum / *count as f64))
+            .min_by(|a, b| a.1.total_cmp(&b.1));
+        // Single best next action (honesty-rule requirement), always populated.
+        let next_action = match &weakest {
+            Some((topic, mean)) => format!(
+                "Work more {topic} problems, your weakest exam-style area at {:.0}%.",
+                *mean * 100.0
+            ),
+            None => {
+                "Work exam-style problems to start building a performance estimate.".to_string()
+            }
+        };
+
+        let mut score = PerformanceScore {
+            shown: false,
+            point_estimate: 0.0,
+            range_low: 0.0,
+            range_high: 0.0,
+            coverage,
+            graded_reviews,
+            topics_covered,
+            last_updated,
+            main_reason: String::new(),
+            next_action,
+            withheld_reason: String::new(),
+            min_reviews_required: min_reviews,
+            min_topics_required: min_topics,
+        };
+
+        if with_memory == 0 || graded_reviews < min_reviews || topics_covered < min_topics {
+            score.withheld_reason = format!(
+                "Not enough exam-style data yet: {graded_reviews}/{min_reviews} graded problem \
+                 reviews across {topics_covered}/{min_topics} topics. Performance stays hidden \
+                 until the pre-registered threshold is met."
+            );
+            return Ok(score);
+        }
+
+        let mean = recalls.iter().sum::<f64>() / with_memory as f64;
+        let (low, high) = confidence_interval(&recalls, mean);
+
+        score.shown = true;
+        score.point_estimate = mean;
+        score.range_low = low;
+        score.range_high = high;
+        score.main_reason = match &weakest {
+            Some((topic, topic_mean)) => format!(
+                "Based on {with_memory} exam-style cards across {topics_covered} topics; \
+                 weakest is {topic} at {:.0}%.",
+                *topic_mean * 100.0
+            ),
+            None => {
+                format!("Based on {with_memory} exam-style cards across {topics_covered} topics.")
+            }
+        };
+
+        Ok(score)
+    }
+
+    /// Honest readiness score on the FE pass/fail scale. Returns a
+    /// pass-probability range only when there is enough graded history and exam
+    /// coverage to defend it; otherwise abstains with the single best next
+    /// action. Read-only.
+    pub fn compute_fe_readiness_score(&mut self, search: &str) -> Result<ReadinessScore> {
+        let search = if search.trim().is_empty() {
+            DEFAULT_READINESS_SEARCH
+        } else {
+            search
+        };
+
+        let min_reviews = self.fe_readiness_min_reviews();
+        let min_coverage = self.fe_readiness_min_coverage();
+        let weights = self.fe_topic_weights();
+        let areas_total = seed_topic_weights().len() as u32;
+
+        let timing = self.timing_today()?;
+        let fsrs = FSRS::new(None)?;
+
+        let cards = self.all_cards_for_search(search)?;
+        let topics = self.topics_for_cards(&cards)?;
+
+        let mut recalls: Vec<f64> = Vec::new();
+        let mut graded_reviews: u32 = 0;
+        let mut last_updated: i64 = 0;
+        let mut per_topic: HashMap<String, (f64, u32)> = HashMap::new();
+        let mut covered: std::collections::HashSet<String> = std::collections::HashSet::new();
+
+        for card in &cards {
+            graded_reviews = graded_reviews.saturating_add(card.reps);
+            if let Some(ts) = card.last_review_time {
+                last_updated = last_updated.max(ts.0);
+            }
+            if let Some(recall) = card_recall(card, &fsrs, &timing) {
+                let recall = recall as f64;
+                recalls.push(recall);
+                if let Some(Some(topic)) = topics.get(&card.note_id) {
+                    covered.insert(topic.clone());
+                    let entry = per_topic.entry(topic.clone()).or_insert((0.0, 0));
+                    entry.0 += recall;
+                    entry.1 += 1;
+                }
+            }
+        }
+
+        let areas_covered = covered.len() as u32;
+        let coverage = if areas_total == 0 {
+            0.0
+        } else {
+            areas_covered as f64 / areas_total as f64
+        };
+
+        // The single best next thing to study (honesty-rule requirement): the
+        // heaviest NCEES area not yet covered, or — if all are covered — the
+        // weakest covered area.
+        let next_action = {
+            let mut uncovered: Vec<(&String, f64)> = weights
+                .iter()
+                .filter(|(area, _)| !covered.contains(*area))
+                .map(|(area, w)| (area, *w))
+                .collect();
+            uncovered.sort_by(|a, b| b.1.total_cmp(&a.1).then(a.0.cmp(b.0)));
+            if let Some((area, w)) = uncovered.first() {
+                format!("Study {area} (highest-weight area not yet covered, weight {w:.0}).")
+            } else {
+                let weakest = per_topic
+                    .iter()
+                    .map(|(topic, (sum, count))| (topic, sum / *count as f64))
+                    .min_by(|a, b| a.1.total_cmp(&b.1));
+                match weakest {
+                    Some((topic, mean)) => {
+                        format!("Review {topic}, your weakest covered area at {:.0}%.", mean * 100.0)
+                    }
+                    None => "Study any core area to start building a readiness estimate.".to_string(),
+                }
+            }
+        };
+
+        let mut score = ReadinessScore {
+            shown: false,
+            pass_probability: 0.0,
+            range_low: 0.0,
+            range_high: 0.0,
+            coverage,
+            areas_covered,
+            areas_total,
+            graded_reviews,
+            last_updated,
+            main_reason: String::new(),
+            next_action,
+            withheld_reason: String::new(),
+            min_reviews_required: min_reviews,
+            min_coverage_required: min_coverage,
+        };
+
+        // Give-up rule (pre-registered): the FE is pass/fail, so no number is
+        // shown until there is enough graded history *and* exam coverage.
+        if recalls.is_empty() || graded_reviews < min_reviews || coverage < min_coverage {
+            score.withheld_reason = format!(
+                "Not enough evidence for a readiness call: {graded_reviews}/{min_reviews} graded \
+                 reviews and {:.0}%/{:.0}% area coverage. The FE is pass/fail — no number is \
+                 shown until there is enough to defend one.",
+                coverage * 100.0,
+                min_coverage * 100.0
+            );
+            return Ok(score);
+        }
+
+        let mean = recalls.iter().sum::<f64>() / recalls.len() as f64;
+        let (low, high) = confidence_interval(&recalls, mean);
+        score.shown = true;
+        score.pass_probability = mean;
+        score.range_low = low;
+        score.range_high = high;
+        score.main_reason = format!(
+            "Pass estimate from {} graded cards across {areas_covered}/{areas_total} areas \
+             ({:.0}% coverage).",
+            recalls.len(),
+            coverage * 100.0
+        );
 
         Ok(score)
     }
@@ -755,6 +1083,113 @@ mod tests {
         );
         assert!(score.range_low >= 0.0 && score.range_high <= 1.0);
         assert_eq!(score.topics_covered, 3);
+        assert!(!score.main_reason.is_empty());
+    }
+
+    /// Adds a worked, exam-style card tagged both `fe::<topic>` and
+    /// `track::durable` (what the performance score scopes to).
+    fn add_durable_card(col: &mut Collection, front: &str, topic: &str) -> CardId {
+        let note = NoteAdder::basic(col)
+            .fields(&[front, ""])
+            .tags(&[format!("fe::{topic}"), "track::durable".to_string()])
+            .add(col);
+        col.storage.card_ids_of_notes(&[note.id]).unwrap()[0]
+    }
+
+    #[test]
+    fn performance_score_withheld_below_threshold() {
+        let mut col = Collection::new();
+        let cid = add_durable_card(&mut col, "Find Vth.", "circuit_analysis");
+        set_memory(&mut col, cid, 100.0, 5.0);
+
+        let score = col
+            .compute_fe_performance_score("tag:track::durable")
+            .unwrap();
+        assert!(!score.shown, "a single exam-style card is below threshold");
+        assert!(!score.withheld_reason.is_empty());
+        assert_eq!(score.min_reviews_required, DEFAULT_PERFORMANCE_MIN_REVIEWS);
+        assert_eq!(score.min_topics_required, DEFAULT_PERFORMANCE_MIN_TOPICS);
+    }
+
+    #[test]
+    fn performance_score_shown_with_range_when_threshold_met() {
+        let mut col = Collection::new();
+        col.set_config(PERFORMANCE_MIN_REVIEWS_CONFIG_KEY, &3_u32)
+            .unwrap();
+        col.set_config(PERFORMANCE_MIN_TOPICS_CONFIG_KEY, &2_u32)
+            .unwrap();
+
+        for (i, topic) in ["circuit_analysis", "power_systems", "electronics"]
+            .iter()
+            .enumerate()
+        {
+            let cid = add_durable_card(&mut col, &format!("p{i}"), topic);
+            set_memory(&mut col, cid, 40.0 + i as f32 * 20.0, 5.0);
+        }
+
+        let score = col
+            .compute_fe_performance_score("tag:track::durable")
+            .unwrap();
+        assert!(score.shown, "threshold met => performance shown");
+        assert!(
+            score.range_low <= score.point_estimate && score.point_estimate <= score.range_high,
+            "the point estimate must sit inside the honest range"
+        );
+        assert!(score.range_low >= 0.0 && score.range_high <= 1.0);
+        assert_eq!(score.topics_covered, 3);
+        assert!(!score.main_reason.is_empty());
+    }
+
+    #[test]
+    fn readiness_score_withheld_and_reports_next_action() {
+        let mut col = Collection::new();
+        // A little history, but nowhere near the 200-review / 50%-coverage bar.
+        let cid = add_tagged_card(&mut col, "q", "circuit_analysis");
+        set_memory(&mut col, cid, 100.0, 5.0);
+
+        let score = col.compute_fe_readiness_score("is:review").unwrap();
+        assert!(!score.shown, "the FE readiness bar is deliberately strict");
+        assert!(!score.withheld_reason.is_empty());
+        assert_eq!(
+            score.areas_total,
+            seed_topic_weights().len() as u32,
+            "all seeded NCEES areas are counted"
+        );
+        assert!(
+            !score.next_action.is_empty(),
+            "an abstaining readiness score must still name the best next action"
+        );
+        assert_eq!(score.min_reviews_required, DEFAULT_READINESS_MIN_REVIEWS);
+        assert_eq!(score.min_coverage_required, DEFAULT_READINESS_MIN_COVERAGE);
+    }
+
+    #[test]
+    fn readiness_score_shown_with_range_when_thresholds_relaxed() {
+        let mut col = Collection::new();
+        // Relax the pre-registered thresholds so a small test deck can cross.
+        col.set_config(READINESS_MIN_REVIEWS_CONFIG_KEY, &2_u32)
+            .unwrap();
+        col.set_config(READINESS_MIN_COVERAGE_CONFIG_KEY, &0.1_f64)
+            .unwrap();
+
+        for (i, topic) in ["circuit_analysis", "power_systems", "mathematics"]
+            .iter()
+            .enumerate()
+        {
+            let cid = add_tagged_card(&mut col, &format!("r{i}"), topic);
+            set_memory(&mut col, cid, 60.0 + i as f32 * 10.0, 5.0);
+        }
+
+        let score = col.compute_fe_readiness_score("is:review").unwrap();
+        assert!(score.shown, "relaxed thresholds met => readiness shown");
+        assert!(
+            score.range_low <= score.pass_probability
+                && score.pass_probability <= score.range_high,
+            "the pass probability must sit inside the honest range"
+        );
+        assert!(score.pass_probability >= 0.0 && score.pass_probability <= 1.0);
+        assert_eq!(score.areas_covered, 3);
+        assert_eq!(score.areas_total, seed_topic_weights().len() as u32);
         assert!(!score.main_reason.is_empty());
     }
 }
