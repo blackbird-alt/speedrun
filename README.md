@@ -16,6 +16,19 @@ for the full write-up.
 > and FSRS integration belongs to the Anki authors. See [LICENSE](./LICENSE) and
 > [CONTRIBUTORS](./CONTRIBUTORS).
 
+## Download & install
+
+**Desktop (Windows):** download **`anki-26.05-win-x64.msi`** from the
+[**Releases**](https://github.com/blackbird-alt/speedrun/releases/latest) page and
+run it. It installs on a clean machine and opens straight into the FE study
+dashboard, with AI **off by default** — studying and the three scores never call a
+model. (Building from source is optional; see [Building](#building).)
+
+**Phone (Android):** download the sideload build
+**`AnkiDroid-play-<abi>-debug.apk`** from the same release (`x86_64` for an
+emulator, `arm64-v8a` for a physical device) and install it. It runs on the same
+shared Rust engine and syncs with the desktop.
+
 ## What this fork adds
 
 1. **Three honest scores — each a range with a pre-registered give-up rule.**

@@ -29,3 +29,6 @@ docs/autoapi/
 .env
 *.env
 !feprep/**/*.env.example
+
+# FE: intermediate authored-problem generation shards (regenerable tooling output)
+feprep/ai/work/
