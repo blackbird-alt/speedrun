@@ -23,14 +23,50 @@ Prereqs: a sync server running (see feprep/docs/deploy-and-run.md), reachable at
 from __future__ import annotations
 
 import argparse
+import os
+import socket
+import subprocess
 import sys
 import tempfile
+import time
 from pathlib import Path
 
 sys.path[:0] = ["pylib", "out/pylib"]
 
 from anki.collection import Collection
 from anki.decks import DeckId
+
+
+def _port_open(host: str, port: int) -> bool:
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.settimeout(0.5)
+        return s.connect_ex((host, port)) == 0
+
+
+def _start_sync_server(base: str, host: str, port: int, user: str, pw: str):
+    """Spawn Anki's built-in Rust sync server (`python -m anki.syncserver`) so
+    this test is one-command re-runnable with no external setup. Returns the
+    Popen; caller terminates it. Waits until the port accepts connections."""
+    env = os.environ.copy()
+    env["SYNC_BASE"] = base
+    env["SYNC_HOST"] = host
+    env["SYNC_PORT"] = str(port)
+    env["SYNC_USER1"] = f"{user}:{pw}"
+    env["PYTHONPATH"] = os.pathsep.join(["pylib", "out/pylib"])
+    proc = subprocess.Popen(
+        [sys.executable, "-m", "anki.syncserver"],
+        env=env,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    for _ in range(60):  # up to ~30s for first-time startup
+        if proc.poll() is not None:
+            raise RuntimeError("sync server exited during startup")
+        if _port_open(host, port):
+            return proc
+        time.sleep(0.5)
+    proc.terminate()
+    raise RuntimeError(f"sync server did not come up on {host}:{port}")
 
 
 def _sync(col: Collection, auth) -> str:
@@ -84,12 +120,26 @@ def _revlog_for_card(col: Collection, cid: int) -> int:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--endpoint", default="http://127.0.0.1:27701/")
+    ap.add_argument("--endpoint", default=None,
+                    help="external sync server; if omitted, one is started locally")
     ap.add_argument("--user", default="fe")
     ap.add_argument("--pass", dest="password", default="fe")
+    ap.add_argument("--no-serve", dest="serve", action="store_false",
+                    help="do not self-host; use --endpoint instead")
     args = ap.parse_args()
 
     tmp = Path(tempfile.mkdtemp())
+    server = None
+    # Self-host Anki's built-in sync server unless an external endpoint is given,
+    # so the test runs with a single command and no manual setup.
+    if args.serve and not args.endpoint:
+        host, port = "127.0.0.1", 27701
+        server = _start_sync_server(str(tmp / "server"), host, port, args.user, args.password)
+        args.endpoint = f"http://{host}:{port}/"
+        print(f"started local sync server @ {args.endpoint}")
+    elif not args.endpoint:
+        args.endpoint = "http://127.0.0.1:27701/"
+
     col_a = Collection(str(tmp / "deviceA.anki2"))  # "desktop"
     col_b = Collection(str(tmp / "deviceB.anki2"))  # "phone"
 
@@ -154,6 +204,12 @@ def main() -> None:
     finally:
         col_a.close()
         col_b.close()
+        if server is not None:
+            server.terminate()
+            try:
+                server.wait(timeout=10)
+            except Exception:
+                server.kill()
 
     print("\n==== SYNC TEST", "PASSED ====" if ok else "FAILED ====")
     sys.exit(0 if ok else 1)

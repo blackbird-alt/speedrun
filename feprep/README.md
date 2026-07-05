@@ -40,7 +40,7 @@ $env:ANKIDEV = "1"
 & "out\pyenv\Scripts\pythonw.exe" tools\run.py -b "$env:TEMP\anki_fe_profile"
 ```
 
-## The two features
+## The engine features (shared Rust)
 
 ### 1. Points-at-stake queue
 
@@ -62,28 +62,31 @@ weakness`. Lives in `rslib/src/scheduler/points_at_stake.rs`, exposed as the
   cards fall back to FSRS due/overdue order then card id.
 - It writes no scheduling state → undo and collection integrity are unaffected.
 
-### 2. Honest memory score
+### 2. Three honest scores (memory, performance, readiness)
 
-Aggregates Anki's existing FSRS retrievability into a single **memory** score.
-Exposed as the `MemoryScore` RPC. It is presented honestly:
+Three **separate** scores aggregate Anki's existing FSRS retrievability, each
+exposed as its own RPC (`MemoryScore`, `PerformanceScore`, `ReadinessScore`) and
+each presented honestly — a point estimate, a **likely range** (95% interval,
+never a bare number), coverage, last-updated time, the main driver (weakest
+covered topic), and a **pre-registered give-up rule** that governs when it shows
+nothing. Full one-page write-ups: [`docs/model-memory.md`](docs/model-memory.md),
+[`docs/model-performance.md`](docs/model-performance.md),
+[`docs/model-readiness.md`](docs/model-readiness.md).
 
-- a point estimate,
-- a likely range around it (a 95% interval), not a single figure,
-- coverage: how much of the studied material the estimate is based on,
-- when it was last updated,
-- the main reason behind the current value (the weakest covered topic),
-- and the give-up rule that governs when it shows nothing.
+They are deliberately **not** blended into one number, and they are computed on
+different card populations / dimensions so they measure different things:
 
-#### Give-up rule (pre-registered)
+| Score | Measures | Population | Give-up rule (pre-registered) |
+|---|---|---|---|
+| **Memory** | recall of studied material | all studied cards (`is:review OR is:learn`) | ≥ 50 graded reviews across ≥ 3 topics (`feMemoryMinReviews` / `feMemoryMinTopics`) |
+| **Performance** | recall on worked, exam-style problems | `tag:track::durable` cards | ≥ 30 exam-style reviews across ≥ 2 topics (`fePerformanceMin*`) |
+| **Readiness** | pass-probability range | studied cards + area **coverage** | ≥ 200 graded reviews AND ≥ 50% area coverage (`feReadinessMin*`); else **abstains** and names the single best next action |
 
-No memory score is shown until there are **at least 50 graded reviews across at
-least 3 topics** (and at least one card with FSRS memory state). Below that line
-the app reports that it does not yet have enough data. The thresholds are
-parameters set in advance — config keys `feMemoryMinReviews` (default 50) and
-`feMemoryMinTopics` (default 3) — not tuned after seeing the results.
-
-A single blended readiness number is deliberately **not** built. Only the memory
-score exists, and it follows the honesty rule above.
+Thresholds are constants set **in advance** (PRD §7.3), not tuned after seeing
+results. Memory and performance share the same per-card recall math on different
+card sets; readiness adds a coverage dimension and the strictest gate. All three
+are still early-stage FSRS-based measurements, **not** validated predictors of a
+scored exam — readiness abstains rather than overstate, by design.
 
 ## Durable vs. Cram tracks
 

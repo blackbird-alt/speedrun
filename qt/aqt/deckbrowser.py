@@ -362,6 +362,18 @@ class DeckBrowser:
                 cur = self._fe_default_policy(disp)
             nxt = "cram" if cur == "durable" else "durable"
             pol[key] = nxt
+            # Rewrite the area's track:: tags so the switch actually travels:
+            # tags sync natively and are what the Performance score is scoped to
+            # (tag:track::durable), so a flip now takes effect on the phone and
+            # in scoring on both devices. The feTrackPolicy config is kept in
+            # sync too, since it still drives the desktop tile grouping.
+            for nid in col.find_notes(f"tag:fe::{key}"):
+                note = col.get_note(nid)
+                new_tags = [t for t in note.tags if not t.startswith("track::")]
+                new_tags.append(f"track::{nxt}")
+                if new_tags != note.tags:
+                    note.tags = new_tags
+                    col.update_note(note)
             return col.set_config("feTrackPolicy", pol)
 
         CollectionOp(parent=self.mw, op=op).success(

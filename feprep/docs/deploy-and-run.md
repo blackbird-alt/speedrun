@@ -15,7 +15,8 @@ All paths below are relative to the repo root: `C:\Users\ellie\speedrun\anki`.
 | `out/pyenv/` | Self-contained Python + built `anki`/`aqt` | `tools\ninja pylib qt` |
 | Desktop app (dev) | The running fork | `tools\run.py` |
 | `feprep/decks/fe-electrical.apkg` | The full styled deck (562 cards) | `feprep/build_apkg.py` |
-| Desktop installer | Clean-machine installer | `tools\build-installer.bat` |
+| Desktop installer | Clean-machine `.msi` (`out\installer\dist\anki-26.05-win-x64.msi`) | `tools\build-installer.bat` |
+| Phone APK | AnkiDroid sideload build (`Anki-Android/.../AnkiDroid-play-<abi>-debug.apk`) | `gradlew :AnkiDroid:assemblePlayDebug` (see §7) |
 
 ---
 
@@ -181,12 +182,27 @@ dialog); studying and the three scores never call a model regardless.
 
 ## 7. Phone (shared engine)
 
-The milestone requires the phone build to run on the **same Rust engine**, not a
-reimplementation. On Android, build on AnkiDroid against the shared `rslib`; the
-points-at-stake ordering and memory score ship automatically because the engine
-is shared. Load `fe-electrical.apkg` on the device and run a review session.
+The phone runs on the **same Rust engine**, not a reimplementation. The Android
+companion is a fork of **AnkiDroid** built against the shared `rslib`
+(`Anki-Android/`), so the points-at-stake ordering and the three scores ship
+automatically through the shared backend + protobuf. It adds the FE dashboard
+(color-coded areas, the three scores), the in-app calculator + handbook, and the
+key-gated AI generator/helper.
 
-> Status: not yet built here; documented for completeness.
+Build + install the signed sideload (debug) APK to a device/emulator:
+
+```powershell
+cd Anki-Android
+.\gradlew.bat :AnkiDroid:assemblePlayDebug        # ~5-6 min
+& "$env:LOCALAPPDATA\..\Android\Sdk\platform-tools\adb.exe" install -r `
+    AnkiDroid\build\outputs\apk\play\debug\AnkiDroid-play-x86_64-debug.apk
+```
+
+Artifact: `Anki-Android/AnkiDroid/build/outputs/apk/play/debug/AnkiDroid-play-<abi>-debug.apk`
+(x86_64 for the emulator; arm64-v8a for a physical phone). Load
+`fe-electrical.apkg` (or sync from the desktop) and run a review session; the
+three scores follow the same give-up rules as desktop. Two-way sync uses the
+same AnkiWeb/sync-server path as upstream (see `docs/sync-conflict-rule.md`).
 
 ---
 

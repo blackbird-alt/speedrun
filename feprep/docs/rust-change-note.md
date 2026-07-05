@@ -4,8 +4,11 @@
 
 A new **points-at-stake queue**: a read-only ordering of the existing due/new
 queue by `topic weight × student weakness`, so the highest-value cards for the
-NCEES FE Electrical and Computer exam surface first. A companion **memory score**
-aggregates FSRS retrievability into an honest range.
+NCEES FE Electrical and Computer exam surface first. Alongside it, three
+**honest scores** — **memory**, **performance**, and **readiness** — each
+aggregate the engine's existing FSRS retrievability into a range with a
+pre-registered give-up rule (see `feprep/docs/model-*.md`). All four live in the
+same Rust module and are exposed as four RPCs on `SchedulerService`.
 
 - Topic weight is a static per-knowledge-area value, seeded from the NCEES
   question-count ranges and stored in the collection **config table**, not in
@@ -47,21 +50,22 @@ ids. That is what keeps undo and collection integrity trivially intact.
 
 New files (no merge conflict risk — additive):
 
-- `rslib/src/scheduler/points_at_stake.rs` — the queue + memory-score logic and
-  its Rust unit tests.
-- `pylib/tests/test_points_at_stake.py` — the Python-through-protobuf test.
-- `feprep/**` — fork assets (seed deck, deck builder, docs). Outside the upstream
-  tree.
+- `rslib/src/scheduler/points_at_stake.rs` — the queue + all three score
+  computations (`memory` / `performance` / `readiness`) and its Rust unit tests.
+- `pylib/tests/test_points_at_stake.py` — the Python-through-protobuf tests
+  (queue ordering + the three scores' give-up behaviour).
+- `feprep/**` — fork assets (seed deck, deck builder, docs, AI tooling). Outside
+  the upstream tree.
 
 Modified upstream files:
 
 | File | Change | Merge difficulty |
 |------|--------|------------------|
-| `proto/anki/scheduler.proto` | Added 2 RPCs to `SchedulerService` (appended after `FuzzDelta`) and 5 new messages at end of file. | **Low.** Appended, so no reordering of existing method indices; conflicts only if upstream also appends to the same spots. |
+| `proto/anki/scheduler.proto` | Added **4 RPCs** to `SchedulerService` (appended after `FuzzDelta`: `PointsAtStakeQueue`, `MemoryScore`, `PerformanceScore`, `ReadinessScore`) plus their request/response messages at the end of the file. | **Low.** Appended, so no reordering of existing method indices; conflicts only if upstream also appends to the same spots. |
 | `rslib/src/scheduler/mod.rs` | Added `pub mod points_at_stake;`. | **Low.** One line in the module list. |
-| `rslib/src/scheduler/service/mod.rs` | Implemented the 2 new trait methods (`points_at_stake_queue`, `memory_score`). | **Low–medium.** New methods appended to the existing `SchedulerService` impl; conflicts only if upstream edits the same tail region. |
+| `rslib/src/scheduler/service/mod.rs` | Implemented the **4 new trait methods** (`points_at_stake_queue`, `memory_score`, `performance_score`, `readiness_score`). | **Low–medium.** New methods appended to the existing `SchedulerService` impl; conflicts only if upstream edits the same tail region. |
 | `rslib/src/tests.rs` | Added a `tags(&[String])` builder to the test-only `NoteAdder`. | **Low.** Test helper, additive. |
-| `README.md` | Fork banner, feature summary, give-up rule, build pointers. | **Low.** Documentation. |
+| `README.md` | Fork banner, feature summary, the three give-up rules, build pointers. | **Low.** Documentation. |
 
 ## Protobuf / service-registration notes
 
@@ -70,9 +74,9 @@ so the build-time codegen (`rslib/proto` + `rslib/build.rs` +
 `anki_proto_gen::get_services`) auto-generates:
 
 - the Rust dispatch arm in `run_service_method`,
-- the Python stub in `_backend_generated.py` (`points_at_stake_queue`,
-  `memory_score`), and
-- the TypeScript client stub.
+- the Python stubs in `_backend_generated.py` (`points_at_stake_queue`,
+  `memory_score`, `performance_score`, `readiness_score`), and
+- the TypeScript client stubs.
 
 Because the methods were **appended** to the service, the load-bearing
 `(service_index, method_index)` values for all existing methods are unchanged.
