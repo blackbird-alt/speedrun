@@ -1,5 +1,8 @@
 # Anki — FE Electrical and Computer study fork
 
+> ⬇ **[Download the Windows installer (.msi)](https://github.com/blackbird-alt/speedrun/releases/download/fe-v26.05/anki-26.05-win-x64.msi)** &nbsp;·&nbsp; **[Android APK](https://github.com/blackbird-alt/speedrun/releases/download/fe-v26.05/AnkiDroid-play-x86_64-debug.apk)** &nbsp;·&nbsp; [all releases](https://github.com/blackbird-alt/speedrun/releases/latest)
+> — installs on a clean machine and opens into the FE study dashboard, with AI **off by default**.
+
 [![Build Status](https://github.com/ankitects/anki/actions/workflows/ci.yml/badge.svg)](https://github.com/ankitects/anki/actions/workflows/ci.yml)
 [![Documentation](https://img.shields.io/badge/docs-dev--docs.ankiweb.net-blue)](https://dev-docs.ankiweb.net)
 
@@ -18,16 +21,16 @@ for the full write-up.
 
 ## Download & install
 
-**Desktop (Windows):** download **`anki-26.05-win-x64.msi`** from the
-[**Releases**](https://github.com/blackbird-alt/speedrun/releases/latest) page and
-run it. It installs on a clean machine and opens straight into the FE study
+**Desktop (Windows):** [**download `anki-26.05-win-x64.msi`**](https://github.com/blackbird-alt/speedrun/releases/download/fe-v26.05/anki-26.05-win-x64.msi)
+and run it. It installs on a clean machine and opens straight into the FE study
 dashboard, with AI **off by default** — studying and the three scores never call a
 model. (Building from source is optional; see [Building](#building).)
 
-**Phone (Android):** download the sideload build
-**`AnkiDroid-play-<abi>-debug.apk`** from the same release (`x86_64` for an
-emulator, `arm64-v8a` for a physical device) and install it. It runs on the same
-shared Rust engine and syncs with the desktop.
+**Phone (Android):** [**download `AnkiDroid-play-x86_64-debug.apk`**](https://github.com/blackbird-alt/speedrun/releases/download/fe-v26.05/AnkiDroid-play-x86_64-debug.apk)
+(x86_64 emulator; build `arm64-v8a` from source for a physical device) and
+install it. It runs on the same shared Rust engine and syncs with the desktop.
+
+> All downloads: **[github.com/blackbird-alt/speedrun/releases](https://github.com/blackbird-alt/speedrun/releases/latest)**.
 
 ## What this fork adds
 
