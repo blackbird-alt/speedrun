@@ -864,7 +864,20 @@ html,body{background:#0b1220!important;margin:0!important;padding:0!important;}
 </div>
 <div class="fe-scores">{panels}</div>"""
 
+    def _fe_pretty(self, text: str) -> str:
+        """Replace raw fe:: topic keys (e.g. ``digital_systems``) with their
+        human display names (``Digital Systems``) in engine-built reason strings,
+        so panels never show underscored keys."""
+        if not text:
+            return text
+        import re
+
+        for disp, key in self.FE_TAG_KEYS.items():
+            text = re.sub(r"\b" + re.escape(key) + r"\b", disp, text)
+        return text
+
     def _fe_score_panel(self, label: str, score: Any, next_action: str) -> str:
+        next_action = self._fe_pretty(next_action)
         next_html = (
             f'<div class="fe-score-next">Next: {html.escape(next_action)}</div>'
             if next_action
@@ -872,6 +885,7 @@ html,body{background:#0b1220!important;margin:0!important;padding:0!important;}
         )
         if not getattr(score, "shown", False):
             reason = getattr(score, "withheld_reason", "") or "Not enough data yet."
+            reason = self._fe_pretty(reason)
             return f"""<div class="fe-score fe-score--off">
   <div class="fe-score-top"><span class="fe-score-chip">{label}</span><span class="fe-score-range">withheld</span></div>
   <div class="fe-score-note">{html.escape(reason)}</div>
@@ -888,7 +902,7 @@ html,body{background:#0b1220!important;margin:0!important;padding:0!important;}
         return f"""<div class="fe-score">
   <div class="fe-score-top"><span class="fe-score-chip">{label}</span><span class="fe-score-range">{low}&ndash;{high}%</span></div>
   <div class="fe-score-val">{pct}<span class="fe-score-unit">%</span></div>
-  <div class="fe-score-note">{html.escape(score.main_reason)}</div>
+  <div class="fe-score-note">{html.escape(self._fe_pretty(score.main_reason))}</div>
   {next_html}
 </div>"""
 
