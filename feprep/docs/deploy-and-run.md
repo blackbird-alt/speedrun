@@ -14,7 +14,7 @@ All paths below are relative to the repo root: `C:\Users\ellie\speedrun\anki`.
 |---|---|---|
 | `out/pyenv/` | Self-contained Python + built `anki`/`aqt` | `tools\ninja pylib qt` |
 | Desktop app (dev) | The running fork | `tools\run.py` |
-| `feprep/decks/fe-electrical.apkg` | The full styled deck (562 cards) | `feprep/build_apkg.py` |
+| `feprep/decks/fe-electrical.apkg` | The full styled deck (863 cards: 301 AI-authored + worked-answer explanations, LaTeX-typeset). Committed to the repo and attached to the release; regenerate from the live collection with a whole-deck export (`with_scheduling=false`), or rebuild the text-only base with `feprep/build_apkg.py`. | export / `feprep/build_apkg.py` |
 | Desktop installer | Clean-machine `.msi` (`out\installer\dist\anki-26.05-win-x64.msi`) | `tools\build-installer.bat` |
 | Phone APK | AnkiDroid sideload build (`Anki-Android/.../AnkiDroid-play-<abi>-debug.apk`) | `gradlew :AnkiDroid:assemblePlayDebug` (see §7) |
 
